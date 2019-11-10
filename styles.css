@@ -7,7 +7,7 @@ body{
     display: block;
     padding: 14px 16px;
     text-decoration: none;
-    color: white;
+    color: #ffffff;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -25,8 +25,7 @@ body{
     list-style-type: none;
     position: fixed;
     top: 0;
-    width: 100vw;
-    padding-left: 4vw;
+    width:100%;
 }
 
 
@@ -51,10 +50,10 @@ body{
 .section_contact {
     display: flex;
     height: 50vh;
-    width:100%;
     flex-direction: column;
     margin-left: 5vw;
     margin-right: 5vw;
+    padding: 0;
     font-size: 30px;
     font-family: Arial, Helvetica, sans-serif;
 }
