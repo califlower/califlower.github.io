@@ -1,6 +1,7 @@
 :root {
     --background: #ffffff;
     --menu_hover: #00b0ff;
+    --light_blue_background: #e1f5fe;
     --heavy_text: #424242;
     --light_text: #616161;
     --extra_light_text: #b0bec5;
@@ -64,18 +65,6 @@ body{
     color: var(--menu_hover);
     border-style: none none solid none;
 }
-
-.home_flex {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-content: flex-start;
-}
-.home_text {
-}
-
 .name {
     font-weight: 400;
     color: var(--heavy_text);
@@ -89,7 +78,7 @@ body{
     font-size: calc(18px + (24 - 18) * ((100vw - 300px) / (1600 - 300)));
 }
 
-.experience_flex {
+.home_flex,.experience_flex,.education_flex,.contact_flex {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -97,47 +86,28 @@ body{
     align-content: flex-start;
 }
 
-.experience_title {
-    font-size: calc(36px + (48 - 36) * ((100vw - 300px) / (1600 - 300)));
-    margin: 0px 0px 0px 0px;
-    font-weight: 400;
-    color:var(--heavy_text);
-    font-style: normal;
+.home_flex {
+    background-color: var(--light_blue_background);
 }
-
 .company_name {
     font-size: calc(24px + (36 - 24) * ((100vw - 300px) / (1600 - 300)));
     color: var(--heavy_text);
     font-weight: 100;
     margin: 6px 0px 6px 0px;
 }
-.company_date_location_box {
+.company_date_location_box,.education_university_date_box {
     display: flex;
     flex-direction: row;;
 }
 
-.company_date {
+.company_date, .company_location {
     margin: 2px 18px 2px 18px;
     color: var(var(--light_text));
 
 }
 
-.company_location {
-    margin: 2px 18px 2px 18px;
-    color: var(var(--light_text));
-}
 
-
-
-.education_flex {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-content: flex-start;
-}
-
-.education_title {
+.education_title,.contact_title,.experience_title {
     font-size: calc(36px + (48 - 36) * ((100vw - 300px) / (1600 - 300)));
     margin: 0px 0px 0px 0px;
     font-weight: 400;
@@ -145,28 +115,12 @@ body{
     font-style: normal;
 }
 
-.education_university_date_box {
-    display: flex;
-    flex-direction: row;;
-}
-
-.university_name {
-    margin: 2px 16px 2px 16px;
-    color: var(var(--light_text));
-
-}
-
-.graduation_date {
+.graduation_date,.degree_name,.university_name {
     margin: 2px 16px 2px 16px;
     color: var(var(--light_text));
 }
 
-.degree_name {
-    margin: 2px 16px 2px 16px;
-    color: var(var(--light_text));
-}
-
-.home_text,.experience_text,.education_text {
+.home_text,.experience_text,.education_text,.contact_text {
     width: calc(300px + (600 - 300) * ((100vw - 300px) / (1600 - 300)));
 } 
 
@@ -181,5 +135,5 @@ body{
 }
 
 .space_no_border {
-    height: 10vh;
+    height: 6vh;
 }
