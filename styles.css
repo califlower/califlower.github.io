@@ -105,6 +105,9 @@ body {
     text-decoration-skip-ink: none;
   }
   
+  #contact_button {
+    border-radius: 40px;
+  }
   address {
     margin-bottom: 1rem;
     font-style: normal;
