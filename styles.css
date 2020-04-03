@@ -4379,6 +4379,8 @@ body {
   .list-group-flush .list-group-item {
     border-right: 0;
     border-left: 0;
+    border-color: #4fc3f7;
+    border-bottom: 0;
     border-radius: 0;
   }
   
