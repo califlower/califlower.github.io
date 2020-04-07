@@ -1,2 +1,5 @@
 # califlower.github.io
-Personal Website
+Personal website containing contact information and job history
+
+
+[Home Page](home.PNG)
