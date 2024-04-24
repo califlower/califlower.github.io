@@ -15,81 +15,92 @@
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.2.2/font/bootstrap-icons.css">
 
-
-
-
-
   <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
+    body {
+      background-color: white;
+      color: #212529;
     }
 
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
+    h1, h2 {
+      color: #000;
+    }
+
+    .container {
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    ul.icon-list {
+      padding-left: 20px;
+      list-style-type: disc;
+    }
+
+    ul.icon-list li {
+      margin-bottom: 0.5rem;
+    }
+
+    a {
+      color: #0d6efd;
+    }
+
+    a:hover {
+      color: #0a58ca;
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding: 1rem;
+      text-align: center;
+      background-color: #f8f9fa;
     }
   </style>
 
-
-  <!-- Custom styles for this template -->
-  <link href="starter-template.css" rel="stylesheet">
 </head>
 
 <body>
-  <div class="col-lg-8 mx-auto p-3 py-md-5">
-    <header class="d-flex align-items-center pb-3 mb-5">
-
-    </header>
-
+  <div class="container">
     <main>
-      <h1>Hi, I'm Calin Gilan</h1>
-      <p class="fs-5 col-md-8">Full Stack Software Engineer specializing in Go, Java and Javascript, but with a drive to
-        learn new languages and
-        frameworks
-      </p>
+      <h1>Welcome, I'm Calin Gilan</h1>
+      <p class="fs-5">I am a Full Stack Software Engineer proficient in Go, Java and JavaScript, continually exploring new technologies and frameworks.</p>
 
-      <hr class="col-3 col-md-2 mb-5">
+      <hr>
 
-      <div class="row g-5">
+      <div class="row">
         <div class="col-md-4">
-          <h2>Job History</h2>
+          <h2>Professional Experience</h2>
           <ul class="icon-list">
-            <li>Microsoft | 2021 - Present</li>
+            <li>Twilio | 2022 - Present</li>
+            <li>Microsoft | 2021 - 2022</li>
             <li>Capital One | 2017 - 2021</li>
           </ul>
         </div>
         <div class="col-md-4">
           <h2>Contact</h2>
-          <p>Contact me using LinkedIn or Email!</p>
           <ul class="icon-list">
             <li class="bi bi-envelope-fill"><a href="mailto:hello@calingilan.com">hello@calingilan.com</a></li>
-            <li><a href='https://www.linkedin.com/in/calin-gilan/'>My LinkedIn</a></li>
+            <li><a href='https://www.linkedin.com/in/calin-gilan/'>LinkedIn Profile</a></li>
           </ul>
         </div>
         <div class="col-md-4">
-          <h2>Articles</h2>
-          <p>Articles about interesting problems I have encountered!</p>
+          <h2>Publications</h2>
           <ul class="icon-list">
-            <li><a
-                href="https://medium.com/@califlower/creating-a-modern-react-single-page-app-in-asp-net-mvc-be4ed86da73a">Using
-                React with ASP.Net Classic</a></li>
+            <li><a href="https://medium.com/@califlower/creating-a-modern-react-single-page-app-in-asp-net-mvc-be4ed86da73a">React and ASP.NET</a></li>
           </ul>
         </div>
       </div>
     </main>
-    <footer class="pt-5 my-5 text-muted border-top">
-      <div class="container">
-        <script>document.write(new Date().getFullYear())</script>, Calin Gilan
-      </div>
+    
+    <footer>
+      &copy; <script>document.write(new Date().getFullYear())</script> Calin Gilan
     </footer>
   </div>
-
-
 </body>
-
 </html>
