@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,viewport-fit=cover"
+/>
 <title>Yearning Simulator 1.0 — Michael Edition</title>
 <style>
   :root {
@@ -14,17 +17,23 @@
     --good: #5ad1a6;
     --panel: #2a2a2a;
     --border: #000;
+    --gap: 12px;
   }
   html, body { height: 100%; }
   body {
     margin: 0; background: var(--bg); color: var(--fg);
     font: 14px/1.4 monospace; image-rendering: pixelated;
+    -webkit-text-size-adjust: 100%;
   }
+
   .wrap {
     max-width: 900px; margin: 0 auto; padding: 16px;
-    display: grid; gap: 12px;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
+    display: grid; gap: var(--gap);
     grid-template-columns: 280px 1fr;
+    box-sizing: border-box;
   }
+
   h1 { margin: 0 0 6px; font-size: 16px; }
   .frame {
     background: var(--panel);
@@ -32,10 +41,17 @@
     box-shadow: 0 0 0 4px #444, 0 0 0 8px var(--border);
     padding: 8px;
   }
+
+  /* Canvas: responsive for small screens, crisp pixels */
   #michael {
-    width: 256px; height: 256px; display: block; margin: 0 auto 8px;
+    display: block; margin: 0 auto 8px;
     background: #222; border: 4px solid #000;
+    /* Desktop default size */
+    width: 256px; height: auto; aspect-ratio: 1 / 1;
+    image-rendering: pixelated;
+    max-width: 100%;
   }
+
   .stat { margin: 8px 0; }
   .stat label { display: block; margin-bottom: 4px; }
   .bar {
@@ -44,21 +60,52 @@
   .bar > i {
     display: block; height: 100%; background: var(--accent); width: 50%;
   }
+
   .row { display: flex; gap: 8px; flex-wrap: wrap; }
   button {
     background: #333; color: var(--fg);
     border: 4px solid #000; padding: 8px 10px; cursor: pointer;
     box-shadow: 0 0 0 4px #555, 0 0 0 8px #000;
     text-transform: uppercase; letter-spacing: .5px;
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent;
   }
   button:disabled { opacity: .5; cursor: not-allowed; }
-  .log { max-height: 260px; overflow: auto; background:#111; padding:8px; }
+
+  .log {
+    max-height: 260px; overflow: auto; background:#111; padding:8px;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    overflow-wrap: anywhere;
+  }
   .log p { margin: 0 0 6px; }
   .tiny { opacity:.8; font-size:12px; }
   .bad { color: var(--danger); }
   .meh { color: var(--warn); }
   .good { color: var(--good); }
   .footer { grid-column: 1 / -1; text-align:center; opacity:.6; }
+
+  /* ===== Mobile tweaks (iPhone-friendly) ===== */
+  @media (max-width: 820px) {
+    .wrap { grid-template-columns: 1fr; padding: 14px; gap: 10px; }
+    h1 { font-size: 18px; }
+    .frame { padding: 10px; }
+    /* Make canvas fit safely within viewport width */
+    #michael { width: min(85vw, 360px); }
+    /* Larger tap targets & two-column buttons */
+    .row button {
+      flex: 1 1 calc(50% - 8px);
+      padding: 12px 14px;
+      font-size: 16px; /* comfy, avoids accidental zoom */
+    }
+    /* Log height adapts to screen */
+    .log { max-height: clamp(160px, 35vh, 320px); }
+    /* Bars a touch taller for fingers/eyes */
+    .bar { height: 22px; }
+  }
+  @media (max-width: 380px) {
+    /* Stack buttons if super narrow */
+    .row button { flex-basis: 100%; }
+  }
 </style>
 </head>
 <body>
@@ -160,7 +207,6 @@
     }
 
     // Head
-    // Bald king: a chunky oval-ish head
     const skin = "#f1c27d";
     for (let y=32; y<=96; y+=p){
       for (let x=32; x<=96; x+=p){
@@ -212,7 +258,6 @@
     if (state.tickFlash && state.tick % 2 === 0) {
       const hx = 20, hy = 18;
       ctx.fillStyle = "#ff5a7a";
-      // crude pixel heart split
       const blocks = [
         [0,1],[1,0],[2,0],[3,1],[2,2],[1,2],[0,3],
         [5,1],[6,0],[7,0],[8,1],[7,2],[6,2],[5,3]
@@ -272,22 +317,20 @@
       state.tickFlash = true;
     },
     mongolia() {
-    const btn = this; actionCooldown(btn);
-    if (!state.alive) return;
-    state.yearning   = clamp(state.yearning - rnd(14,22)); // escape the loop
-    state.confidence = clamp(state.confidence + rnd(5,8)); // decisive king
-    state.sanity     = clamp(state.sanity + rnd(1,3));     // fresh air on the steppe
-    pushOutcome("Books a one-way to Ulaanbaatar. The vast steppe calls; yearning retreats.", "good");
-    state.tickFlash = true;
+      const btn = this; actionCooldown(btn);
+      if (!state.alive) return;
+      state.yearning   = clamp(state.yearning - rnd(14,22));
+      state.confidence = clamp(state.confidence + rnd(5,8));
+      state.sanity     = clamp(state.sanity + rnd(1,3));
+      pushOutcome("Books a one-way to Ulaanbaatar. The vast steppe calls; yearning retreats.", "good");
+      state.tickFlash = true;
     },
-
-    commit() { // per your spec: decreases sanity
-    const btn = this; actionCooldown(btn);
-    if (!state.alive) return;
-    state.sanity = clamp(state.sanity - rnd(6,10));
-    pushOutcome("Adds plans to calendar. Immediate calendar dread. Why did he do that.", "bad");
+    commit() {
+      const btn = this; actionCooldown(btn);
+      if (!state.alive) return;
+      state.sanity = clamp(state.sanity - rnd(6,10));
+      pushOutcome("Adds plans to calendar. Immediate calendar dread. Why did he do that.", "bad");
     },
-    
     run() {
       const btn = this; actionCooldown(btn);
       if (!state.alive) return;
@@ -379,7 +422,6 @@
 
   // Passive drift per tick
   function passiveDrift() {
-    // yearning creeps up, sanity drips down if yearning high
     state.yearning = clamp(state.yearning + (Math.random() < 0.6 ? 1 : 0));
     if (state.yearning > 60 && Math.random() < 0.5) state.sanity = clamp(state.sanity - 1);
     if (state.confidence > 20 && Math.random() < 0.15) state.confidence = clamp(state.confidence - 1);
@@ -390,16 +432,17 @@
   updateBars();
   drawMichael();
 
-  setInterval(() => {
-    if (!state.alive) return;
-    state.tick++;
-    state.tickFlash = false;
-    passiveDrift();
-    if (state.tick % 10 === 0) randomEvent();
-    checkEndStates();
-    updateBars();
-    drawMichael();
-  }, 1000);
+setInterval(() => {
+  if (!state.alive) return;
+  state.tick++;
+  passiveDrift();
+  if (state.tick % 10 === 0) randomEvent();
+  checkEndStates();
+  updateBars();
+  drawMichael();
+  state.tickFlash = false; // ← move here
+}, 1000);
+
 })();
 </script>
 </body>
