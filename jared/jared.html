@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Jared Simulator 1.0 — Perreo Mode</title>
+<style>
+  :root {
+    /* Puerto Rico–forward app palette */
+    --bg: #0c0f1c;         /* deep night blue */
+    --fg: #f2f2f2;
+    --accent: #49b6ff;     /* Caribbean blue */
+    --danger: #ff5b6b;     /* flag red tint */
+    --warn: #ffd166;
+    --good: #50e3a4;
+    --panel: #0f1a2b;      /* navy panel */
+    --border: #000;
+    --gap: 12px;
+
+    /* Canvas flag colors */
+    --flag-red: #c62828;
+    --flag-blue: #0b5fb3;
+    --flag-white: #eaeaea;
+  }
+
+  html, body { height: 100%; }
+  body {
+    margin: 0; color: var(--fg);
+    background:
+      linear-gradient(180deg, #0a1324 0%, #0c0f1c 40%, #0a1324 100%); /* subtle depth */
+    font: 14px/1.4 monospace; image-rendering: pixelated;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .wrap {
+    max-width: 900px; margin: 0 auto; padding: 16px;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
+    display: grid; gap: var(--gap);
+    grid-template-columns: 280px 1fr;
+    box-sizing: border-box;
+  }
+
+  h1 { margin: 0 0 6px; font-size: 16px; letter-spacing: .5px; color: var(--fg); }
+  .frame {
+    background: var(--panel);
+    border: 4px solid var(--border);
+    box-shadow: 0 0 0 4px #14233b, 0 0 0 8px var(--border);
+    padding: 8px;
+  }
+
+  /* Canvas */
+  #jared {
+    display: block; margin: 0 auto 8px;
+    background: #00162d; border: 4px solid #000;
+    width: 256px; height: auto; aspect-ratio: 1 / 1;
+    image-rendering: pixelated; max-width: 100%;
+  }
+
+  .stat { margin: 8px 0; }
+  .stat label { display: block; margin-bottom: 4px; }
+  .bar { height: 18px; background: #081020; border: 3px solid #000; position: relative; }
+  .bar > i { display: block; height: 100%; background: var(--accent); width: 50%; transition: width .15s linear; }
+
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  button {
+    background: #133053; color: var(--fg);
+    border: 4px solid #000; padding: 8px 10px; cursor: pointer;
+    box-shadow: 0 0 0 4px #1b3e6a, 0 0 0 8px #000;
+    text-transform: uppercase; letter-spacing: .5px;
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  }
+  button:hover { filter: brightness(1.06); }
+  button:disabled { opacity: .55; cursor: not-allowed; }
+
+  .log {
+    max-height: 260px; overflow: auto; background:#070d18; padding:8px;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    overflow-wrap: anywhere;
+  }
+  .log p { margin: 0 0 6px; }
+  .tiny { opacity:.8; font-size:12px; }
+  .bad { color: var(--danger); }
+  .meh { color: var(--warn); }
+  .good { color: var(--good); }
+  .footer { grid-column: 1 / -1; text-align:center; opacity:.6; }
+
+  /* ===== Mobile tweaks (iPhone-friendly) ===== */
+  @media (max-width: 820px) {
+    .wrap { grid-template-columns: 1fr; padding: 14px; gap: 10px; }
+    h1 { font-size: 18px; }
+    .frame { padding: 10px; }
+    #jared { width: min(85vw, 360px); }
+    .row button { flex: 1 1 calc(50% - 8px); padding: 12px 14px; font-size: 16px; }
+    .log { max-height: clamp(160px, 35vh, 320px); }
+    .bar { height: 22px; }
+  }
+  @media (max-width: 380px) { .row button { flex-basis: 100%; } }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="frame">
+      <h1>JARED: PURSUIT SIMULATOR</h1>
+      <canvas id="jared" width="128" height="128"></canvas>
+
+      <div class="stat">
+        <label>Pursuit</label>
+        <div class="bar"><i id="pursuitBar"></i></div>
+      </div>
+      <div class="stat">
+        <label>Confidence</label>
+        <div class="bar"><i id="confidenceBar"></i></div>
+      </div>
+      <div class="stat">
+        <label>Ick</label>
+        <div class="bar"><i id="ickBar"></i></div>
+      </div>
+    </div>
+
+    <div class="frame">
+      <div class="row" id="actions">
+        <button data-act="wife">Declare “she’s my wife”</button>
+        <button data-act="blast">Text 5 people</button>
+        <button data-act="horny">Declare “I’m horny” in the group chat</button>
+        <button data-act="textHer">Text her</button>
+        <button data-act="double">Double-book dates</button>
+        <button data-act="unmatch">Unmatch impulsively</button>
+        <button data-act="tattoo">Get a tattoo</button>
+        <button data-act="head">Promises 30hrs of head</button>
+        <button data-act="elden">Elden Ring</button>
+        <button data-act="reels">Send Reels</button>
+        <button data-act="water">Hydrate</button>
+        <button data-act="flight">Book spontaneous flight</button>
+        <button data-act="commit">Actually commit</button>
+        <button data-act="reset" title="Start over">Reset</button>
+      </div>
+
+      <div class="log" id="log"></div>
+      <p class="tiny">
+        Goal: keep <b>Ick &lt; 35</b> for a full minute while Pursuit stays under 80 to <b>Achieve Wife</b>.
+        Beware the <b>Ick Reflex</b> when attention is reciprocated.
+      </p>
+    </div>
+
+    <div class="footer tiny">Made with love and questionable judgment. © You, probably.</div>
+  </div>
+
+<script>
+(() => {
+  const state = {
+    name: "Jared",
+    pursuit: 30,
+    confidence: 62,
+    ick: 18,
+    chillStreak: 0,   // seconds under threshold
+    alive: true,
+    tick: 0
+  };
+
+  const els = {
+    cv: document.getElementById('jared'),
+    pursuit: document.getElementById('pursuitBar'),
+    conf: document.getElementById('confidenceBar'),
+    ick: document.getElementById('ickBar'),
+    log: document.getElementById('log'),
+    actions: document.getElementById('actions')
+  };
+  const ctx = els.cv.getContext('2d');
+
+  // ===== Utilities =====
+  const clamp = (v,min=0,max=100)=>Math.max(min,Math.min(max,v));
+  const pct = v => `${clamp(v)}%`;
+  const log = (html) => { const p = document.createElement('p'); p.innerHTML = html; els.log.prepend(p); };
+  const rnd = (a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+
+  function updateBars() {
+    els.pursuit.style.width = pct(state.pursuit);
+    els.conf.style.width = pct(state.confidence);
+    els.ick.style.width = pct(state.ick);
+
+    // color shifts
+    els.pursuit.style.background = state.pursuit >= 80 ? "#ffd166" : "var(--accent)";
+    els.ick.style.background = state.ick >= 70 ? "var(--danger)" : (state.ick >= 35 ? "#ffd166" : "#5ad1a6");
+  }
+
+  // ===== Face system: lots of tiny animations =====
+  const face = {
+    blink: 0,          // frames left to keep eyes closed
+    lookX: 0,          // -1..1
+    lookY: 0,          // -1..1
+    brow: 0,           // -1..1 (waggle)
+    mouth: 'flat',     // flat|smile|smirk|grimace|open|o
+    mouthTimer: 0,
+    blush: 0,          // 0/1
+    sweat: 0,          // 0..3 droplets
+    sparkle: 0,        // earring sparkle on/off
+    heartBubble: 0,    // frames to show hearts bubble
+    ickBubble: 0,      // frames to show ICK bubble
+    hairBob: 0         // 0/1 subtle hair bounce
+  };
+
+  function randomizeFace() {
+    if (!face.blink && Math.random() < 0.08) face.blink = rnd(2,4);           // blink
+    if (Math.random() < 0.06) { face.lookX = rnd(-1,1); face.lookY = rnd(-1,1); } // saccades
+    if (Math.random() < 0.05 && state.confidence > 55) face.brow = face.brow ? 0 : 1; // brow waggle
+    if (face.mouthTimer <= 0 && Math.random() < 0.07) {                       // mouth shuffle
+      const opts = ['flat','smile','smirk','grimace','o'];
+      face.mouth = opts[rnd(0,opts.length-1)];
+      face.mouthTimer = rnd(2,4);
+    } else {
+      face.mouthTimer = Math.max(0, face.mouthTimer - 1);
+    }
+    face.blush = state.pursuit > 70 ? 1 : (Math.random() < 0.03 ? 1 : 0);     // blush
+    face.sweat = state.ick > 65 ? rnd(1,3) : (Math.random() < 0.03 ? 1 : 0);  // sweat
+    face.sparkle = Math.random() < 0.4 ? 1 : 0;                                // earring sparkle
+    face.hairBob = Math.random() < 0.5 ? 1 : 0;                                // hair bob
+
+    if (state.pursuit > 80 && face.heartBubble <= 0 && Math.random()<0.2) face.heartBubble = rnd(6,10);
+    if (state.ick > 55 && face.ickBubble <= 0 && Math.random()<0.2) face.ickBubble = rnd(6,10);
+
+    if (state.ick > 70) face.mouth = 'grimace';
+    else if (state.confidence > 75 && state.ick < 35) face.mouth = 'smirk';
+  }
+
+  // ===== Pixel Jared (128x128 grid) =====
+  function drawJared() {
+    const p = 8; // pixel size
+    ctx.imageSmoothingEnabled = false;
+
+    // Puerto Rican flag backdrop (stylized, chunky pixels)
+    const getCSS = (v)=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+    const red = getCSS('--flag-red') || '#c62828';
+    const white = getCSS('--flag-white') || '#eaeaea';
+    const blue = getCSS('--flag-blue') || '#0b5fb3';
+
+    // 5 horizontal stripes
+    for (let y=0; y<128; y+=p){
+      const stripe = Math.floor(y / (128/5));
+      ctx.fillStyle = (stripe % 2 === 0) ? red : white; // 0,2,4 red
+      ctx.fillRect(0, y, 128, p);
+    }
+    // left blue triangle
+    for (let y=0; y<128; y+=p){
+      const w = Math.max(0, 64 - Math.floor(Math.abs(y-64)/p)*p);
+      ctx.fillStyle = blue;
+      ctx.fillRect(0, y, w, p);
+    }
+    // white star (pixel)
+    ctx.fillStyle = white;
+    const sx = 18, sy = 52;
+    const star = [[1,3],[2,1],[2,3],[3,0],[3,2],[3,4],[4,1],[4,3],[5,2]];
+    star.forEach(([dx,dy])=>ctx.fillRect(sx+dx*(p/2), sy+dy*(p/2), p/2, p/2));
+
+    // Head + neck
+    const skin = "#e0b184"; // neutral tone
+
+    // Hair base (short dark curls)
+    const hair = "#1b1b1b";
+    const hairYOff = face.hairBob ? 0 : 0;
+
+    // Head ellipse
+    for (let y=32; y<=96; y+=p){
+      for (let x=32; x<=96; x+=p){
+        const dx = (x-64)/32, dy = (y-64)/40;
+        if (dx*dx + dy*dy <= 1) { ctx.fillStyle = skin; ctx.fillRect(x,y,p,p); }
+      }
+    }
+
+    // Curly hair blobs
+    const curls = [
+      [40,28],[48,24],[56,24],[64,24],[72,24],[80,28],
+      [36,32],[44,28],[52,28],[60,26],[68,26],[76,28],[84,32]
+    ];
+    ctx.fillStyle = hair;
+    curls.forEach(([x,y])=>ctx.fillRect(x, y+hairYOff, p, p));
+    [[48,32],[56,30],[64,30],[72,30],[80,32]].forEach(([x,y])=>ctx.fillRect(x, y+hairYOff, p, p));
+
+    // Ears
+    ctx.fillStyle = skin; ctx.fillRect(32,64,p,p*2); ctx.fillRect(96,64,p,p*2);
+
+    // Earrings (both ears)
+    const gold = "#ffd86b";
+    // right
+    ctx.fillStyle = gold; ctx.fillRect(96,72, p, p);
+    if (face.sparkle && state.tick % 2 === 0) { ctx.fillStyle = "#ffffff"; ctx.fillRect(96+p,72, p/2, p/2); }
+    // left
+    ctx.fillStyle = gold; ctx.fillRect(32 - p,72, p, p);
+    if (face.sparkle && state.tick % 2 === 1) { ctx.fillStyle = "#ffffff"; ctx.fillRect(32 - p - p/2,72, p/2, p/2); }
+
+    // Hair sheen on confidence
+    if (state.confidence > 70) { ctx.fillStyle = "rgba(255,255,255,0.08)"; ctx.fillRect(56,36,p*2,p); }
+
+    // Eyes
+    const eyeY = 64 + (face.lookY*1);
+    const eyeLX = 48 + (face.lookX*1);
+    const eyeRX = 80 + (face.lookX*1);
+
+    if (face.blink) {
+      ctx.fillStyle = "#000";
+      ctx.fillRect(eyeLX, eyeY, p, p/2);
+      ctx.fillRect(eyeRX, eyeY, p, p/2);
+    } else {
+      ctx.fillStyle = "#eaeaea"; ctx.fillRect(eyeLX, eyeY, p, p); ctx.fillRect(eyeRX, eyeY, p, p);
+      ctx.fillStyle = "#000";    ctx.fillRect(eyeLX, eyeY, p/2, p); ctx.fillRect(eyeRX, eyeY, p/2, p);
+      if (state.pursuit > 85 && state.tick % 2 === 0) { ctx.fillStyle = "#fff"; ctx.fillRect(eyeLX, eyeY, p/2, p/2); ctx.fillRect(eyeRX, eyeY, p/2, p/2); }
+    }
+
+    // Brows
+    ctx.fillStyle = "#0f0f0f";
+    const browYOffset = face.brow ? -p/2 : 0;
+    ctx.fillRect(46, eyeY - p + browYOffset, p+4, p/2);
+    ctx.fillRect(78, eyeY - p + browYOffset, p+4, p/2);
+
+    // Mouth
+    const mouthY = 88;
+    ctx.fillStyle = "#000";
+    switch(face.mouth){
+      case 'smile':
+        ctx.fillRect(56, mouthY, p*6, p);
+        ctx.clearRect(56, mouthY, p, p);
+        ctx.clearRect(56+p*5, mouthY, p, p);
+        ctx.fillRect(64-p, mouthY- p, p, p);
+        ctx.fillRect(64+p, mouthY- p, p, p);
+        break;
+      case 'smirk':
+        ctx.fillRect(56, mouthY, p*4, p);
+        ctx.fillRect(56+p*4, mouthY+p/2, p*2, p/2);
+        break;
+      case 'grimace':
+        ctx.fillRect(56, mouthY, p*6, p);
+        ctx.fillStyle = "#fff"; ctx.fillRect(56, mouthY, p*6, p/2); ctx.fillStyle = "#000";
+        break;
+      case 'open':
+        ctx.fillRect(60, mouthY, p*4, p);
+        ctx.clearRect(60+p, mouthY, p*2, p/2);
+        break;
+      case 'o':
+        ctx.fillRect(64-p, mouthY, p*3, p);
+        ctx.clearRect(64, mouthY, p, p);
+        break;
+      default:
+        ctx.fillRect(56, mouthY, p*6, p);
+    }
+
+    // Blush
+    if (face.blush) {
+      ctx.fillStyle = "rgba(255,120,120,0.35)";
+      ctx.fillRect(44, 80, p*2, p);
+      ctx.fillRect(78, 80, p*2, p);
+    }
+
+    // Sweat droplets
+    if (face.sweat) {
+      ctx.fillStyle = "#6ecbff";
+      for (let i=0;i<face.sweat;i++) ctx.fillRect(80+p/2 + i*p/2, eyeY + p, p/2, p/2);
+    }
+
+    // Thought bubbles: hearts vs ICK
+    const bubbleX = 16, bubbleY = 12;
+    if (face.heartBubble > 0) {
+      ctx.fillStyle = "#ff5a7a";
+      const blocks = [ [0,1],[1,0],[2,0],[3,1],[2,2],[1,2],[0,3], [5,1],[6,0],[7,0],[8,1],[7,2],[6,2],[5,3] ];
+      blocks.forEach(([dx,dy])=>ctx.fillRect(bubbleX+dx*p, bubbleY+dy*p, p, p));
+      face.heartBubble--;
+    }
+    if (face.ickBubble > 0) {
+      ctx.fillStyle = "#8b1e2e"; ctx.fillRect(96- p*5, 16, p*5, p*3);
+      ctx.fillStyle = "#fff";
+      // I
+      ctx.fillRect(96- p*5 + p/2, 16+p/2, p/2, p*2);
+      // C + K (chunky)
+      ctx.fillRect(96- p*5 + p*2, 16+p/2, p/2, p*2);
+      ctx.fillRect(96- p*5 + p*2, 16+p/2, p*2, p/2);
+      ctx.fillRect(96- p*5 + p*2, 16+p*2, p*2, p/2);
+      ctx.fillRect(96- p*5 + p*4, 16+p/2, p/2, p*2);
+      ctx.fillRect(96- p*5 + p*4 - p/2, 16+p, p/2, p/2);
+      ctx.fillRect(96- p*5 + p*4 - p/2, 16+p*1.5, p/2, p/2);
+      face.ickBubble--;
+    }
+  }
+
+  function pushOutcome(text, cls="meh") { log(`<span class="${cls}">${text}</span>`); }
+  function actionCooldown(btn) { btn.disabled = true; setTimeout(()=>btn.disabled=false, 700); }
+
+  // ===== Actions =====
+  const actions = {
+    reset() {
+      state.pursuit = 30; state.confidence = 62; state.ick = 18;
+      state.chillStreak = 0; state.alive = true; state.tick = 0;
+      log(`<b>New arc.</b> Jared promises to be so normal.`);
+    },
+    wife() {
+      const btn = this; actionCooldown(btn); if (!state.alive) return;
+      state.pursuit = clamp(state.pursuit + rnd(14,22));
+      state.confidence = clamp(state.confidence + rnd(1,4));
+      state.ick = clamp(state.ick + rnd(2,5));
+      pushOutcome("Declares: ‘she’s my wife.’ Timeline immediately invested.", "meh");
+      face.heartBubble = rnd(6,10);
+    },
+    blast() {
+      const btn = this; actionCooldown(btn); if (!state.alive) return;
+      state.pursuit = clamp(state.pursuit + rnd(10,16));
+      state.confidence = clamp(state.confidence - rnd(2,4));
+      if (Math.random() < 0.35) {
+        state.ick = clamp(state.ick + rnd(10,16));
+        pushOutcome("Instant reply from one of them. Ick Reflex activates.", "bad");
+        face.ickBubble = rnd(8,12);
+      } else {
+        pushOutcome("Group text blast sent. Echoes in the void (for now).", "meh");
+        face.heartBubble = rnd(4,8);
+      }
+    },
+    horny() {
+      const btn = this; actionCooldown(btn); if (!state.alive) return;
+      pushOutcome("He declares he’s horny in the group chat. Liz says “what else is new” and Michael tells him to shut up.", "meh");
+    },
+    textHer() {
+      const btn = this; actionCooldown(btn); if (!state.alive) return;
+      const drop = rnd(6,12);
+      state.ick = clamp(state.ick - drop);
+      state.confidence = clamp(state.confidence + rnd(2,5));
+      pushOutcome(`Texts her. Nervous system settles (-${drop} ick).`, "good");
+      face.heartBubble = rnd(4,8);
+    },
+    double() {
+      const btn = this; actionCooldown(btn); if (!state.alive) return;
+      state.pursuit = clamp(state.pursuit + rnd(6,10));
+      state.ick = clamp(state.ick + rnd(4,7));
+      pushOutcome("Double-booked dates. Calendar Tetris commences.", "meh");
+    },
+    unmatch() {
+      const btn = this; actionCooldown(btn); if (!state.alive) return;
+      state.pursuit = clamp(state.pursuit - rnd(4,8));
+      state.confidence = clamp(state.confidence - rnd(4,6));
+      state.ick = clamp(state.ick - rnd(3,5));
+      pushOutcome("Unmatched impulsively. Quiet relief… and a tiny void.", "good");
+    },
+    tattoo() {
+      const btn = this; actionCooldown(btn); if (!state.alive) return;
+      state.pursuit = clamp(state.pursuit - rnd(6,10));
+      state.confidence = clamp(state.confidence + rnd(5,9));
+      state.ick = clamp(state.ick - rnd(2,4));
+      pushOutcome("Gets a new tattoo. Becomes a new man.", "good");
+      face.mouth = 'smile'; face.mouthTimer = 3;
+    },
+    elden() {
+      const btn = this; actionCooldown(btn); if (!state.alive) return;
+      state.ick = clamp(state.ick - rnd(10,16));
+      state.confidence = clamp(state.confidence + rnd(3,6));
+      pushOutcome("Plays Elden Ring. Inner peace restored (temporarily).", "good");
+    },
+    reels() {
+      const btn = this; actionCooldown(btn); if (!state.alive) return;
+      state.confidence = clamp(state.confidence + rnd(4,8));
+      state.pursuit = clamp(state.pursuit - rnd(2,4));
+      pushOutcome("Sends 50 reels. Gets 50 replies back.", "good");
+    },
+    water() {
+      const btn = this; actionCooldown(btn); if (!state.alive) return;
+      state.ick = clamp(state.ick - 2);
+      pushOutcome("Hydration check: microscopic improvement.", "meh");
+    },
+    flight() {
+      const btn = this; actionCooldown(btn); if (!state.alive) return;
+      state.pursuit = clamp(state.pursuit - rnd(12,18));
+      state.confidence = clamp(state.confidence + rnd(4,7));
+      state.ick = clamp(state.ick - rnd(2,4));
+      pushOutcome("Books a spontaneous flight. New city, same patterns?", "good");
+      face.heartBubble = rnd(6,10);
+    },
+    head() {
+      const btn = this; actionCooldown(btn); if (!state.alive) return;
+      state.pursuit = clamp(state.pursuit - rnd(12,18));
+      state.confidence = clamp(state.confidence + rnd(4,7));
+      state.ick = clamp(state.ick - rnd(2,4));
+      pushOutcome("Promises 30 hrs of head (he’s deeply in head debt).", "good");
+      face.heartBubble = rnd(6,10);
+    },
+    commit() {
+      const btn = this; actionCooldown(btn); if (!state.alive) return;
+      const spike = Math.random() < 0.65;
+      if (spike) {
+        state.ick = clamp(state.ick + rnd(8,14));
+        state.pursuit = clamp(state.pursuit - rnd(6,10));
+        pushOutcome("Tries committing. Immediate ick. Retreat initiated.", "bad");
+        face.ickBubble = rnd(8,12);
+      } else {
+        state.ick = clamp(state.ick - rnd(6,10));
+        pushOutcome("Healthy commitment moment?? Character development unlocked.", "good");
+        face.mouth = 'smile'; face.mouthTimer = 3;
+      }
+    }
+  };
+
+  // Hook up buttons
+  els.actions.addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    const fn = b.dataset.act;
+    if (!fn) return;
+    if (fn === 'reset') { actions.reset(); updateBars(); drawJared(); return; }
+    if (typeof actions[fn] === 'function') actions[fn].call(b);
+  });
+
+  // ===== Long list of girl-related random events =====
+  const girlEvents = [
+    { t:"Barista dots the i in his name with a heart. He’s done for.", dp:+10, di:+4, dc:+1, heart:true },
+    { t:"She replies “wyd” in under 3 minutes. Ick Reflex flares.", dp:-4, di:+10, dc:-2, ick:true },
+    { t:"Deli girl slips in extra fries. Hope rises.", dp:+8,  di:+2,  dc:+2, heart:true },
+    { t:"Ex posts a throwback from 2019. Algorithmic haunting.", dp:+9,  di:+6,  dc:-2, ick:true },
+    { t:"Cute neighbor asks him to water plants while she’s away.", dp:-6, di:-6, dc:+3 },
+    { t:"Friend says “I have someone you’d love.” Dangerous words.", dp:+7,  di:+5,  dc:+1, heart:true },
+    { t:"Random match sends a voice note en español. Brain chemistry altered.", dp:+8, di:-4, dc:+4, heart:true },
+    { t:"She texts “you seem fun.” He actually relaxes.", dp:+2, di:-8, dc:+5 },
+    { t:"Story like from mystery account with a girl’s name. Spiral bait.", dp:+6, di:+6, dc:-1, ick:true },
+    { t:"She cancels but reschedules. Stability???", dp:-4, di:-5, dc:+2 },
+    { t:"Her group chat calls him “low-key cute.” Immediate ick from attention.", dp:-3, di:+8, dc:+1, ick:true },
+    { t:"Sees her at comedy night; she makes a joke about his circumcision. Confidence crit.", dp:+5, di:-5, dc:+7, heart:true },
+    { t:"She says he reminds her of her ex. Missile lock disengaged.", dp:-6, di:+9, dc:-3, ick:true },
+    { t:"She posts a photo with a mysterious hand on the table.", dp:+10, di:+7, dc:-2, ick:true },
+    { t:"Mutual friend invites them both to the same pregame.", dp:+7, di:+3, dc:+2, heart:true },
+    { t:"She shares a playlist titled “tf is love.” He’s in.", dp:+8, di:-3, dc:+3, heart:true },
+    { t:"Her mom follows him on IG out of nowhere.", dp:-2, di:+9, dc:-2, ick:true },
+    { t:"She sends a blurry 2am ‘come thru?’", dp:+9, di:+4, dc:+4, heart:true },
+    { t:"She asks for restaurant recs, uses 3 exclamation points.", dp:+6, di:+3, dc:+2, heart:true },
+    { t:"He spots her at the bodega with a “cousin.” Brain chooses delusion.", dp:+7, di:+5, dc:-1, ick:true },
+    { t:"She compliments his earrings. He ascends.", dp:+4, di:-6, dc:+6, heart:true },
+    { t:"She leaves him on delivered for a day, then replies sweet.", dp:+5, di:-4, dc:+3 }
+  ];
+
+  function applyGirlEvent(e) {
+    state.pursuit    = clamp(state.pursuit + (e.dp||0));
+    state.ick        = clamp(state.ick + (e.di||0));
+    state.confidence = clamp(state.confidence + (e.dc||0));
+    if (e.heart) face.heartBubble = rnd(6,10);
+    if (e.ick)   face.ickBubble   = rnd(6,10);
+    const cls = (e.di||0) >= 7 ? "bad" : ((e.di||0) <= -5 ? "good" : "meh");
+    pushOutcome(e.t, cls);
+  }
+
+  // ===== Random events (about every 8–10s) =====
+  function randomEvent() {
+    if (!state.alive) return;
+    if (Math.random() < 0.7) {
+      const e = girlEvents[rnd(0, girlEvents.length-1)];
+      applyGirlEvent(e);
+    } else {
+      const roll = rnd(1,100);
+      if (roll < 24) {
+        state.pursuit = clamp(state.pursuit + rnd(7,12));
+        pushOutcome("New crush unlocked at the deli. Pursuit intensifies.", "meh");
+        face.heartBubble = rnd(6,10);
+      } else if (roll < 40) {
+        state.ick = clamp(state.ick + rnd(6,10));
+        state.pursuit = clamp(state.pursuit - rnd(3,6));
+        pushOutcome("She replies immediately and enthusiastically. Ick Reflex triggers.", "bad");
+        face.ickBubble = rnd(8,12);
+      } else if (roll > 92) {
+        state.ick = clamp(state.ick - rnd(5,8));
+        state.confidence = clamp(state.confidence + rnd(3,5));
+        pushOutcome("Friends night + memes: nervous system soothed.", "good");
+      }
+    }
+  }
+
+  // ===== Win/Lose checks =====
+  function checkEndStates() {
+    if (state.ick >= 100) {
+      state.alive = false;
+      pushOutcome("<b>Overload.</b> Jared icks out of three conversations and deletes two apps. GAME OVER.", "bad");
+    } else if (state.confidence <= 0) {
+      state.alive = false;
+      pushOutcome("<b>Confidence collapse.</b> Retreat to the cave. GAME OVER.", "bad");
+    } else {
+      const calm = state.ick < 35 && state.pursuit < 80;
+      state.chillStreak = calm ? state.chillStreak + 1 : 0;
+      if (state.chillStreak >= 60) {
+        state.alive = false;
+        pushOutcome("<b>Wife Achieved.</b> For one shining minute, Jared holds steady and reality doesn’t ick. You win.", "good");
+      }
+    }
+  }
+
+  // ===== Passive drift per tick =====
+  function passiveDrift() {
+    state.pursuit = clamp(state.pursuit + (Math.random() < 0.58 ? 1 : 0));
+    if (state.pursuit > 70 && Math.random() < 0.4) state.ick = clamp(state.ick + 1);
+    if (state.confidence > 25 && Math.random() < 0.15) state.confidence = clamp(state.confidence - 1);
+  }
+
+  // ===== Main loop =====
+  function tick() {
+    if (!state.alive) return;
+    state.tick++;
+    passiveDrift();
+    if (state.tick % 9 === 0) randomEvent();
+    randomizeFace();
+    checkEndStates();
+    updateBars();
+    drawJared();
+    if (face.blink) face.blink--;
+  }
+
+  // Boot
+  actions.reset();
+  updateBars();
+  drawJared();
+  setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>
