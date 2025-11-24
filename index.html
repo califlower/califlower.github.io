@@ -1,103 +1,153 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
+  <meta name="description" content="Calin Gilan - Full Stack Software Engineer">
   <meta name="author" content="Calin Gilan">
   <title>Calin Gilan | Software Engineer</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.2.2/font/bootstrap-icons.css">
-
   <style>
-    body {
-      background-color: white;
-      color: #212529;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    h1, h2 {
-      color: #000;
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background-color: #ffffff;
+      padding: 2rem 1rem;
     }
 
     .container {
-      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 3rem;
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #000;
     }
 
-    h2 {
-      font-size: 1.5rem;
-      margin-top: 1rem;
+    .intro {
+      font-size: 1.125rem;
+      color: #4a4a4a;
+      max-width: 700px;
     }
 
-    ul.icon-list {
-      padding-left: 20px;
-      list-style-type: disc;
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, #e0e0e0, transparent);
+      margin: 3rem 0;
     }
 
-    ul.icon-list li {
-      margin-bottom: 0.5rem;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    section h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #000;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+      color: #4a4a4a;
     }
 
     a {
-      color: #0d6efd;
+      color: #0066cc;
+      text-decoration: none;
+      transition: color 0.2s ease;
     }
 
     a:hover {
-      color: #0a58ca;
+      color: #0052a3;
+      text-decoration: underline;
     }
 
     footer {
-      margin-top: 2rem;
-      padding: 1rem;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid #e0e0e0;
       text-align: center;
-      background-color: #f8f9fa;
+      color: #737373;
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 1.5rem 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .intro {
+        font-size: 1rem;
+      }
+
+      .grid {
+        gap: 2rem;
+      }
     }
   </style>
-
 </head>
 
 <body>
   <div class="container">
-    <main>
-      <h1>Welcome, I'm Calin Gilan</h1>
-      <p class="fs-5">I am a Full Stack Software Engineer proficient in Go, Java and JavaScript, continually exploring new technologies and frameworks.</p>
+    <header>
+      <h1>Calin Gilan</h1>
+      <p class="intro">Full Stack Software Engineer proficient in Go, Java and JavaScript, continually exploring new technologies and frameworks.</p>
+    </header>
 
-      <hr>
+    <div class="divider"></div>
 
-      <div class="row">
-        <div class="col-md-4">
-          <h2>Professional Experience</h2>
-          <ul class="icon-list">
-            <li>Twilio | 2022 - Present</li>
-            <li>Microsoft | 2021 - 2022</li>
-            <li>Capital One | 2017 - 2021</li>
-          </ul>
-        </div>
-        <div class="col-md-4">
-          <h2>Contact</h2>
-          <ul class="icon-list">
-            <li class="bi bi-envelope-fill"><a href="mailto:hello@calingilan.com">hello@calingilan.com</a></li>
-            <li><a href='https://www.linkedin.com/in/calin-gilan/'>LinkedIn Profile</a></li>
-          </ul>
-        </div>
-        <div class="col-md-4">
-          <h2>Publications</h2>
-          <ul class="icon-list">
-            <li><a href="https://medium.com/@califlower/creating-a-modern-react-single-page-app-in-asp-net-mvc-be4ed86da73a">React and ASP.NET</a></li>
-          </ul>
-        </div>
-      </div>
+    <main class="grid">
+      <section>
+        <h2>Experience</h2>
+        <ul>
+          <li>Twilio | 2022 - Present</li>
+          <li>Microsoft | 2021 - 2022</li>
+          <li>Capital One | 2017 - 2021</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:hello@calingilan.com">hello@calingilan.com</a></li>
+          <li><a href="https://www.linkedin.com/in/calin-gilan/">LinkedIn</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Publications</h2>
+        <ul>
+          <li><a href="https://medium.com/@califlower/creating-a-modern-react-single-page-app-in-asp-net-mvc-be4ed86da73a">React and ASP.NET</a></li>
+        </ul>
+      </section>
     </main>
-    
+
     <footer>
       &copy; <script>document.write(new Date().getFullYear())</script> Calin Gilan
     </footer>
