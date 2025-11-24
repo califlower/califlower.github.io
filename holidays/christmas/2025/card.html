@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holiday Card 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        .card-container {
+            perspective: 1500px;
+            width: min(500px, 85vw, calc(85vh * 10 / 13));
+            aspect-ratio: 10 / 13;
+            cursor: grab;
+            user-select: none;
+            transition: transform 0.3s ease-out;
+        }
+
+        .card-container:active {
+            cursor: grabbing;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .card-front {
+            background-color: #ffffff;
+            background-image: url('front.jpg');
+            border: 3px solid #d4af37;
+        }
+
+        .card-back {
+            background-color: #f8f9fa;
+            background-image: url('back.jpg');
+            transform: rotateY(180deg);
+            border: 3px solid #d4af37;
+        }
+
+        /* Stamp Design */
+        .stamp {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 100px;
+            height: 100px;
+            border: 3px solid #c41e3a;
+            border-radius: 8px;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: rotate(12deg);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .stamp::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            background:
+                linear-gradient(90deg, #c41e3a 50%, transparent 50%),
+                linear-gradient(90deg, #c41e3a 50%, transparent 50%),
+                linear-gradient(0deg, #c41e3a 50%, transparent 50%),
+                linear-gradient(0deg, #c41e3a 50%, transparent 50%);
+            background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+            background-size: 8px 3px, 8px 3px, 3px 8px, 3px 8px;
+            background-position: 0 0, 0 100%, 0 0, 100% 0;
+            border-radius: 8px;
+            z-index: -1;
+        }
+
+        .stamp-text {
+            font-size: 12px;
+            font-weight: bold;
+            color: #c41e3a;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .stamp-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #c41e3a;
+            margin-top: 8px;
+        }
+
+        /* Content overlays */
+        .content-overlay {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-front .content-overlay h1 {
+            font-size: 48px;
+            color: #c41e3a;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-front .content-overlay p {
+            font-size: 24px;
+            color: #2d5016;
+            font-style: italic;
+        }
+
+        .card-back .content-overlay h2 {
+            font-size: 36px;
+            color: #2d5016;
+            margin-bottom: 20px;
+        }
+
+        .card-back .content-overlay p {
+            font-size: 18px;
+            color: #333;
+            line-height: 1.8;
+            max-width: 400px;
+        }
+
+        .instructions {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 30px;
+            border-radius: 30px;
+            color: #333;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        /* Controls */
+        .controls {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #d4af37;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+            color: #333;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.1);
+            border-color: #c41e3a;
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .reset-btn {
+            background: rgba(196, 30, 58, 0.9);
+            color: white;
+            border-color: #a01729;
+            font-size: 20px;
+        }
+
+        .reset-btn:hover {
+            background: rgba(196, 30, 58, 1);
+            border-color: #c41e3a;
+        }
+
+        .zoom-label {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: #333;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .card-face {
+                padding: 30px;
+            }
+
+            .card-front .content-overlay h1 {
+                font-size: 32px;
+            }
+
+            .card-front .content-overlay p {
+                font-size: 18px;
+            }
+
+            .card-back .content-overlay h2 {
+                font-size: 24px;
+            }
+
+            .card-back .content-overlay p {
+                font-size: 16px;
+            }
+
+            .stamp {
+                width: 70px;
+                height: 70px;
+                top: 20px;
+                right: 20px;
+            }
+
+            .stamp-text {
+                font-size: 9px;
+            }
+
+            .stamp-price {
+                font-size: 18px;
+            }
+
+            .controls {
+                top: 20px;
+                right: 20px;
+                gap: 8px;
+            }
+
+            .control-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+
+            .reset-btn {
+                font-size: 18px;
+            }
+
+            .zoom-label {
+                top: 20px;
+                left: 20px;
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+
+            .instructions {
+                bottom: 20px;
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container" id="cardContainer">
+        <div class="card" id="card">
+            <div class="card-face card-front">
+                <div class="content-overlay">
+                    <h1>Happy Holidays!</h1>
+                    <p>Season's Greetings 2025</p>
+                </div>
+            </div>
+            <div class="card-face card-back">
+                <div class="stamp">
+                    <div class="stamp-text">HOLIDAY<br>2025</div>
+                    <div class="stamp-price">❄️</div>
+                </div>
+                <div class="content-overlay">
+                    <h2>Warm Wishes</h2>
+                    <p>May your holidays be filled with joy, laughter, and cherished moments with loved ones. Here's to a wonderful 2025!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="control-btn" id="zoomIn" title="Zoom In">+</button>
+        <button class="control-btn" id="zoomOut" title="Zoom Out">−</button>
+        <button class="control-btn reset-btn" id="reset" title="Reset View">↺</button>
+    </div>
+
+    <div class="zoom-label" id="zoomLabel">Zoom: 100%</div>
+
+    <div class="instructions">
+        Drag to spin • Scroll to zoom • Click reset to center
+    </div>
+
+    <script>
+        const cardContainer = document.getElementById('cardContainer');
+        const card = document.getElementById('card');
+        const zoomLabel = document.getElementById('zoomLabel');
+        const zoomInBtn = document.getElementById('zoomIn');
+        const zoomOutBtn = document.getElementById('zoomOut');
+        const resetBtn = document.getElementById('reset');
+
+        let isDragging = false;
+        let currentRotationY = 0;
+        let currentRotationX = 0;
+        let startX = 0;
+        let startY = 0;
+        let velocityX = 0;
+        let velocityY = 0;
+        let currentZoom = 1;
+        const minZoom = 0.5;
+        const maxZoom = 2.5;
+        const zoomStep = 0.1;
+
+        function getEventCoords(event) {
+            if (event.touches && event.touches.length > 0) {
+                return {
+                    x: event.touches[0].clientX,
+                    y: event.touches[0].clientY
+                };
+            }
+            return {
+                x: event.clientX,
+                y: event.clientY
+            };
+        }
+
+        function handleStart(event) {
+            event.preventDefault();
+            isDragging = true;
+            const coords = getEventCoords(event);
+            startX = coords.x;
+            startY = coords.y;
+            velocityX = 0;
+            velocityY = 0;
+            card.style.transition = 'none';
+        }
+
+        function handleMove(event) {
+            if (!isDragging) return;
+            event.preventDefault();
+
+            const coords = getEventCoords(event);
+            const deltaX = coords.x - startX;
+            const deltaY = coords.y - startY;
+
+            velocityX = deltaX * 0.5;
+            velocityY = deltaY * 0.5;
+
+            const rotationY = currentRotationY + velocityX;
+            const rotationX = currentRotationX - velocityY;
+
+            card.style.transform = `rotateY(${rotationY}deg) rotateX(${rotationX}deg)`;
+        }
+
+        function handleEnd(event) {
+            if (!isDragging) return;
+            event.preventDefault();
+
+            isDragging = false;
+            currentRotationY += velocityX;
+            currentRotationX -= velocityY;
+
+            // Normalize rotations
+            currentRotationY = currentRotationY % 360;
+            currentRotationX = Math.max(-45, Math.min(45, currentRotationX));
+
+            card.style.transition = 'transform 0.3s ease-out';
+            updateTransform();
+        }
+
+        function updateTransform() {
+            card.style.transform = `rotateY(${currentRotationY}deg) rotateX(${currentRotationX}deg)`;
+            cardContainer.style.transform = `scale(${currentZoom})`;
+            zoomLabel.textContent = `Zoom: ${Math.round(currentZoom * 100)}%`;
+        }
+
+        function zoomIn() {
+            currentZoom = Math.min(maxZoom, currentZoom + zoomStep);
+            updateTransform();
+        }
+
+        function zoomOut() {
+            currentZoom = Math.max(minZoom, currentZoom - zoomStep);
+            updateTransform();
+        }
+
+        function reset() {
+            currentRotationY = 0;
+            currentRotationX = 0;
+            currentZoom = 1;
+            card.style.transition = 'transform 0.5s ease-out';
+            cardContainer.style.transition = 'transform 0.5s ease-out';
+            updateTransform();
+            setTimeout(() => {
+                card.style.transition = 'transform 0.1s ease-out';
+                cardContainer.style.transition = 'transform 0.3s ease-out';
+            }, 500);
+        }
+
+        // Mouse events
+        cardContainer.addEventListener('mousedown', handleStart);
+        document.addEventListener('mousemove', handleMove);
+        document.addEventListener('mouseup', handleEnd);
+
+        // Touch events
+        cardContainer.addEventListener('touchstart', handleStart, { passive: false });
+        document.addEventListener('touchmove', handleMove, { passive: false });
+        document.addEventListener('touchend', handleEnd, { passive: false });
+
+        // Prevent context menu on long press
+        cardContainer.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // Zoom controls
+        zoomInBtn.addEventListener('click', zoomIn);
+        zoomOutBtn.addEventListener('click', zoomOut);
+        resetBtn.addEventListener('click', reset);
+
+        // Mouse wheel zoom
+        cardContainer.addEventListener('wheel', (event) => {
+            event.preventDefault();
+            if (event.deltaY < 0) {
+                zoomIn();
+            } else {
+                zoomOut();
+            }
+        }, { passive: false });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (event) => {
+            if (event.key === '+' || event.key === '=') {
+                zoomIn();
+            } else if (event.key === '-' || event.key === '_') {
+                zoomOut();
+            } else if (event.key === 'r' || event.key === 'R' || event.key === '0') {
+                reset();
+            }
+        });
+
+        // Initial animation
+        window.addEventListener('load', () => {
+            card.style.transition = 'transform 2s ease-in-out';
+            updateTransform();
+        });
+    </script>
+
+    <!--
+    TO ADD CUSTOM PHOTOS:
+
+    Option 1: Replace the background-image URLs in the style section above
+    .card-front {
+        background-image: url('path/to/front-photo.jpg');
+    }
+    .card-back {
+        background-image: url('path/to/back-photo.jpg');
+    }
+
+    Option 2: Add inline styles to the card-face divs
+    <div class="card-face card-front" style="background-image: url('your-image.jpg');">
+
+    Option 3: Use the JavaScript below to set images dynamically
+    -->
+    <script>
+        // Uncomment and modify to set custom images
+        // const frontFace = document.querySelector('.card-front');
+        // const backFace = document.querySelector('.card-back');
+        // frontFace.style.backgroundImage = "url('path/to/front-photo.jpg')";
+        // backFace.style.backgroundImage = "url('path/to/back-photo.jpg')";
+    </script>
+</body>
+</html>
