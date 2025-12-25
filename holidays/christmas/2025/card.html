@@ -1,520 +1,574 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holiday Card 2025</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christmas Card 2025</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
-            font-family: 'Georgia', serif;
-            overflow: hidden;
-            touch-action: none;
-        }
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      font-family: Georgia, serif;
+      overflow: hidden;
+    }
 
-        .card-container {
-            perspective: 1500px;
-            width: min(500px, 85vw, calc(85vh * 10 / 13));
-            aspect-ratio: 10 / 13;
-            cursor: grab;
-            user-select: none;
-            transition: transform 0.3s ease-out;
-        }
+    #snow, #lights {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
 
-        .card-container:active {
-            cursor: grabbing;
-        }
+    /* --- Snowflakes --- */
+    .flake {
+      position: absolute;
+      top: -20vh;
+      left: var(--x);
+      font-size: var(--size);
+      opacity: var(--opacity);
+      color: rgba(255,255,255,0.92);
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.35));
+      transform: translate3d(0, -20vh, 0);
+      animation: fall var(--dur) linear infinite;
+      animation-delay: var(--delay);
+      user-select: none;
+      will-change: transform;
+    }
 
-        .card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease-out;
-        }
+    @keyframes fall {
+      from { transform: translate3d(0, -20vh, 0) rotate(0deg); }
+      to   { transform: translate3d(var(--drift), 120vh, 0) rotate(var(--rot)); }
+    }
 
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 60px;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
+    /* --- String lights (viewport border) --- */
+    .wire {
+      position: absolute;
+      background: rgba(80, 80, 80, 0.9);
+      box-shadow: 0 0 10px rgba(255,255,255,0.08);
+    }
+    .wire.top, .wire.bottom { left: 16px; right: 16px; height: 3px; border-radius: 3px; }
+    .wire.top { top: 22px; }
+    .wire.bottom { bottom: 22px; }
 
-        .card-front {
-            background-color: #ffffff;
-            background-image: url('front.jpg');
-            border: 3px solid #d4af37;
-        }
+    .wire.left, .wire.right { top: 16px; bottom: 16px; width: 3px; border-radius: 3px; }
+    .wire.left { left: 22px; }
+    .wire.right { right: 22px; }
 
-        .card-back {
-            background-color: #f8f9fa;
-            background-image: url('back.jpg');
-            transform: rotateY(180deg);
-            border: 3px solid #d4af37;
-        }
+    .bulb {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.95), var(--c) 45%, rgba(0,0,0,0.2) 70%);
+      box-shadow:
+        0 0 10px color-mix(in srgb, var(--c) 70%, transparent),
+        0 0 24px color-mix(in srgb, var(--c) 40%, transparent);
+      opacity: 0.95;
+      animation: twinkle var(--tw) ease-in-out infinite;
+      animation-delay: var(--td);
+      will-change: filter, transform, opacity;
+    }
 
-        /* Stamp Design */
-        .stamp {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            width: 100px;
-            height: 100px;
-            border: 3px solid #c41e3a;
-            border-radius: 8px;
-            background-color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transform: rotate(12deg);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+    .bulb::after {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
+      background: rgba(120,120,120,0.9);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
 
-        .stamp::before {
-            content: '';
-            position: absolute;
-            top: -6px;
-            left: -6px;
-            right: -6px;
-            bottom: -6px;
-            background:
-                linear-gradient(90deg, #c41e3a 50%, transparent 50%),
-                linear-gradient(90deg, #c41e3a 50%, transparent 50%),
-                linear-gradient(0deg, #c41e3a 50%, transparent 50%),
-                linear-gradient(0deg, #c41e3a 50%, transparent 50%);
-            background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
-            background-size: 8px 3px, 8px 3px, 3px 8px, 3px 8px;
-            background-position: 0 0, 0 100%, 0 0, 100% 0;
-            border-radius: 8px;
-            z-index: -1;
-        }
+    @keyframes twinkle {
+      0%, 100% { filter: brightness(1); transform: scale(1); opacity: 0.9; }
+      50% { filter: brightness(1.45); transform: scale(1.06); opacity: 1; }
+    }
 
-        .stamp-text {
-            font-size: 12px;
-            font-weight: bold;
-            color: #c41e3a;
-            text-align: center;
-            line-height: 1.2;
-        }
+    /* --- Card --- */
+    .flip-card {
+      background-color: transparent;
+      width: min(520px, 86vw, calc(86vh * 10 / 13));
+      aspect-ratio: 10 / 13;
+      perspective: 1500px;
+      z-index: 2;
+    }
 
-        .stamp-price {
-            font-size: 24px;
-            font-weight: bold;
-            color: #c41e3a;
-            margin-top: 8px;
-        }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.85s cubic-bezier(.2,.8,.2,1);
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      will-change: transform;
+      transform: translateZ(0);
+    }
 
-        /* Content overlays */
-        .content-overlay {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
 
-        .card-front .content-overlay h1 {
-            font-size: 48px;
-            color: #c41e3a;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.18);
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-        .card-front .content-overlay p {
-            font-size: 24px;
-            color: #2d5016;
-            font-style: italic;
-        }
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+    }
 
-        .card-back .content-overlay h2 {
-            font-size: 36px;
-            color: #2d5016;
-            margin-bottom: 20px;
-        }
+    .flip-card-front::before,
+    .flip-card-back::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.03), rgba(255,255,255,0.03) 1px, transparent 1px, transparent 6px),
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.10), transparent 40%),
+        radial-gradient(circle at 70% 80%, rgba(255,255,255,0.07), transparent 45%);
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      z-index: 1;
+    }
 
-        .card-back .content-overlay p {
-            font-size: 18px;
-            color: #333;
-            line-height: 1.8;
-            max-width: 400px;
-        }
+    .flip-card-front {
+      background-color: #ffffff;
+      transform: rotateY(0deg) translateZ(1px);
+    }
 
-        .instructions {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px 30px;
-            border-radius: 30px;
-            color: #333;
-            font-size: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
+    .flip-card-back {
+      background-color: #0b0f16;
+      transform: rotateY(180deg) translateZ(1px);
+    }
 
-        /* Controls */
-        .controls {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1000;
-        }
+    .card-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      transform: translateZ(0);
+    }
 
-        .control-btn {
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid #d4af37;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 24px;
-            color: #333;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s ease;
-            user-select: none;
-        }
+    .stamp {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 92px;
+      height: 92px;
+      border: 3px solid #c41e3a;
+      border-radius: 8px;
+      background-color: rgba(255,255,255,0.98);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform: rotate(10deg) translateZ(2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      z-index: 3;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
 
-        .control-btn:hover {
-            background: rgba(255, 255, 255, 1);
-            transform: scale(1.1);
-            border-color: #c41e3a;
-        }
+    .stamp::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      background:
+        linear-gradient(90deg, #c41e3a 50%, transparent 50%),
+        linear-gradient(90deg, #c41e3a 50%, transparent 50%),
+        linear-gradient(0deg, #c41e3a 50%, transparent 50%),
+        linear-gradient(0deg, #c41e3a 50%, transparent 50%);
+      background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+      background-size: 8px 3px, 8px 3px, 3px 8px, 3px 8px;
+      background-position: 0 0, 0 100%, 0 0, 100% 0;
+      border-radius: 8px;
+      z-index: -1;
+      opacity: 0.95;
+    }
 
-        .control-btn:active {
-            transform: scale(0.95);
-        }
+    .stamp-text {
+      font-size: 12px;
+      font-weight: bold;
+      color: #c41e3a;
+      text-align: center;
+      line-height: 1.2;
+    }
 
-        .reset-btn {
-            background: rgba(196, 30, 58, 0.9);
-            color: white;
-            border-color: #a01729;
-            font-size: 20px;
-        }
+    .stamp-price {
+      font-size: 24px;
+      font-weight: bold;
+      color: #c41e3a;
+      margin-top: 8px;
+    }
 
-        .reset-btn:hover {
-            background: rgba(196, 30, 58, 1);
-            border-color: #c41e3a;
-        }
+    .content-overlay {
+      position: relative;
+      z-index: 3;
+      text-align: left;
+      background: rgba(255,255,255,0.92);
+      padding: 20px 24px;
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      transform: translateZ(2px);
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+      margin: 24px auto auto 24px;
+      align-self: flex-start;
+      max-width: 240px;
+    }
 
-        .zoom-label {
-            position: fixed;
-            top: 30px;
-            left: 30px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px 20px;
-            border-radius: 20px;
-            color: #333;
-            font-size: 14px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
+    .content-overlay h1 {
+      font-size: 24px;
+      color: #c41e3a;
+      margin-bottom: 6px;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.06);
+    }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .card-face {
-                padding: 30px;
-            }
+    .content-overlay p {
+      font-size: 13px;
+      color: #1f5a24;
+      font-style: italic;
+    }
 
-            .card-front .content-overlay h1 {
-                font-size: 32px;
-            }
+    .flip-card.flipped .flip-card-front .stamp,
+    .flip-card.flipped .flip-card-front .content-overlay {
+      opacity: 0;
+      visibility: hidden;
+    }
 
-            .card-front .content-overlay p {
-                font-size: 18px;
-            }
+    .flip-button {
+      position: fixed;
+      bottom: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.92);
+      padding: 10px 26px;
+      border-radius: 999px;
+      color: #111;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: transform 0.2s ease, filter 0.2s ease;
+      z-index: 3;
+    }
 
-            .card-back .content-overlay h2 {
-                font-size: 24px;
-            }
+    .flip-button:hover { transform: translateX(-50%) scale(1.04); filter: brightness(1.05); }
+    .flip-button:active { transform: translateX(-50%) scale(0.98); }
 
-            .card-back .content-overlay p {
-                font-size: 16px;
-            }
+    .mute-button {
+      position: fixed;
+      bottom: 26px;
+      right: 26px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 50%;
+      color: #111;
+      font-size: 18px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: transform 0.2s ease, filter 0.2s ease;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-            .stamp {
-                width: 70px;
-                height: 70px;
-                top: 20px;
-                right: 20px;
-            }
+    .mute-button:hover { transform: scale(1.04); filter: brightness(1.05); }
+    .mute-button:active { transform: scale(0.98); }
 
-            .stamp-text {
-                font-size: 9px;
-            }
-
-            .stamp-price {
-                font-size: 18px;
-            }
-
-            .controls {
-                top: 20px;
-                right: 20px;
-                gap: 8px;
-            }
-
-            .control-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 20px;
-            }
-
-            .reset-btn {
-                font-size: 18px;
-            }
-
-            .zoom-label {
-                top: 20px;
-                left: 20px;
-                padding: 8px 16px;
-                font-size: 12px;
-            }
-
-            .instructions {
-                bottom: 20px;
-                padding: 12px 24px;
-                font-size: 14px;
-            }
-        }
-    </style>
+    @media (max-width: 768px) {
+      .content-overlay h1 { font-size: 28px; }
+      .content-overlay p { font-size: 16px; }
+      .stamp { width: 72px; height: 72px; top: 18px; right: 18px; }
+      .stamp-text { font-size: 9px; }
+      .stamp-price { font-size: 18px; }
+      .mute-button { bottom: 22px; right: 22px; width: 40px; height: 40px; font-size: 16px; }
+      .flip-button { bottom: 22px; padding: 8px 22px; font-size: 13px; }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="card-container" id="cardContainer">
-        <div class="card" id="card">
-            <div class="card-face card-front">
-                <div class="content-overlay">
-                    <h1>Happy Holidays!</h1>
-                    <p>Season's Greetings 2025</p>
-                </div>
-            </div>
-            <div class="card-face card-back">
-                <div class="stamp">
-                    <div class="stamp-text">HOLIDAY<br>2025</div>
-                    <div class="stamp-price">❄️</div>
-                </div>
-                <div class="content-overlay">
-                    <h2>Warm Wishes</h2>
-                    <p>May your holidays be filled with joy, laughter, and cherished moments with loved ones. Here's to a wonderful 2025!</p>
-                </div>
-            </div>
+  <div id="snow" aria-hidden="true"></div>
+
+  <div id="lights" aria-hidden="true">
+    <div class="wire top"></div>
+    <div class="wire bottom"></div>
+    <div class="wire left"></div>
+    <div class="wire right"></div>
+  </div>
+
+  <div class="flip-card" id="flipCard">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <!-- Start muted so autoplay works; we will unmute after first user gesture -->
+        <video class="card-video" id="frontVideo" autoplay loop muted playsinline preload="auto" poster="front.jpg">
+          <source src="front-video.mp4" type="video/mp4" />
+        </video>
+
+        <div class="stamp">
+          <div class="stamp-text">CHRISTMAS<br />2025</div>
+          <div class="stamp-price">❄️</div>
         </div>
+
+        <div class="content-overlay">
+          <h1>Merry Christmas!</h1>
+          <p>and Happy Chanukah</p>
+        </div>
+      </div>
+
+      <div class="flip-card-back">
+        <video class="card-video" id="backVideo" autoplay loop muted playsinline preload="auto" poster="back.jpg">
+          <source src="back-video.mp4" type="video/mp4" />
+        </video>
+
+        <div class="content-overlay">
+          <h1>Happy Chanukah!</h1>
+          <p>and Merry Christmas</p>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="controls">
-        <button class="control-btn" id="zoomIn" title="Zoom In">+</button>
-        <button class="control-btn" id="zoomOut" title="Zoom Out">−</button>
-        <button class="control-btn reset-btn" id="reset" title="Reset View">↺</button>
-    </div>
+  <button class="flip-button" id="flipButton">Flip Card</button>
+  <button class="mute-button" id="muteButton" title="Unmute">🔇</button>
 
-    <div class="zoom-label" id="zoomLabel">Zoom: 100%</div>
+  <script>
+    const flipCard = document.getElementById("flipCard");
+    const flipButton = document.getElementById("flipButton");
+    const muteButton = document.getElementById("muteButton");
+    const frontVideo = document.getElementById("frontVideo");
+    const backVideo = document.getElementById("backVideo");
 
-    <div class="instructions">
-        Drag to spin • Scroll to zoom • Click reset to center
-    </div>
+    let isMuted = true;
 
-    <script>
-        const cardContainer = document.getElementById('cardContainer');
-        const card = document.getElementById('card');
-        const zoomLabel = document.getElementById('zoomLabel');
-        const zoomInBtn = document.getElementById('zoomIn');
-        const zoomOutBtn = document.getElementById('zoomOut');
-        const resetBtn = document.getElementById('reset');
-
-        let isDragging = false;
-        let currentRotationY = 0;
-        let currentRotationX = 0;
-        let startX = 0;
-        let startY = 0;
-        let velocityX = 0;
-        let velocityY = 0;
-        let currentZoom = 1;
-        const minZoom = 0.5;
-        const maxZoom = 2.5;
-        const zoomStep = 0.1;
-
-        function getEventCoords(event) {
-            if (event.touches && event.touches.length > 0) {
-                return {
-                    x: event.touches[0].clientX,
-                    y: event.touches[0].clientY
-                };
-            }
-            return {
-                x: event.clientX,
-                y: event.clientY
-            };
-        }
-
-        function handleStart(event) {
-            event.preventDefault();
-            isDragging = true;
-            const coords = getEventCoords(event);
-            startX = coords.x;
-            startY = coords.y;
-            velocityX = 0;
-            velocityY = 0;
-            card.style.transition = 'none';
-        }
-
-        function handleMove(event) {
-            if (!isDragging) return;
-            event.preventDefault();
-
-            const coords = getEventCoords(event);
-            const deltaX = coords.x - startX;
-            const deltaY = coords.y - startY;
-
-            velocityX = deltaX * 0.5;
-            velocityY = deltaY * 0.5;
-
-            const rotationY = currentRotationY + velocityX;
-            const rotationX = currentRotationX - velocityY;
-
-            card.style.transform = `rotateY(${rotationY}deg) rotateX(${rotationX}deg)`;
-        }
-
-        function handleEnd(event) {
-            if (!isDragging) return;
-            event.preventDefault();
-
-            isDragging = false;
-            currentRotationY += velocityX;
-            currentRotationX -= velocityY;
-
-            // Normalize rotations
-            currentRotationY = currentRotationY % 360;
-            currentRotationX = Math.max(-45, Math.min(45, currentRotationX));
-
-            card.style.transition = 'transform 0.3s ease-out';
-            updateTransform();
-        }
-
-        function updateTransform() {
-            card.style.transform = `rotateY(${currentRotationY}deg) rotateX(${currentRotationX}deg)`;
-            cardContainer.style.transform = `scale(${currentZoom})`;
-            zoomLabel.textContent = `Zoom: ${Math.round(currentZoom * 100)}%`;
-        }
-
-        function zoomIn() {
-            currentZoom = Math.min(maxZoom, currentZoom + zoomStep);
-            updateTransform();
-        }
-
-        function zoomOut() {
-            currentZoom = Math.max(minZoom, currentZoom - zoomStep);
-            updateTransform();
-        }
-
-        function reset() {
-            currentRotationY = 0;
-            currentRotationX = 0;
-            currentZoom = 1;
-            card.style.transition = 'transform 0.5s ease-out';
-            cardContainer.style.transition = 'transform 0.5s ease-out';
-            updateTransform();
-            setTimeout(() => {
-                card.style.transition = 'transform 0.1s ease-out';
-                cardContainer.style.transition = 'transform 0.3s ease-out';
-            }, 500);
-        }
-
-        // Mouse events
-        cardContainer.addEventListener('mousedown', handleStart);
-        document.addEventListener('mousemove', handleMove);
-        document.addEventListener('mouseup', handleEnd);
-
-        // Touch events
-        cardContainer.addEventListener('touchstart', handleStart, { passive: false });
-        document.addEventListener('touchmove', handleMove, { passive: false });
-        document.addEventListener('touchend', handleEnd, { passive: false });
-
-        // Prevent context menu on long press
-        cardContainer.addEventListener('contextmenu', (e) => e.preventDefault());
-
-        // Zoom controls
-        zoomInBtn.addEventListener('click', zoomIn);
-        zoomOutBtn.addEventListener('click', zoomOut);
-        resetBtn.addEventListener('click', reset);
-
-        // Mouse wheel zoom
-        cardContainer.addEventListener('wheel', (event) => {
-            event.preventDefault();
-            if (event.deltaY < 0) {
-                zoomIn();
-            } else {
-                zoomOut();
-            }
-        }, { passive: false });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (event) => {
-            if (event.key === '+' || event.key === '=') {
-                zoomIn();
-            } else if (event.key === '-' || event.key === '_') {
-                zoomOut();
-            } else if (event.key === 'r' || event.key === 'R' || event.key === '0') {
-                reset();
-            }
-        });
-
-        // Initial animation
-        window.addEventListener('load', () => {
-            card.style.transition = 'transform 2s ease-in-out';
-            updateTransform();
-        });
-    </script>
-
-    <!--
-    TO ADD CUSTOM PHOTOS:
-
-    Option 1: Replace the background-image URLs in the style section above
-    .card-front {
-        background-image: url('path/to/front-photo.jpg');
-    }
-    .card-back {
-        background-image: url('path/to/back-photo.jpg');
+    function safePlay(v) {
+      try {
+        const p = v.play();
+        if (p && typeof p.catch === "function") p.catch(() => {});
+      } catch (_) {}
     }
 
-    Option 2: Add inline styles to the card-face divs
-    <div class="card-face card-front" style="background-image: url('your-image.jpg');">
+    async function warmUpHiddenVideo(v) {
+      try {
+        v.load();
+        await v.play();   // muted autoplay should succeed
+        v.pause();
+        v.currentTime = 0;
+      } catch (_) {
+        // Poster will show if this fails (often missing file path).
+      }
+    }
 
-    Option 3: Use the JavaScript below to set images dynamically
-    -->
-    <script>
-        // Uncomment and modify to set custom images
-        // const frontFace = document.querySelector('.card-front');
-        // const backFace = document.querySelector('.card-back');
-        // frontFace.style.backgroundImage = "url('path/to/front-photo.jpg')";
-        // backFace.style.backgroundImage = "url('path/to/back-photo.jpg')";
-    </script>
+    function applyAudioRouting() {
+      const showingBack = flipCard.classList.contains("flipped");
+      if (isMuted) {
+        frontVideo.muted = true;
+        backVideo.muted = true;
+      } else {
+        if (showingBack) {
+          frontVideo.muted = true;
+          backVideo.muted = false;
+        } else {
+          backVideo.muted = true;
+          frontVideo.muted = false;
+        }
+      }
+    }
+
+    function setVisibleSidePlayback() {
+      const showingBack = flipCard.classList.contains("flipped");
+
+      if (showingBack) {
+        frontVideo.pause();
+        // Give the browser a beat to update 3D state, then play
+        requestAnimationFrame(() => safePlay(backVideo));
+      } else {
+        backVideo.pause();
+        requestAnimationFrame(() => safePlay(frontVideo));
+      }
+
+      applyAudioRouting();
+    }
+
+    // Initial: autoplay muted (reliable)
+    safePlay(frontVideo);
+    backVideo.pause();
+    warmUpHiddenVideo(backVideo);
+    setVisibleSidePlayback();
+
+    // Flip handler
+    function handleFlipGesture(e) {
+      flipCard.classList.toggle("flipped");
+      setVisibleSidePlayback();
+    }
+
+    flipButton.addEventListener("click", handleFlipGesture);
+
+    // Mute/unmute handler
+    muteButton.addEventListener("click", () => {
+      isMuted = !isMuted;
+      if (isMuted) {
+        muteButton.textContent = "🔇";
+        muteButton.title = "Unmute";
+      } else {
+        muteButton.textContent = "🔊";
+        muteButton.title = "Mute";
+        // Ensure videos are set to full volume
+        frontVideo.volume = 1.0;
+        backVideo.volume = 1.0;
+      }
+      // Just change mute state without stopping/starting video
+      applyAudioRouting();
+    });
+
+    // Optional: click card to flip (feels nice; remove if you only want button)
+    flipCard.addEventListener("click", (e) => {
+      if (e.target === flipButton) return;
+      handleFlipGesture(e);
+    });
+
+    // Fix: when tab is hidden, browsers pause/suspend media. On return, re-play.
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        frontVideo.pause();
+        backVideo.pause();
+        return;
+      }
+      // On becoming visible again, try resuming with more aggressive retries
+      const retryPlayback = () => {
+        setVisibleSidePlayback();
+        // Force a reload if video seems stuck
+        const activeVideo = flipCard.classList.contains("flipped") ? backVideo : frontVideo;
+        if (activeVideo.paused && activeVideo.readyState >= 2) {
+          safePlay(activeVideo);
+        }
+      };
+      setTimeout(retryPlayback, 0);
+      setTimeout(retryPlayback, 100);
+      setTimeout(retryPlayback, 300);
+      setTimeout(retryPlayback, 600);
+      setTimeout(retryPlayback, 1000);
+    });
+
+    // iOS/Safari especially likes pageshow for BFCache restores
+    window.addEventListener("pageshow", () => {
+      setTimeout(() => setVisibleSidePlayback(), 0);
+      setTimeout(() => setVisibleSidePlayback(), 200);
+      setTimeout(() => setVisibleSidePlayback(), 500);
+    });
+
+    window.addEventListener("focus", () => {
+      if (!document.hidden) {
+        setTimeout(() => setVisibleSidePlayback(), 0);
+        setTimeout(() => setVisibleSidePlayback(), 100);
+      }
+    });
+
+    // --- Snowflakes ---
+    const snow = document.getElementById("snow");
+    const FLAKES = 18;
+    const snowChars = ["❄", "✻", "✼"];
+
+    function rand(min, max) { return Math.random() * (max - min) + min; }
+    function choice(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+    function buildSnow() {
+      snow.innerHTML = "";
+      for (let i = 0; i < FLAKES; i++) {
+        const s = document.createElement("div");
+        s.className = "flake";
+
+        const size = rand(44, 140).toFixed(0) + "px";
+        const dur = rand(18, 44).toFixed(2) + "s";
+        const delay = (-rand(0, 35)).toFixed(2) + "s";
+        const drift = rand(-120, 120).toFixed(0) + "px";
+        const rot = rand(120, 520).toFixed(0) + "deg";
+        const opacity = rand(0.10, 0.35).toFixed(2);
+
+        s.textContent = choice(snowChars);
+        s.style.setProperty("--x", rand(0, 100).toFixed(2) + "vw");
+        s.style.setProperty("--size", size);
+        s.style.setProperty("--dur", dur);
+        s.style.setProperty("--delay", delay);
+        s.style.setProperty("--drift", drift);
+        s.style.setProperty("--rot", rot);
+        s.style.setProperty("--opacity", opacity);
+
+        snow.appendChild(s);
+      }
+    }
+
+    // --- Lights ---
+    const lights = document.getElementById("lights");
+    const colors = ["#ff3b3b", "#00d084", "#ffd166", "#4cc9f0", "#b517ff", "#ff7ab6"];
+
+    function buildLights() {
+      [...lights.querySelectorAll(".bulb")].forEach(b => b.remove());
+
+      const pad = 28;
+      const step = 62;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      function addBulb(x, y) {
+        const b = document.createElement("div");
+        b.className = "bulb";
+        b.style.left = x + "px";
+        b.style.top = y + "px";
+        b.style.setProperty("--c", choice(colors));
+        b.style.setProperty("--tw", rand(1.2, 2.8).toFixed(2) + "s");
+        b.style.setProperty("--td", (-rand(0, 2.8)).toFixed(2) + "s");
+        lights.appendChild(b);
+      }
+
+      for (let x = pad; x <= w - pad; x += step) {
+        addBulb(x, 16);
+        addBulb(x, h - 30);
+      }
+      for (let y = pad; y <= h - pad; y += step) {
+        addBulb(16, y);
+        addBulb(w - 30, y);
+      }
+    }
+
+    buildSnow();
+    buildLights();
+
+    let t;
+    window.addEventListener("resize", () => {
+      clearTimeout(t);
+      t = setTimeout(() => {
+        buildSnow();
+        buildLights();
+      }, 150);
+    });
+  </script>
 </body>
 </html>
