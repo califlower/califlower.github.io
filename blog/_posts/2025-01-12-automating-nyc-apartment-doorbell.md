@@ -6,7 +6,7 @@ description: "How I connected my apartment buzzer to Home Assistant using a Rasp
 reading_time: 8
 ---
 
-All my apartments in New York City have had the same buzzer—one of those little white TekTone units. Sue me, I like cheap apartments. Since getting my first place, I've wondered: how can I let people in without being home, *and* without having to get up and buzz them in?
+All my apartments in New York City have had the same buzzer, one of those little white TekTone units. Sue me, I like cheap apartments. Since getting my first place, I've wondered: how can I let people in without being home, *and* without having to get up and buzz them in?
 
 I stumbled upon [this article by Chris Whong](https://chris-m-whong.medium.com/connecting-an-apartment-door-buzzer-to-a-smarthome-hub-4664cf6a3ce4) which set me on my way. Thanks Chris, you're the best.
 
@@ -60,7 +60,7 @@ You'll also need to power the board with a DC input anywhere between 6V-40V. I u
 
 ## The Code
 
-The code is pretty simple (don't judge—it worked flawlessly). A lot of it was written out of paranoia that the door would get stuck in the "ON" position.
+The code is pretty simple (don't judge, it worked flawlessly). A lot of it was written out of paranoia that the door would get stuck in the "ON" position.
 
 Here's the original code:
 
@@ -440,7 +440,7 @@ The whole setup has been rock solid. Worth every minute of head-scratching over 
 
 I'd love to make this battery powered in the future. There's no reason this can't last a billion years on a large-ish battery.
 
-I already have the parts sitting in a drawer: an [XIAO BLE Sense nRF52840 from Seeed Studio](https://www.seeedstudio.com/Seeed-XIAO-BLE-Sense-nRF52840-p-5253.html), plus a handful of components from DigiKey—a 4-pin DIP socket, a bridge rectifier, an optoisolator, a current regulator diode, and a solid state relay.
+I already have the parts sitting in a drawer: an [XIAO BLE Sense nRF52840 from Seeed Studio](https://www.seeedstudio.com/Seeed-XIAO-BLE-Sense-nRF52840-p-5253.html), plus a handful of components from DigiKey (a 4-pin DIP socket, a bridge rectifier, an optoisolator, a current regulator diode, and a solid state relay).
 
 But I'm a bit intimidated by the nRF SDK and the low-level coding involved, and then there's the final step of designing an actual PCB. So this has been sitting on the backburner. Maybe someday.
 
