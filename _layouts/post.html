@@ -1,0 +1,198 @@
+---
+layout: default
+---
+<style>
+  {% include syntax.css %}
+
+  article {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #333;
+  }
+
+  article h1 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+    color: #111;
+  }
+
+  .post-meta {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  article h2 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: #111;
+  }
+
+  article h3 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: #111;
+  }
+
+  article p {
+    margin-bottom: 1.25rem;
+  }
+
+  article ul, article ol {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+  }
+
+  article li {
+    margin-bottom: 0.5rem;
+  }
+
+  article a {
+    color: #0066cc;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  article a:hover {
+    color: #004499;
+  }
+
+  article img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+    border-radius: 4px;
+  }
+
+  article figure {
+    margin: 2rem 0;
+  }
+
+  article figure img {
+    margin: 0 auto;
+  }
+
+  article figcaption {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.85rem;
+    color: #666;
+    text-align: center;
+    margin-top: 0.75rem;
+  }
+
+  article .highlight {
+    border-radius: 6px;
+    margin: 1.5rem 0;
+    overflow: hidden;
+  }
+
+  article .highlight pre {
+    margin: 0;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+  }
+
+  article pre {
+    background: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  article code {
+    font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.85em;
+  }
+
+  article p code, article li code {
+    background: #f4f4f4;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.85em;
+    color: #d73a49;
+  }
+
+  article pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  article blockquote {
+    border-left: 3px solid #0066cc;
+    margin: 1.5rem 0;
+    padding-left: 1.25rem;
+    color: #555;
+    font-style: italic;
+  }
+
+  .post-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+  }
+
+  .comments {
+    margin-top: 2rem;
+  }
+
+  .comments-cta {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    article h1 {
+      font-size: 1.75rem;
+    }
+
+    article {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<article>
+  <header>
+    <h1>{{ page.title }}</h1>
+    <p class="post-meta">
+      {{ page.date | date: "%B %d, %Y" }}
+      {% if page.reading_time %}
+      &middot; {{ page.reading_time }} min read
+      {% endif %}
+    </p>
+  </header>
+
+  {{ content }}
+
+  <footer class="post-footer">
+    <p><a href="/blog/">&larr; Back to all posts</a></p>
+  </footer>
+</article>
+
+<div class="comments">
+  <p class="comments-cta">Questions or thoughts? Leave a comment below — I'll respond!</p>
+  {% include utterances.html %}
+</div>

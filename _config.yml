@@ -1,0 +1,14 @@
+title: Calin Gilan
+description: Personal blog
+url: "https://califlower.github.io"
+
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+exclude:
+  - README.md
+  - CNAME
