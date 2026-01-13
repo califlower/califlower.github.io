@@ -427,9 +427,13 @@ DEFAULT_CONFIG = {
 
 The full updated code is much longer with all the auto-calibration and MQTT configuration features, but the core idea remains the same: read the ADC, detect when someone buzzes, and let Home Assistant know.
 
+
+This code simply needs to be dragged and dropped into the Automation PI 2040. Connecting is pretty simple. I used a micro usb -> usbc cable and the Thonny IDE. Once it's dropped in, you can start it using the IDE or just restart the board. As long as your MQTT broker location is set up correctly in your code, MQTT will discover the topics when they get a message and Home Assistant SHOULD be able to auto add the entities using auto discovery.
+
 ## Results
 
 Now I can:
+
 - Get notified on my phone when someone buzzes
 - Let people in remotely from anywhere
 - Set up automations (like auto-buzzing in expected guests)
