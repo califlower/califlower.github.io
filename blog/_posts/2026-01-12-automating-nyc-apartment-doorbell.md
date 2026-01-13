@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Automating Your Old New York City Apartment Doorbell"
-date: 2025-01-12
+date: 2026-01-12
 description: "How I connected my apartment buzzer to Home Assistant using a Raspberry Pi and some creative wiring."
 reading_time: 8
 ---
