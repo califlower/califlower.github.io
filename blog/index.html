@@ -4,57 +4,59 @@ title: Blog
 description: Personal blog posts about software, hardware, and home automation
 ---
 <style>
+  /* Block: blog-header */
   .blog-header {
     margin-bottom: 2.5rem;
   }
 
-  .blog-header h1 {
-    font-size: 2rem;
+  .blog-header__title {
+    font-size: 1.75rem;
     font-weight: 600;
     color: #111;
     margin-bottom: 0.5rem;
   }
 
-  .blog-header p {
+  .blog-header__description {
     color: #666;
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
-  .posts-list {
+  /* Block: post-list */
+  .post-list {
     list-style: none;
   }
 
-  .post-item {
-    padding: 1.25rem 0;
-    border-bottom: 1px solid #eee;
+  .post-list__item {
+    padding: 1rem 0;
+    border-left: 3px solid transparent;
+    padding-left: 1rem;
+    margin-left: -1rem;
+    transition: all 0.15s ease;
   }
 
-  .post-item:first-child {
-    padding-top: 0;
+  .post-list__item:hover {
+    border-left-color: #0066cc;
+    background: #f8f9fa;
   }
 
-  .post-item:last-child {
-    border-bottom: none;
-  }
-
-  .post-item a {
-    font-size: 1.125rem;
+  .post-list__link {
+    font-size: 1.1rem;
     font-weight: 500;
     color: #111;
     text-decoration: none;
-    transition: color 0.15s ease;
   }
 
-  .post-item a:hover {
+  .post-list__link:hover {
     color: #0066cc;
   }
 
-  .post-date {
+  .post-list__date {
     font-size: 0.85rem;
     color: #888;
-    margin-top: 0.35rem;
+    margin-top: 0.25rem;
   }
 
+  /* Block: empty-state */
   .empty-state {
     color: #888;
     font-style: italic;
@@ -62,16 +64,16 @@ description: Personal blog posts about software, hardware, and home automation
 </style>
 
 <header class="blog-header">
-  <h1>Blog</h1>
-  <p>Thoughts on software, hardware, and making things work.</p>
+  <h1 class="blog-header__title">Blog</h1>
+  <p class="blog-header__description">Thoughts on software, hardware, and making things work.</p>
 </header>
 
 {% if site.posts.size > 0 %}
-<ul class="posts-list">
+<ul class="post-list">
   {% for post in site.posts %}
-  <li class="post-item">
-    <a href="{{ post.url }}">{{ post.title }}</a>
-    <p class="post-date">{{ post.date | date: "%B %d, %Y" }}</p>
+  <li class="post-list__item">
+    <a href="{{ post.url }}" class="post-list__link">{{ post.title }}</a>
+    <p class="post-list__date">{{ post.date | date: "%B %d, %Y" }}</p>
   </li>
   {% endfor %}
 </ul>

@@ -1,0 +1,1486 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Local Flighty (AirLabs) — One File, No Backend</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#101935;
+      --panel2:#0f1730;
+      --text:#e8eeff;
+      --muted:#9aa7c7;
+      --border:#253259;
+      --accent:#7aa2ff;
+      --good:#5ee6a8;
+      --warn:#ffd37a;
+      --bad:#ff7a93;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --radius:14px;
+    }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:radial-gradient(1200px 800px at 20% 10%, #15265a 0%, var(--bg) 55%), var(--bg);
+      color:var(--text);
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1100px; margin:24px auto; padding:0 16px 48px;}
+    .topbar{
+      display:flex; gap:12px; align-items:flex-start; justify-content:space-between;
+      margin-bottom:16px;
+    }
+    .brand{display:flex; flex-direction:column; gap:4px}
+    .brand h1{font-size:18px; margin:0; letter-spacing:.2px}
+    .brand .sub{color:var(--muted); font-size:12px; max-width:820px; line-height:1.35}
+    .pillrow{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+    .pill{
+      padding:6px 10px; border:1px solid var(--border); background:rgba(255,255,255,.04);
+      border-radius:999px; font-size:12px; color:var(--muted);
+    }
+    .pill strong{color:var(--text); font-weight:600}
+    .grid{display:grid; grid-template-columns: 1fr 1fr; gap:14px;}
+    @media (max-width: 940px){ .grid{grid-template-columns:1fr;} }
+
+    .card{
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius:var(--radius);
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+      overflow:hidden;
+    }
+    .card h2{
+      margin:0; padding:12px 14px;
+      font-size:13px; letter-spacing:.3px; text-transform:uppercase;
+      background:rgba(0,0,0,.18);
+      border-bottom:1px solid rgba(255,255,255,.06);
+      color:#cfd8ff;
+    }
+    .card .body{padding:12px 14px;}
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    .row > *{flex:0 0 auto;}
+    input, select, textarea{
+      font: 13px var(--sans);
+      color:var(--text);
+      background:rgba(0,0,0,.22);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:10px 10px;
+      outline:none;
+    }
+    input::placeholder, textarea::placeholder{color:#7f8bb0}
+    input.mono, textarea.mono{font-family:var(--mono)}
+    textarea{width:100%; min-height:96px; resize:vertical}
+    .grow{flex:1 1 auto}
+    .btn{
+      font: 13px var(--sans);
+      color:var(--text);
+      background:rgba(122,162,255,.16);
+      border:1px solid rgba(122,162,255,.45);
+      border-radius:12px;
+      padding:10px 12px;
+      cursor:pointer;
+      transition:transform .03s ease, background .12s ease;
+      user-select:none;
+    }
+    .btn:hover{background:rgba(122,162,255,.22)}
+    .btn:active{transform:translateY(1px)}
+    .btn.secondary{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      color:var(--muted);
+    }
+    .btn.danger{
+      background:rgba(255,122,147,.10);
+      border:1px solid rgba(255,122,147,.35);
+      color:#ffd1da;
+    }
+    .btn.good{
+      background:rgba(94,230,168,.10);
+      border:1px solid rgba(94,230,168,.35);
+      color:#caffea;
+    }
+    .btn.small{padding:7px 10px; border-radius:10px; font-size:12px}
+    .kv{
+      display:grid; grid-template-columns:170px 1fr; gap:8px 10px;
+      align-items:center; margin-top:10px;
+    }
+    .kv .k{color:var(--muted); font-size:12px}
+    .kv .v{font-size:12px}
+    .help{color:var(--muted); font-size:12px; line-height:1.4; margin-top:8px}
+    .warnbox{
+      border:1px solid rgba(255,211,122,.35);
+      background:rgba(255,211,122,.08);
+      color:#ffe5b5;
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:12px; line-height:1.4;
+      margin-top:10px;
+    }
+    .okbox{
+      border:1px solid rgba(94,230,168,.35);
+      background:rgba(94,230,168,.08);
+      color:#caffea;
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:12px; line-height:1.4;
+      margin-top:10px;
+    }
+    .badbox{
+      border:1px solid rgba(255,122,147,.35);
+      background:rgba(255,122,147,.08);
+      color:#ffd1da;
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:12px; line-height:1.4;
+      margin-top:10px;
+    }
+
+    .flightlist{display:flex; flex-direction:column; gap:10px;}
+    .flight{
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.20);
+      border-radius:14px;
+      padding:10px 10px;
+    }
+    .flightHeader{display:flex; justify-content:space-between; gap:10px; align-items:flex-start; flex-wrap:wrap}
+    .flightTitle{display:flex; flex-direction:column; gap:2px}
+    .flightTitle .code{font-family:var(--mono); font-size:14px; letter-spacing:.2px}
+    .flightTitle .meta{color:var(--muted); font-size:12px}
+    .flightActions{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+    .badge{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:5px 9px; border-radius:999px; font-size:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      color:var(--muted);
+    }
+    .badge.good{border-color:rgba(94,230,168,.35); background:rgba(94,230,168,.10); color:#caffea}
+    .badge.warn{border-color:rgba(255,211,122,.35); background:rgba(255,211,122,.10); color:#ffe5b5}
+    .badge.bad{border-color:rgba(255,122,147,.35); background:rgba(255,122,147,.10); color:#ffd1da}
+    .flightGrid{
+      margin-top:8px;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:8px 12px;
+    }
+    @media (max-width: 700px){ .flightGrid{grid-template-columns:1fr;} }
+    .field{display:flex; flex-direction:column; gap:2px}
+    .field .k{color:var(--muted); font-size:11px}
+    .field .v{font-size:12px; font-family:var(--mono); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    details{margin-top:8px}
+    summary{cursor:pointer; color:#cfd8ff; font-size:12px}
+    .hist{
+      margin-top:8px;
+      border-top:1px dashed rgba(255,255,255,.10);
+      padding-top:8px;
+      display:flex; flex-direction:column; gap:6px;
+      max-height:240px;
+      overflow:auto;
+    }
+    .evt{
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      border-radius:12px;
+      padding:8px 10px;
+      font-size:12px;
+      display:flex; flex-direction:column; gap:6px;
+    }
+    .evtTop{display:flex; justify-content:space-between; gap:10px; align-items:center}
+    .evtTop .t{color:var(--muted); font-family:var(--mono); font-size:11px}
+    .evtTop .tag{font-size:11px; color:#cfd8ff}
+    .chg{display:flex; gap:10px; flex-wrap:wrap}
+    .chg span{font-family:var(--mono); font-size:11px; color:#dfe7ff}
+    .chg span b{color:#9fb5ff; font-weight:600}
+
+    .footerNote{margin-top:16px; color:var(--muted); font-size:12px; line-height:1.4}
+    .hr{height:1px; background:rgba(255,255,255,.08); margin:10px 0}
+
+    .overlay{
+      position:fixed; inset:0; background:rgba(0,0,0,.65);
+      display:none; align-items:center; justify-content:center;
+      padding:18px;
+      z-index:999;
+    }
+    .modal{
+      width:min(560px, 96vw);
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(16,25,53,.96), rgba(10,14,30,.98));
+      border-radius:16px;
+      box-shadow:0 25px 70px rgba(0,0,0,.55);
+      overflow:hidden;
+    }
+    .modal h3{margin:0; padding:12px 14px; font-size:14px; border-bottom:1px solid rgba(255,255,255,.08)}
+    .modal .mbody{padding:12px 14px;}
+    .modal .mbody p{margin:0 0 10px 0; color:var(--muted); font-size:12px; line-height:1.45}
+
+    .tight{margin-top:6px}
+    label.ck{display:flex; align-items:center; gap:8px; color:var(--muted); font-size:12px}
+    label.ck input{transform:translateY(1px)}
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">
+      <h1>Local Flighty (AirLabs) — one file, no backend</h1>
+      <div class="sub">
+        Everything persists locally (IndexedDB, fallback to localStorage). You can add flights, refresh, leave, come back later — no need to keep re-sharing an updated URL.
+        <b>Read-only links</b> include flights+history only. <b>Encrypted links</b include flights+history + your API key (inside ciphertext) so other devices can refresh after unlock.
+      </div>
+    </div>
+    <div class="pillrow">
+      <div class="pill">Mode: <strong id="modePill">local</strong></div>
+      <div class="pill">Flights: <strong id="countPill">0</strong></div>
+      <div class="pill">History events: <strong id="histPill">0</strong></div>
+      <div class="pill">Last ok: <strong id="lastPill">—</strong></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Setup: Vault + API + storage</h2>
+      <div class="body">
+        <div class="help">
+          <b>Vault password</b> is used for two things:
+          (1) encrypting your API key at rest in local storage, and
+          (2) as the default password when you generate encrypted share links (you can override each time).
+        </div>
+
+        <div class="row tight">
+          <input id="vaultPw" class="grow mono" type="password" placeholder="Vault password (used to encrypt stored API key)" />
+          <button class="btn good" id="unlockVaultBtn">Unlock / Set</button>
+          <button class="btn secondary" id="lockVaultBtn">Lock</button>
+        </div>
+        <div class="row tight">
+          <label class="ck"><input type="checkbox" id="rememberVaultTab" /> Remember until tab closes</label>
+          <label class="ck"><input type="checkbox" id="rememberVaultDevice" /> Remember on this device (less safe)</label>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="row">
+          <input id="apiKey" class="grow mono" placeholder="AirLabs api_key" />
+          <button class="btn good" id="saveKeyBtn">Save (encrypted)</button>
+          <button class="btn secondary" id="clearKeyBtn">Clear key</button>
+        </div>
+
+        <div class="kv">
+          <div class="k">AirLabs base URL</div>
+          <div class="v"><span class="badge"><span style="font-family:var(--mono)">https://airlabs.co/api/v9</span></span></div>
+
+          <div class="k">CORS proxy (optional)</div>
+          <div class="v">
+            <input id="proxy" class="grow mono" placeholder="(optional) e.g. https://your-proxy.example/?url=" />
+          </div>
+
+          <div class="k">Poll interval</div>
+          <div class="v">
+            <select id="pollSeconds">
+              <option value="0">Off (manual)</option>
+              <option value="30">30s</option>
+              <option value="60" selected>60s</option>
+              <option value="120">2m</option>
+              <option value="300">5m</option>
+            </select>
+            <span class="badge" style="margin-left:8px">Polling burns API calls.</span>
+          </div>
+
+          <div class="k">History policy</div>
+          <div class="v">
+            <select id="historyMode">
+              <option value="diffs" selected>Store only changed fields (recommended)</option>
+              <option value="snapshots">Store full snapshot each refresh (huge)</option>
+            </select>
+          </div>
+
+          <div class="k">Max events/flight</div>
+          <div class="v">
+            <input id="maxEvents" type="number" min="10" step="10" value="300" style="width:140px" />
+            <span class="badge" style="margin-left:8px">Oldest trimmed per flight.</span>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="row">
+          <button class="btn" id="refreshAllBtn">Refresh all now</button>
+          <button class="btn secondary" id="stopBtn">Stop polling</button>
+          <button class="btn danger" id="wipeBtn">Wipe local state</button>
+        </div>
+
+        <div id="setupMsg" class="help"></div>
+
+        <div class="warnbox">
+          If direct browser calls fail due to CORS, set a proxy prefix above. This app intentionally has no backend.
+          Encrypted share links contain your API key inside ciphertext; anyone with the password can extract it.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Add flights + share</h2>
+      <div class="body">
+        <div class="row">
+          <input id="flightCode" class="grow mono" placeholder="Flight code: IATA (AA6) or ICAO (AAL6)" />
+          <select id="codeType">
+            <option value="iata" selected>IATA</option>
+            <option value="icao">ICAO</option>
+          </select>
+          <button class="btn good" id="addBtn">Add</button>
+        </div>
+        <div class="help">
+          This app stores your own “history” timeline from refreshes/changes. It persists locally and is included in share links.
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="row">
+          <input id="sharePwOverride" class="grow mono" type="password" placeholder="(optional) override password for encrypted share link" />
+          <button class="btn" id="shareEncryptedBtn">Make encrypted share link</button>
+          <button class="btn" id="shareReadOnlyBtn">Make read-only link</button>
+        </div>
+        <div class="help">
+          Read-only: plain compressed, no key. Encrypted: includes API key + proxy + state, encrypted with password (override above or vault password).
+        </div>
+
+        <div id="shareArea" style="display:none; margin-top:10px;">
+          <div class="row" style="margin-bottom:8px;">
+            <span class="badge" id="shareKindBadge">link</span>
+            <span class="badge">Length: <b id="shareLen" style="font-family:var(--mono)">0</b></span>
+            <button class="btn small secondary" id="copyShareBtn">Copy</button>
+          </div>
+          <textarea id="shareOut" class="mono" spellcheck="false"></textarea>
+          <div id="shareHint" class="help"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <h2>Flights</h2>
+    <div class="body">
+      <div id="flights" class="flightlist"></div>
+      <div id="empty" class="help">No flights yet. Add one above.</div>
+
+      <div class="footerNote">
+        Local persistence uses IndexedDB (fallback localStorage). Share links store state in the URL hash.
+        If your history grows massive, encrypted links can get very long; local storage will still work fine.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="overlay" class="overlay">
+  <div class="modal">
+    <h3 id="modalTitle">Modal</h3>
+    <div class="mbody">
+      <p id="modalDesc">…</p>
+      <div id="modalControls"></div>
+      <div id="modalMsg" style="margin-top:10px;"></div>
+      <div class="help" id="modalHelp" style="margin-top:10px;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* -------------------- tiny utils -------------------- */
+const $ = (id) => document.getElementById(id);
+const nowMs = () => Date.now();
+const iso = (ms) => new Date(ms).toISOString().replace('T',' ').replace('Z','Z');
+const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+function escapeHtml(s){
+  return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#039;");
+}
+function fmt(v){
+  if (v === undefined || v === null || v === '') return '—';
+  if (typeof v === 'number') return String(v);
+  return String(v);
+}
+function shortTime(utcStr){
+  if (!utcStr || typeof utcStr !== 'string') return '—';
+  return utcStr;
+}
+function newId(){
+  return Math.random().toString(16).slice(2) + Math.random().toString(16).slice(2);
+}
+
+/* -------------------- base64url -------------------- */
+function base64UrlEncode(bytes){
+  let bin = '';
+  const chunk = 0x8000;
+  for (let i=0;i<bytes.length;i+=chunk){
+    bin += String.fromCharCode(...bytes.subarray(i, i+chunk));
+  }
+  const b64 = btoa(bin);
+  return b64.replaceAll('+','-').replaceAll('/','_').replaceAll('=','');
+}
+function base64UrlDecodeToBytes(b64url){
+  let b64 = b64url.replaceAll('-','+').replaceAll('_','/');
+  const pad = b64.length % 4;
+  if (pad) b64 += '='.repeat(4-pad);
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i=0;i<bin.length;i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+
+/* -------------------- compression (gzip) -------------------- */
+async function gzipCompressBytesFromString(str){
+  const enc = new TextEncoder();
+  const input = enc.encode(str);
+  if ('CompressionStream' in window){
+    const cs = new CompressionStream('gzip');
+    const w = cs.writable.getWriter();
+    w.write(input);
+    await w.close();
+    const ab = await new Response(cs.readable).arrayBuffer();
+    return new Uint8Array(ab);
+  }
+  // fallback: no gzip
+  return input;
+}
+async function gzipDecompressStringFromBytes(bytes){
+  if ('DecompressionStream' in window){
+    const ds = new DecompressionStream('gzip');
+    const stream = new Response(bytes).body.pipeThrough(ds);
+    return await new Response(stream).text();
+  }
+  // fallback: treat as utf-8 (only works if it wasn't gzipped)
+  const dec = new TextDecoder();
+  return dec.decode(bytes);
+}
+
+/* -------------------- stable stringify (helps compression) -------------------- */
+function stableStringify(obj){
+  const seen = new WeakSet();
+  const sorter = (x) => {
+    if (x && typeof x === 'object'){
+      if (seen.has(x)) return x;
+      seen.add(x);
+      if (Array.isArray(x)) return x.map(sorter);
+      const keys = Object.keys(x).sort();
+      const o = {};
+      for (const k of keys) o[k] = sorter(x[k]);
+      return o;
+    }
+    return x;
+  };
+  return JSON.stringify(sorter(obj));
+}
+
+/* -------------------- crypto (AES-GCM) -------------------- */
+function randBytes(n){
+  const b = new Uint8Array(n);
+  crypto.getRandomValues(b);
+  return b;
+}
+async function deriveAesKey(password, saltBytes, iterations=310000){
+  const enc = new TextEncoder();
+  const baseKey = await crypto.subtle.importKey(
+    'raw',
+    enc.encode(password),
+    { name: 'PBKDF2' },
+    false,
+    ['deriveKey']
+  );
+  return await crypto.subtle.deriveKey(
+    { name:'PBKDF2', salt:saltBytes, iterations, hash:'SHA-256' },
+    baseKey,
+    { name:'AES-GCM', length:256 },
+    false,
+    ['encrypt','decrypt']
+  );
+}
+// pack: [v(1), salt(16), iv(12), ct(...)]
+async function encryptBytesWithPassword(plainBytes, password){
+  const v = 1;
+  const salt = randBytes(16);
+  const iv = randBytes(12);
+  const key = await deriveAesKey(password, salt);
+  const ct = new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM', iv}, key, plainBytes));
+  const out = new Uint8Array(1 + salt.length + iv.length + ct.length);
+  out[0] = v;
+  out.set(salt, 1);
+  out.set(iv, 1 + salt.length);
+  out.set(ct, 1 + salt.length + iv.length);
+  return out;
+}
+async function decryptBytesWithPassword(packedBytes, password){
+  if (packedBytes.length < 1+16+12) throw new Error('bad payload');
+  const v = packedBytes[0];
+  if (v !== 1) throw new Error('unsupported version');
+  const salt = packedBytes.subarray(1, 17);
+  const iv = packedBytes.subarray(17, 29);
+  const ct = packedBytes.subarray(29);
+  const key = await deriveAesKey(password, salt);
+  const pt = new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM', iv}, key, ct));
+  return pt;
+}
+
+/* -------------------- persistent storage (IndexedDB + fallback) -------------------- */
+const DB = {
+  _db: null,
+  _useLocal: false,
+  _prefix: 'lfy_v2_',
+
+  async init(){
+    if (!('indexedDB' in window)){
+      this._useLocal = true;
+      return;
+    }
+    try{
+      this._db = await new Promise((resolve, reject) => {
+        const req = indexedDB.open('local_flighty_db', 1);
+        req.onupgradeneeded = () => {
+          const db = req.result;
+          if (!db.objectStoreNames.contains('kv')) db.createObjectStore('kv');
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+      this._useLocal = false;
+    }catch{
+      this._useLocal = true;
+    }
+  },
+
+  async get(key){
+    if (this._useLocal){
+      const raw = localStorage.getItem(this._prefix + key);
+      if (raw == null) return null;
+      try{ return JSON.parse(raw); }catch{ return null; }
+    }
+    return await new Promise((resolve, reject) => {
+      const tx = this._db.transaction('kv', 'readonly');
+      const store = tx.objectStore('kv');
+      const req = store.get(key);
+      req.onsuccess = () => resolve(req.result ?? null);
+      req.onerror = () => reject(req.error);
+    });
+  },
+
+  async set(key, value){
+    if (this._useLocal){
+      localStorage.setItem(this._prefix + key, JSON.stringify(value));
+      return;
+    }
+    await new Promise((resolve, reject) => {
+      const tx = this._db.transaction('kv', 'readwrite');
+      const store = tx.objectStore('kv');
+      const req = store.put(value, key);
+      req.onsuccess = () => resolve();
+      req.onerror = () => reject(req.error);
+    });
+  },
+
+  async del(key){
+    if (this._useLocal){
+      localStorage.removeItem(this._prefix + key);
+      return;
+    }
+    await new Promise((resolve, reject) => {
+      const tx = this._db.transaction('kv', 'readwrite');
+      const store = tx.objectStore('kv');
+      const req = store.delete(key);
+      req.onsuccess = () => resolve();
+      req.onerror = () => reject(req.error);
+    });
+  }
+};
+
+/* -------------------- app state & settings -------------------- */
+const KEYS = {
+  STATE: 'state',
+  SETTINGS: 'settings',
+  VAULT: 'vault_cache' // only for "remember on device" option
+};
+
+function defaultState(){
+  return { v: 2, createdAt: nowMs(), updatedAt: nowMs(), flights: [] };
+}
+function defaultSettings(){
+  return {
+    v: 2,
+    proxy: '',
+    pollSeconds: 60,
+    historyMode: 'diffs',
+    maxEvents: 300,
+    // api key stored separately, usually encrypted
+    apiKeyEncB64: null, // base64url of packed encrypted bytes
+    apiKeyPlain: null,  // only used if user chooses to store plain (we don't via UI)
+    // vault prefs:
+    rememberVaultTab: true,
+    rememberVaultDevice: false
+  };
+}
+
+let STATE = defaultState();
+let SETTINGS = defaultSettings();
+
+let MODE = 'local'; // local | read-only | encrypted
+let pollTimer = null;
+let inFlight = false;
+
+// vault password cache:
+const VAULT = {
+  // stored in memory:
+  pw: null,
+  // stored optionally:
+  sessionKey: 'lfy_vault_pw_tab',
+};
+
+/* -------------------- modal helpers -------------------- */
+function showModal({title, desc, controlsHtml, help, onMount}){
+  $('modalTitle').textContent = title;
+  $('modalDesc').textContent = desc;
+  $('modalControls').innerHTML = controlsHtml || '';
+  $('modalHelp').textContent = help || '';
+  $('modalMsg').innerHTML = '';
+  $('overlay').style.display = 'flex';
+  if (onMount) onMount();
+}
+function closeModal(){
+  $('overlay').style.display = 'none';
+  $('modalControls').innerHTML = '';
+  $('modalMsg').innerHTML = '';
+  $('modalHelp').textContent = '';
+}
+$('overlay').addEventListener('click', (e) => {
+  if (e.target === $('overlay')) closeModal();
+});
+
+/* -------------------- vault + api key handling -------------------- */
+function vaultIsUnlocked(){
+  return !!VAULT.pw;
+}
+function vaultLoadCachedPw(){
+  // prefer device-remembered
+  if (SETTINGS.rememberVaultDevice){
+    const stored = localStorage.getItem('lfy_vault_pw_device');
+    if (stored) return stored;
+  }
+  if (SETTINGS.rememberVaultTab){
+    const stored = sessionStorage.getItem(VAULT.sessionKey);
+    if (stored) return stored;
+  }
+  return null;
+}
+function vaultCachePw(pw){
+  if (SETTINGS.rememberVaultDevice){
+    localStorage.setItem('lfy_vault_pw_device', pw);
+  } else {
+    localStorage.removeItem('lfy_vault_pw_device');
+  }
+  if (SETTINGS.rememberVaultTab){
+    sessionStorage.setItem(VAULT.sessionKey, pw);
+  } else {
+    sessionStorage.removeItem(VAULT.sessionKey);
+  }
+}
+function vaultClearCachedPw(){
+  sessionStorage.removeItem(VAULT.sessionKey);
+  localStorage.removeItem('lfy_vault_pw_device');
+}
+async function setApiKeyEncrypted(apiKey){
+  const pw = VAULT.pw;
+  if (!pw) throw new Error('Vault locked. Unlock / set a vault password first.');
+  const bytes = await encryptBytesWithPassword(new TextEncoder().encode(apiKey), pw);
+  SETTINGS.apiKeyEncB64 = base64UrlEncode(bytes);
+  SETTINGS.apiKeyPlain = null;
+  await persistSettings();
+}
+async function getApiKey(){
+  // if encrypted:
+  if (SETTINGS.apiKeyEncB64){
+    if (!VAULT.pw) return '';
+    try{
+      const packed = base64UrlDecodeToBytes(SETTINGS.apiKeyEncB64);
+      const plain = await decryptBytesWithPassword(packed, VAULT.pw);
+      return new TextDecoder().decode(plain).trim();
+    }catch{
+      return '';
+    }
+  }
+  // if plain (not recommended):
+  return (SETTINGS.apiKeyPlain || '').trim();
+}
+async function clearApiKey(){
+  SETTINGS.apiKeyEncB64 = null;
+  SETTINGS.apiKeyPlain = null;
+  await persistSettings();
+}
+
+/* -------------------- persist/load -------------------- */
+async function persistState(){
+  STATE.updatedAt = nowMs();
+  await DB.set(KEYS.STATE, STATE);
+}
+async function persistSettings(){
+  await DB.set(KEYS.SETTINGS, SETTINGS);
+}
+async function loadAll(){
+  const s = await DB.get(KEYS.STATE);
+  const st = await DB.get(KEYS.SETTINGS);
+  if (s && s.v === 2 && Array.isArray(s.flights)) STATE = s;
+  if (st && st.v === 2) SETTINGS = {...defaultSettings(), ...st};
+
+  // restore vault prefs UI checkboxes later:
+  const cached = vaultLoadCachedPw();
+  if (cached) VAULT.pw = cached;
+}
+
+/* -------------------- AirLabs fetch -------------------- */
+const AIRLABS_BASE = 'https://airlabs.co/api/v9';
+
+function buildUrl(endpoint, params){
+  const u = new URL(AIRLABS_BASE + endpoint);
+  for (const [k,v] of Object.entries(params)){
+    if (v === undefined || v === null || v === '') continue;
+    u.searchParams.set(k, v);
+  }
+  return u.toString();
+}
+async function fetchJson(url){
+  const proxy = (SETTINGS.proxy || '').trim();
+  const finalUrl = proxy ? (proxy + encodeURIComponent(url)) : url;
+
+  const res = await fetch(finalUrl, {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'no-store',
+    headers: { 'Accept': 'application/json' }
+  });
+
+  const text = await res.text();
+  let json;
+  try{ json = JSON.parse(text); }catch{ json = { _raw:text }; }
+
+  if (!res.ok){
+    const msg = (json && (json.error?.message || json.message)) || `${res.status} ${res.statusText}`;
+    throw new Error(msg);
+  }
+  return json;
+}
+
+function pickImportantFields(api){
+  const o = {};
+  const keep = [
+    'status','updated',
+    'airline_iata','airline_icao',
+    'flight_iata','flight_icao','flight_number',
+    'dep_iata','dep_icao','dep_terminal','dep_gate',
+    'dep_time_utc','dep_estimated_utc','dep_actual_utc',
+    'arr_iata','arr_icao','arr_terminal','arr_gate','arr_baggage',
+    'arr_time_utc','arr_estimated_utc','arr_actual_utc',
+    'aircraft_icao','reg_number','hex',
+    'lat','lng','alt','dir','speed','v_speed'
+  ];
+  for (const k of keep){
+    if (api[k] !== undefined && api[k] !== null) o[k] = api[k];
+  }
+  return o;
+}
+function shallowDiff(prev, next){
+  const ch = {};
+  const keys = new Set([...Object.keys(prev||{}), ...Object.keys(next||{})]);
+  for (const k of keys){
+    const a = prev ? prev[k] : undefined;
+    const b = next ? next[k] : undefined;
+    const va = (typeof a === 'number') ? Math.round(a*1000)/1000 : a;
+    const vb = (typeof b === 'number') ? Math.round(b*1000)/1000 : b;
+    if (va !== vb) ch[k] = vb;
+  }
+  return ch;
+}
+function summarizeChange(change){
+  const parts = [];
+  const push = (k,label) => { if (k in change) parts.push(label); };
+  push('status', 'status');
+  push('dep_gate', 'dep gate');
+  push('dep_terminal', 'dep terminal');
+  push('arr_gate', 'arr gate');
+  push('arr_terminal', 'arr terminal');
+  push('arr_baggage', 'baggage');
+  push('dep_estimated_utc', 'ETD');
+  push('dep_actual_utc', 'ATD');
+  push('arr_estimated_utc', 'ETA');
+  push('arr_actual_utc', 'ATA');
+  push('lat', 'position');
+  push('lng', 'position');
+  return parts.length ? parts.join(', ') : 'update';
+}
+
+/* -------------------- refresh -------------------- */
+async function refreshFlight(f){
+  const key = await getApiKey();
+  if (!key) throw new Error('Missing api_key (unlock vault + save key).');
+
+  const params = { api_key: key };
+  if (f.type === 'icao') params.flight_icao = f.code;
+  else params.flight_iata = f.code;
+
+  const url = buildUrl('/flight', params);
+  const json = await fetchJson(url);
+
+  const apiObj = json.response || json || {};
+  if (!apiObj || typeof apiObj !== 'object'){
+    throw new Error('Unexpected API response.');
+  }
+
+  const next = pickImportantFields(apiObj);
+  const prev = f.current || {};
+  const maxEvents = clamp(parseInt(SETTINGS.maxEvents || 300, 10) || 300, 10, 50000);
+
+  let evt = null;
+  if (SETTINGS.historyMode === 'snapshots'){
+    evt = { t: nowMs(), kind: 'snapshot', data: next };
+  } else {
+    const change = shallowDiff(prev, next);
+    if (Object.keys(change).length){
+      evt = { t: nowMs(), kind: 'diff', data: change, note: summarizeChange(change) };
+    }
+  }
+
+  f.current = next;
+  f.lastOkAt = nowMs();
+  f.lastErr = null;
+
+  if (evt){
+    f.history = f.history || [];
+    f.history.push(evt);
+    if (f.history.length > maxEvents){
+      f.history = f.history.slice(f.history.length - maxEvents);
+    }
+  }
+
+  return next;
+}
+
+async function refreshAll(){
+  if (inFlight) return;
+  inFlight = true;
+  render();
+
+  const flights = STATE.flights.slice();
+  const errors = [];
+
+  for (const f of flights){
+    f.lastTryAt = nowMs();
+    try{
+      await refreshFlight(f);
+    }catch(e){
+      f.lastErr = String(e?.message || e);
+      errors.push({ code:f.code, err:f.lastErr });
+    }
+    await persistState();
+    render();
+    await sleep(220);
+  }
+
+  inFlight = false;
+  await persistState();
+  render();
+
+  if (flights.length && errors.length === flights.length){
+    const msg = errors[0]?.err || 'All requests failed.';
+    $('setupMsg').innerHTML =
+      `<div class="badbox"><b>Refresh failed for all flights.</b><br/>` +
+      `Likely: wrong key, quota, or CORS blocked.<br/>` +
+      `First error: <span style="font-family:var(--mono)">${escapeHtml(msg)}</span>` +
+      `</div>`;
+  }
+}
+
+function startPolling(){
+  stopPolling();
+  const sec = parseInt(SETTINGS.pollSeconds || 0, 10);
+  if (!sec || sec <= 0) return;
+  pollTimer = setInterval(() => refreshAll(), sec*1000);
+}
+function stopPolling(){
+  if (pollTimer) clearInterval(pollTimer);
+  pollTimer = null;
+}
+
+/* -------------------- share links -------------------- */
+function totalHistoryEvents(){
+  return STATE.flights.reduce((a,f)=>a + (f.history?.length||0), 0);
+}
+function stripForReadOnlyShare(state){
+  // Read-only = state only
+  return structuredClone(state);
+}
+async function makeReadOnlyLink(){
+  const payload = { v: 1, kind:'ro', state: stripForReadOnlyShare(STATE), madeAt: nowMs() };
+  const json = stableStringify(payload);
+  const compressed = await gzipCompressBytesFromString(json);
+  const b64 = base64UrlEncode(compressed);
+  const url = new URL(location.href);
+  url.hash = 'ro=' + b64;
+  return url.toString();
+}
+async function makeEncryptedLink(password){
+  const apiKey = await getApiKey();
+  if (!apiKey) throw new Error('Missing api_key (unlock vault + save key).');
+
+  const payload = {
+    v: 1,
+    kind:'e',
+    state: STATE,
+    secrets: {
+      apiKey,
+      proxy: (SETTINGS.proxy || '')
+    },
+    madeAt: nowMs()
+  };
+
+  const json = stableStringify(payload);
+  const compressed = await gzipCompressBytesFromString(json);
+  const packed = await encryptBytesWithPassword(compressed, password);
+  const b64 = base64UrlEncode(packed);
+
+  const url = new URL(location.href);
+  url.hash = 'e=' + b64;
+  return url.toString();
+}
+
+function validateAndSetState(s){
+  if (!s || !Array.isArray(s.flights)) throw new Error('Bad state payload');
+  // upgrade to v2 state format
+  const next = {
+    v: 2,
+    createdAt: s.createdAt || nowMs(),
+    updatedAt: nowMs(),
+    flights: []
+  };
+  for (const f of s.flights){
+    if (!f || typeof f !== 'object') continue;
+    if (!f.code || typeof f.code !== 'string') continue;
+    const type = (f.type === 'icao' ? 'icao' : 'iata');
+    next.flights.push({
+      id: f.id || newId(),
+      type,
+      code: String(f.code).toUpperCase(),
+      createdAt: f.createdAt || nowMs(),
+      lastOkAt: f.lastOkAt || null,
+      lastTryAt: f.lastTryAt || null,
+      lastErr: f.lastErr || null,
+      current: (f.current && typeof f.current === 'object') ? f.current : {},
+      history: Array.isArray(f.history) ? f.history : []
+    });
+  }
+  STATE = next;
+}
+
+async function loadFromReadOnlyHash(b64){
+  const bytes = base64UrlDecodeToBytes(b64);
+  const json = await gzipDecompressStringFromBytes(bytes);
+  const payload = JSON.parse(json);
+
+  if (payload && payload.state) validateAndSetState(payload.state);
+  else validateAndSetState(payload);
+
+  MODE = 'read-only';
+  await persistState();
+  render();
+}
+
+async function loadFromEncryptedHash(b64, password){
+  const packed = base64UrlDecodeToBytes(b64);
+  const plain = await decryptBytesWithPassword(packed, password);
+  const json = await gzipDecompressStringFromBytes(plain);
+  const payload = JSON.parse(json);
+
+  if (payload && payload.state) validateAndSetState(payload.state);
+  else validateAndSetState(payload);
+
+  // Import secrets from encrypted payload:
+  const secrets = payload?.secrets || {};
+  const apiKey = (typeof secrets.apiKey === 'string') ? secrets.apiKey.trim() : '';
+  const proxy = (typeof secrets.proxy === 'string') ? secrets.proxy.trim() : '';
+
+  // Set vault to this password (so we can store api key encrypted at rest without extra prompts)
+  VAULT.pw = password;
+  vaultCachePw(password);
+
+  SETTINGS.proxy = proxy;
+  await persistSettings();
+
+  if (apiKey){
+    await setApiKeyEncrypted(apiKey);
+  }
+
+  MODE = 'encrypted';
+  await persistState();
+  render();
+}
+
+/* -------------------- rendering -------------------- */
+function statusBadge(status){
+  const s = String(status||'').toLowerCase();
+  if (s.includes('land') || s === 'landed') return ['good', status || 'landed'];
+  if (s.includes('cancel')) return ['bad', status || 'cancelled'];
+  if (s.includes('en-route') || s.includes('active')) return ['warn', status || 'active'];
+  if (s.includes('sched')) return ['', status || 'scheduled'];
+  return ['', status || 'unknown'];
+}
+
+function showShare(link, kind){
+  $('shareArea').style.display = 'block';
+  $('shareOut').value = link;
+  $('shareLen').textContent = String(link.length);
+  $('shareKindBadge').textContent = kind;
+
+  const tooBig = link.length > 120000;
+  $('shareHint').innerHTML = tooBig
+    ? `<div class="warnbox">This link is extremely long (${link.length} chars). Many apps will choke on it. Consider trimming history (max events) or using diff history mode.</div>`
+    : `<div class="help">Tip: Read-only links never include secrets. Encrypted links include API key inside ciphertext.</div>`;
+
+  $('copyShareBtn').onclick = async () => {
+    try{
+      await navigator.clipboard.writeText(link);
+      $('shareHint').innerHTML = `<div class="okbox">Copied.</div>`;
+    }catch{
+      $('shareHint').innerHTML = `<div class="warnbox">Copy failed. Select the text and copy manually.</div>`;
+    }
+  };
+}
+
+async function render(){
+  $('modePill').textContent = MODE;
+  $('countPill').textContent = String(STATE.flights.length);
+  $('histPill').textContent = String(totalHistoryEvents());
+  $('lastPill').textContent = STATE.flights.some(f=>f.lastOkAt) ? iso(Math.max(...STATE.flights.map(f=>f.lastOkAt||0))) : '—';
+
+  // settings -> UI
+  $('proxy').value = SETTINGS.proxy || '';
+  $('pollSeconds').value = String(SETTINGS.pollSeconds || 0);
+  $('historyMode').value = SETTINGS.historyMode || 'diffs';
+  $('maxEvents').value = String(SETTINGS.maxEvents || 300);
+
+  $('rememberVaultTab').checked = !!SETTINGS.rememberVaultTab;
+  $('rememberVaultDevice').checked = !!SETTINGS.rememberVaultDevice;
+
+  // api key UI: if vault locked, don't show actual key
+  const apiKey = await getApiKey();
+  $('apiKey').value = apiKey || '';
+  if (!vaultIsUnlocked() && SETTINGS.apiKeyEncB64){
+    $('apiKey').value = '';
+    $('apiKey').placeholder = 'API key is stored encrypted — unlock vault to view/use';
+  } else {
+    $('apiKey').placeholder = 'AirLabs api_key';
+  }
+
+  // setup status box
+  const keyStatus = SETTINGS.apiKeyEncB64 ? (vaultIsUnlocked() ? 'set (encrypted, unlocked)' : 'set (encrypted, locked)') : (apiKey ? 'set' : 'missing');
+  const polling = pollTimer ? `Polling every ${SETTINGS.pollSeconds}s.` : (SETTINGS.pollSeconds > 0 ? `Polling configured: ${SETTINGS.pollSeconds}s (not running yet).` : `Polling: off.`);
+  $('setupMsg').innerHTML =
+    `<div class="okbox">` +
+      `Vault: <b>${vaultIsUnlocked() ? 'unlocked' : 'locked'}</b> • API key: <b>${escapeHtml(keyStatus)}</b> • ${escapeHtml(polling)} • History: <b>${escapeHtml(SETTINGS.historyMode)}</b>` +
+      (inFlight ? ` • <span style="color:#ffe5b5"><b>Refreshing…</b></span>` : ``) +
+    `</div>`;
+
+  // flights list
+  const list = $('flights');
+  list.innerHTML = '';
+  $('empty').style.display = STATE.flights.length ? 'none' : 'block';
+
+  for (const f of STATE.flights){
+    const cur = f.current || {};
+    const [cls, label] = statusBadge(cur.status);
+    const badgeClass = cls ? ('badge ' + cls) : 'badge';
+
+    const lastOk = f.lastOkAt ? iso(f.lastOkAt) : '—';
+    const lastTry = f.lastTryAt ? iso(f.lastTryAt) : '—';
+    const err = f.lastErr;
+
+    const dep = fmt(cur.dep_iata);
+    const arr = fmt(cur.arr_iata);
+
+    const histCount = (f.history||[]).length;
+
+    const el = document.createElement('div');
+    el.className = 'flight';
+    el.innerHTML = `
+      <div class="flightHeader">
+        <div class="flightTitle">
+          <div class="code">${escapeHtml(f.type.toUpperCase())}: <span style="color:#dfe7ff">${escapeHtml(f.code)}</span>
+            <span class="${badgeClass}" style="margin-left:8px">${escapeHtml(label)}</span>
+          </div>
+          <div class="meta">
+            ${escapeHtml(dep)} → ${escapeHtml(arr)}
+            • last ok: <span style="font-family:var(--mono)">${escapeHtml(lastOk)}</span>
+            • last try: <span style="font-family:var(--mono)">${escapeHtml(lastTry)}</span>
+            • events: <span style="font-family:var(--mono)">${histCount}</span>
+            ${err ? ` • <span style="color:#ffd1da">err: <span style="font-family:var(--mono)">${escapeHtml(err)}</span></span>` : ``}
+          </div>
+        </div>
+        <div class="flightActions">
+          <button class="btn small" data-act="refresh" data-id="${escapeHtml(f.id)}">Refresh</button>
+          <button class="btn small secondary" data-act="clearHist" data-id="${escapeHtml(f.id)}">Clear history</button>
+          <button class="btn small danger" data-act="remove" data-id="${escapeHtml(f.id)}">Remove</button>
+        </div>
+      </div>
+
+      <div class="flightGrid">
+        <div class="field"><div class="k">Departure (UTC)</div><div class="v">sched ${escapeHtml(shortTime(cur.dep_time_utc))} • est ${escapeHtml(shortTime(cur.dep_estimated_utc))} • act ${escapeHtml(shortTime(cur.dep_actual_utc))}</div></div>
+        <div class="field"><div class="k">Arrival (UTC)</div><div class="v">sched ${escapeHtml(shortTime(cur.arr_time_utc))} • est ${escapeHtml(shortTime(cur.arr_estimated_utc))} • act ${escapeHtml(shortTime(cur.arr_actual_utc))}</div></div>
+        <div class="field"><div class="k">Gate/Terminal</div><div class="v">dep T${escapeHtml(fmt(cur.dep_terminal))} G${escapeHtml(fmt(cur.dep_gate))} • arr T${escapeHtml(fmt(cur.arr_terminal))} G${escapeHtml(fmt(cur.arr_gate))}</div></div>
+        <div class="field"><div class="k">Baggage / Aircraft</div><div class="v">bag ${escapeHtml(fmt(cur.arr_baggage))} • ${escapeHtml(fmt(cur.aircraft_icao))} • reg ${escapeHtml(fmt(cur.reg_number))}</div></div>
+        <div class="field"><div class="k">Position</div><div class="v">lat ${escapeHtml(fmt(cur.lat))} • lng ${escapeHtml(fmt(cur.lng))} • alt ${escapeHtml(fmt(cur.alt))}</div></div>
+        <div class="field"><div class="k">Speed / Heading</div><div class="v">spd ${escapeHtml(fmt(cur.speed))} • dir ${escapeHtml(fmt(cur.dir))} • vspd ${escapeHtml(fmt(cur.v_speed))}</div></div>
+      </div>
+
+      <details ${histCount ? '' : 'open'}>
+        <summary>History (${histCount})</summary>
+        <div class="hist">
+          ${
+            histCount
+              ? f.history.slice().reverse().map(evt => {
+                  const t = iso(evt.t);
+                  const kind = evt.kind || 'evt';
+                  const note = evt.note ? ` • ${escapeHtml(evt.note)}` : '';
+                  const data = evt.data || {};
+                  const keys = Object.keys(data);
+                  const entries = keys.slice(0, 28).map(k => `<span><b>${escapeHtml(k)}</b>=${escapeHtml(fmt(data[k]))}</span>`).join(' ');
+                  const more = keys.length > 28 ? ` <span style="color:#9aa7c7">(…+${keys.length-28})</span>` : '';
+                  return `
+                    <div class="evt">
+                      <div class="evtTop">
+                        <div class="t">${escapeHtml(t)}</div>
+                        <div class="tag">${escapeHtml(kind)}${note}</div>
+                      </div>
+                      <div class="chg">${entries}${more}</div>
+                    </div>
+                  `;
+                }).join('')
+              : `<div class="help">No history yet. Hit refresh.</div>`
+          }
+        </div>
+      </details>
+    `;
+    list.appendChild(el);
+  }
+
+  // wire actions
+  list.querySelectorAll('button[data-act]').forEach(btn => {
+    btn.onclick = async () => {
+      const act = btn.getAttribute('data-act');
+      const id = btn.getAttribute('data-id');
+      const f = STATE.flights.find(x => x.id === id);
+      if (!f) return;
+
+      if (act === 'remove'){
+        STATE.flights = STATE.flights.filter(x => x.id !== id);
+        await persistState();
+        render();
+        return;
+      }
+      if (act === 'clearHist'){
+        f.history = [];
+        await persistState();
+        render();
+        return;
+      }
+      if (act === 'refresh'){
+        try{
+          inFlight = true; render();
+          f.lastTryAt = nowMs();
+          await refreshFlight(f);
+          await persistState();
+        }catch(e){
+          f.lastErr = String(e?.message || e);
+          f.lastTryAt = nowMs();
+          await persistState();
+        }finally{
+          inFlight = false; render();
+        }
+      }
+    };
+  });
+}
+
+/* -------------------- hash import -------------------- */
+async function importFromHashIfPresent(){
+  const h = (location.hash || '').replace(/^#/, '');
+  if (!h) return;
+
+  const params = new URLSearchParams(h.replaceAll('&amp;','&'));
+  if (params.has('ro')){
+    try{
+      await loadFromReadOnlyHash(params.get('ro'));
+    }catch(e){
+      $('setupMsg').innerHTML = `<div class="badbox">Failed to load read-only link: <span style="font-family:var(--mono)">${escapeHtml(e?.message||String(e))}</span></div>`;
+    }
+    return;
+  }
+  if (params.has('e')){
+    const b64 = params.get('e');
+    showModal({
+      title: 'Unlock encrypted link',
+      desc: 'Enter the password to decrypt. This will import flights+history and also save the API key locally (encrypted with this same password).',
+      controlsHtml: `
+        <div class="row">
+          <input id="unlockPw" class="grow mono" type="password" placeholder="Password" />
+          <button class="btn good" id="unlockGo">Unlock</button>
+          <button class="btn secondary" id="unlockCancel">Cancel</button>
+        </div>
+      `,
+      help: 'If you forget the password, there is no recovery.',
+      onMount: () => {
+        const inp = $('unlockPw');
+        inp.focus();
+        $('unlockCancel').onclick = closeModal;
+        $('unlockGo').onclick = async () => {
+          const pw = inp.value;
+          if (!pw) { $('modalMsg').innerHTML = `<div class="warnbox">Password required.</div>`; return; }
+          try{
+            $('modalMsg').innerHTML = `<div class="okbox">Decrypting…</div>`;
+            await loadFromEncryptedHash(b64, pw);
+            closeModal();
+          }catch(e){
+            $('modalMsg').innerHTML = `<div class="badbox">Failed: <span style="font-family:var(--mono)">${escapeHtml(e?.message||String(e))}</span></div>`;
+          }
+        };
+        inp.onkeydown = (ev) => {
+          if (ev.key === 'Enter') $('unlockGo').click();
+          if (ev.key === 'Escape') $('unlockCancel').click();
+        };
+      }
+    });
+    return;
+  }
+}
+
+/* -------------------- UI handlers -------------------- */
+$('rememberVaultTab').addEventListener('change', async () => {
+  SETTINGS.rememberVaultTab = $('rememberVaultTab').checked;
+  await persistSettings();
+  if (VAULT.pw) vaultCachePw(VAULT.pw);
+  render();
+});
+$('rememberVaultDevice').addEventListener('change', async () => {
+  SETTINGS.rememberVaultDevice = $('rememberVaultDevice').checked;
+  await persistSettings();
+  if (VAULT.pw) vaultCachePw(VAULT.pw);
+  render();
+});
+
+$('unlockVaultBtn').onclick = async () => {
+  const pw = $('vaultPw').value;
+  if (!pw){
+    // If user already has cached pw, "Unlock/Set" should use it:
+    const cached = vaultLoadCachedPw();
+    if (cached){
+      VAULT.pw = cached;
+      render();
+      return;
+    }
+    $('setupMsg').innerHTML = `<div class="warnbox">Enter a vault password first.</div>`;
+    return;
+  }
+  VAULT.pw = pw;
+  vaultCachePw(pw);
+
+  // If there is an encrypted key saved and it doesn't decrypt with this pw, warn:
+  if (SETTINGS.apiKeyEncB64){
+    const k = await getApiKey();
+    if (!k){
+      $('setupMsg').innerHTML = `<div class="warnbox">Vault unlocked, but stored API key could not be decrypted (wrong password?).</div>`;
+    }
+  }
+  $('vaultPw').value = '';
+  render();
+};
+
+$('lockVaultBtn').onclick = async () => {
+  VAULT.pw = null;
+  vaultClearCachedPw();
+  $('vaultPw').value = '';
+  render();
+};
+
+$('saveKeyBtn').onclick = async () => {
+  try{
+    const key = ($('apiKey').value || '').trim();
+    if (!key) { $('setupMsg').innerHTML = `<div class="warnbox">Paste an API key first.</div>`; return; }
+    await setApiKeyEncrypted(key);
+    $('apiKey').value = '';
+    $('setupMsg').innerHTML = `<div class="okbox">Saved API key (encrypted at rest).</div>`;
+  }catch(e){
+    $('setupMsg').innerHTML = `<div class="badbox">Save failed: <span style="font-family:var(--mono)">${escapeHtml(e?.message||String(e))}</span></div>`;
+  }
+  render();
+};
+
+$('clearKeyBtn').onclick = async () => {
+  await clearApiKey();
+  $('apiKey').value = '';
+  render();
+};
+
+$('proxy').addEventListener('change', async () => {
+  SETTINGS.proxy = $('proxy').value || '';
+  await persistSettings();
+  render();
+});
+
+$('pollSeconds').addEventListener('change', async () => {
+  SETTINGS.pollSeconds = parseInt($('pollSeconds').value, 10) || 0;
+  await persistSettings();
+  startPolling();
+  render();
+});
+$('historyMode').addEventListener('change', async () => {
+  SETTINGS.historyMode = $('historyMode').value;
+  await persistSettings();
+  render();
+});
+$('maxEvents').addEventListener('change', async () => {
+  SETTINGS.maxEvents = clamp(parseInt($('maxEvents').value,10) || 300, 10, 50000);
+  await persistSettings();
+  render();
+});
+
+$('addBtn').onclick = async () => {
+  const code = ($('flightCode').value || '').trim().toUpperCase();
+  const type = $('codeType').value === 'icao' ? 'icao' : 'iata';
+  if (!code) return;
+
+  if (!/^[A-Z0-9]+$/.test(code)){
+    $('setupMsg').innerHTML = `<div class="warnbox">Flight code should be alphanumeric (e.g. AA6, AAL6).</div>`;
+    return;
+  }
+  if (STATE.flights.some(f => f.code === code && f.type === type)){
+    $('setupMsg').innerHTML = `<div class="warnbox">That flight is already in the list.</div>`;
+    return;
+  }
+
+  STATE.flights.unshift({
+    id: newId(),
+    type,
+    code,
+    createdAt: nowMs(),
+    lastOkAt: null,
+    lastTryAt: null,
+    lastErr: null,
+    current: {},
+    history: []
+  });
+
+  $('flightCode').value = '';
+  await persistState();
+  render();
+};
+
+$('refreshAllBtn').onclick = () => refreshAll();
+$('stopBtn').onclick = () => { stopPolling(); render(); };
+$('wipeBtn').onclick = async () => {
+  if (!confirm('Wipe local flights + history + settings? This does NOT invalidate links you already sent.')) return;
+  STATE = defaultState();
+  SETTINGS = defaultSettings();
+  VAULT.pw = null;
+  vaultClearCachedPw();
+  await DB.set(KEYS.STATE, STATE);
+  await DB.set(KEYS.SETTINGS, SETTINGS);
+  stopPolling();
+  $('shareArea').style.display = 'none';
+  render();
+};
+
+$('shareReadOnlyBtn').onclick = async () => {
+  try{
+    const link = await makeReadOnlyLink();
+    showShare(link, 'read-only');
+  }catch(e){
+    $('setupMsg').innerHTML = `<div class="badbox">Share failed: <span style="font-family:var(--mono)">${escapeHtml(e?.message||String(e))}</span></div>`;
+  }
+};
+
+$('shareEncryptedBtn').onclick = async () => {
+  try{
+    // password selection: override input OR vault password OR prompt
+    let pw = ($('sharePwOverride').value || '').trim();
+    if (!pw) pw = VAULT.pw || '';
+
+    if (!pw){
+      showModal({
+        title: 'Encrypted share password',
+        desc: 'Enter a password to encrypt the share link. The link will include API key + proxy + state inside ciphertext.',
+        controlsHtml: `
+          <div class="row">
+            <input id="sharePw" class="grow mono" type="password" placeholder="Password" />
+            <button class="btn good" id="shareGo">Create link</button>
+            <button class="btn secondary" id="shareCancel">Cancel</button>
+          </div>
+        `,
+        help: 'Tip: set a vault password in Setup to avoid being prompted every time.',
+        onMount: () => {
+          const inp = $('sharePw');
+          inp.focus();
+          $('shareCancel').onclick = closeModal;
+          $('shareGo').onclick = async () => {
+            const p = inp.value.trim();
+            if (!p) { $('modalMsg').innerHTML = `<div class="warnbox">Password required.</div>`; return; }
+            try{
+              $('modalMsg').innerHTML = `<div class="okbox">Building link…</div>`;
+              const link = await makeEncryptedLink(p);
+              showShare(link, 'encrypted');
+              closeModal();
+            }catch(e){
+              $('modalMsg').innerHTML = `<div class="badbox">Failed: <span style="font-family:var(--mono)">${escapeHtml(e?.message||String(e))}</span></div>`;
+            }
+          };
+          inp.onkeydown = (ev) => {
+            if (ev.key === 'Enter') $('shareGo').click();
+            if (ev.key === 'Escape') $('shareCancel').click();
+          };
+        }
+      });
+      return;
+    }
+
+    const link = await makeEncryptedLink(pw);
+    showShare(link, 'encrypted');
+  }catch(e){
+    $('setupMsg').innerHTML = `<div class="badbox">Encrypted share failed: <span style="font-family:var(--mono)">${escapeHtml(e?.message||String(e))}</span></div>`;
+  }
+};
+
+/* -------------------- boot -------------------- */
+window.addEventListener('hashchange', () => importFromHashIfPresent());
+
+(async function boot(){
+  await DB.init();
+  await loadAll();
+
+  // bring vault pw from cache if present
+  const cached = vaultLoadCachedPw();
+  if (cached) VAULT.pw = cached;
+
+  // apply UI from settings
+  $('pollSeconds').value = String(SETTINGS.pollSeconds || 0);
+  $('historyMode').value = SETTINGS.historyMode || 'diffs';
+  $('maxEvents').value = String(SETTINGS.maxEvents || 300);
+  $('proxy').value = SETTINGS.proxy || '';
+  $('rememberVaultTab').checked = !!SETTINGS.rememberVaultTab;
+  $('rememberVaultDevice').checked = !!SETTINGS.rememberVaultDevice;
+
+  // import link (if present) and persist
+  await importFromHashIfPresent();
+
+  render();
+  startPolling();
+})();
+</script>
+</body>
+</html>
