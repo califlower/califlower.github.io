@@ -40,40 +40,40 @@
       {
         id: "missiles",
         name: "Missiles",
-        cost: scaleMoney(120),
+        cost: scaleMoney(1800),
         speed: 1.55,
         power: 34,
         effects: { insurgent: 1.15, armor: 0.7, air: 0.45, cyber: 0.6 },
-        note: "Fast and cheap. Good on soft targets."
+        note: "Baseline precision strike. Still expensive."
       },
       {
         id: "big-missiles",
         name: "Big Missiles",
-        cost: scaleMoney(420),
+        cost: scaleMoney(9000),
         speed: 1.05,
         power: 78,
         radius: 96,
         effects: { insurgent: 0.95, armor: 1.25, air: 0.65, cyber: 0.4 },
-        note: "Expensive splash option for clustered threats."
+        note: "Budget-shredding splash option for dense targets."
       },
       {
         id: "airplane",
         name: "Airplane",
-        cost: scaleMoney(260),
+        cost: scaleMoney(5200),
         speed: 1.25,
         power: 40,
         effects: { insurgent: 1.0, armor: 0.8, air: 1.2, cyber: 0.55 },
-        note: "Balanced strike, best against air threats."
+        note: "High-cost flyover strike package."
       },
       {
         id: "ground-troops",
         name: "Ground Troops",
-        cost: scaleMoney(180),
+        cost: scaleMoney(3800),
         speed: 0.82,
         power: 20,
         suppression: true,
         effects: { insurgent: 1.3, armor: 0.45, air: 0.2, cyber: 0.75 },
-        note: "Slow deploy, extends local threat timers."
+        note: "Very costly, slow formation with sustained pressure."
       }
     ],
 

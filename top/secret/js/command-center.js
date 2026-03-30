@@ -609,9 +609,31 @@ class CommandCenterGame {
   resolveProjectileHit(projectile, now) {
     const weapon = WEAPONS.find((item) => item.id === projectile.weaponId);
     const target = this.state.threats.find((item) => item.id === projectile.targetId);
-    if (!weapon || !target) return;
+    if (!weapon) return;
 
-    this.addImpactEffect(target.x, target.y, weapon.id, now);
+    const impactX = target
+      ? target.x
+      : (typeof projectile.targetX === "number" ? projectile.targetX : projectile.tx);
+    const impactY = target
+      ? target.y
+      : (typeof projectile.targetY === "number" ? projectile.targetY : projectile.ty);
+
+    this.addImpactEffect(impactX, impactY, weapon.id, now);
+
+    if (!target) {
+      if (weapon.radius) {
+        this.state.threats.forEach((neighbor) => {
+          const distance = Math.hypot(neighbor.x - impactX, neighbor.y - impactY);
+          if (distance <= weapon.radius) {
+            const splash = weapon.power * 0.42 * (1 - distance / weapon.radius) * rand(0.75, 1.12);
+            neighbor.hp -= splash;
+          }
+        });
+      }
+
+      this.pushEvent(weapon.name + " impacted a cleared zone. Oversight calls this 'preemptive confidence'.");
+      return;
+    }
 
     const multiplier = weapon.effects[target.type] || 0.6;
     const damage = weapon.power * multiplier * rand(0.88, 1.14);
@@ -625,9 +647,10 @@ class CommandCenterGame {
     if (weapon.radius) {
       this.state.threats.forEach((neighbor) => {
         if (neighbor.id === target.id) return;
-        const distance = Math.hypot(neighbor.x - target.x, neighbor.y - target.y);
+        const distance = Math.hypot(neighbor.x - impactX, neighbor.y - impactY);
         if (distance <= weapon.radius) {
-          neighbor.hp -= damage * 0.55;
+          const splash = damage * 0.55 * (1 - distance / weapon.radius * 0.6);
+          neighbor.hp -= splash;
         }
       });
 
@@ -1519,6 +1542,8 @@ class CommandCenterGame {
 
   drawEffects(now) {
     this.state.effects.forEach((effect) => {
+      if (now < effect.start) return;
+
       const age = clamp((now - effect.start) / effect.duration, 0, 1);
       const radius = effect.maxRadius * (0.24 + age * 0.88);
       const alpha = 1 - age;
