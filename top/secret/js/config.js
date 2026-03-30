@@ -5,7 +5,7 @@
   window.TopSecretConfig = {
     PASSCODE: "1234",
     TERMINAL_LINE:
-      "Welcome to our dallas texas SCIF. Make no mistake, this is our most secure facility despite being under BUCCEES. Here you will be coordinating the war effort against our foreign adversaries. Bucc-le up.",
+      "Welcome to our Dallas, Texas SCIF. Make no mistake: this is our most secure facility, despite being under a Buc-ee's. Here, you will coordinate the war effort against our foreign adversaries. Buc-ee up.",
 
     ECONOMY_SCALE,
     scaleMoney,
@@ -92,7 +92,7 @@
       "Defense lobbyist suggests adding gold-plated map legends.",
       "Public survey says 54% are impressed by blinking lights.",
       "Regional senator requests honorary missile naming rights.",
-      "Warehouse near BUCCEES requests hazard pay and kolache subsidy.",
+      "Warehouse near Buc-ee's requests hazard pay and kolache subsidy.",
       "Unplanned contractor retreat charges filed to emergency line-item."
     ],
 

@@ -1,5 +1,5 @@
 const PASSCODE = "1234";
-const TERMINAL_LINE = "Welcome to our dallas texas SCIF. Make no mistake, this is our most secure facility despite being under BUCCEES. Here you will be coordinating the war effort against our foreign adversaries. Bucc-le up.";
+const TERMINAL_LINE = "Welcome to our Dallas, Texas SCIF. Make no mistake: this is our most secure facility, despite being under a Buc-ee's. Here, you will coordinate the war effort against our foreign adversaries. Buc-ee up.";
 
 const screens = {
   gate: document.getElementById("gateScreen"),
@@ -18,6 +18,11 @@ let game = null;
 
 let entered = "";
 let gateLocked = false;
+const terminalTyping = {
+  active: false,
+  cursor: 0,
+  timerId: null
+};
 
 function showScreen(name) {
   Object.keys(screens).forEach((key) => screens[key].classList.remove("active"));
@@ -43,22 +48,41 @@ function failGate() {
   window.setTimeout(resetGateHint, 1200);
 }
 
+function finishTerminalLine() {
+  if (terminalTyping.timerId) {
+    window.clearTimeout(terminalTyping.timerId);
+    terminalTyping.timerId = null;
+  }
+
+  terminalTyping.active = false;
+  terminalTyping.cursor = TERMINAL_LINE.length;
+  typed.textContent = TERMINAL_LINE;
+  confirmBtn.style.display = "inline-block";
+}
+
+function typeTerminalNextChar() {
+  if (!terminalTyping.active) return;
+
+  if (terminalTyping.cursor >= TERMINAL_LINE.length) {
+    finishTerminalLine();
+    return;
+  }
+
+  typed.textContent += TERMINAL_LINE[terminalTyping.cursor++];
+  terminalTyping.timerId = window.setTimeout(typeTerminalNextChar, 24 + Math.random() * 36);
+}
+
 function runTerminalLine() {
   typed.textContent = "";
   confirmBtn.style.display = "none";
-
-  let cursor = 0;
-  function typeNext() {
-    if (cursor >= TERMINAL_LINE.length) {
-      confirmBtn.style.display = "inline-block";
-      return;
-    }
-
-    typed.textContent += TERMINAL_LINE[cursor++];
-    window.setTimeout(typeNext, 24 + Math.random() * 36);
+  terminalTyping.active = true;
+  terminalTyping.cursor = 0;
+  if (terminalTyping.timerId) {
+    window.clearTimeout(terminalTyping.timerId);
+    terminalTyping.timerId = null;
   }
 
-  typeNext();
+  typeTerminalNextChar();
 }
 
 function submitGate() {
@@ -117,6 +141,12 @@ wireKeypad();
 renderReadout();
 
 window.addEventListener("keydown", (event) => {
+  if (screens.terminal.classList.contains("active") && event.code === "Space") {
+    event.preventDefault();
+    if (terminalTyping.active) finishTerminalLine();
+    return;
+  }
+
   if (!screens.gate.classList.contains("active")) return;
 
   if (
