@@ -20,7 +20,7 @@ Have you talked to Meta AI today? He lives in WhatsApp. He's also in Instagram. 
 
 <figure>
   <img src="/blog/images/machine-god/spotify-ask-for-some-music.jpeg" alt="Spotify home screen showing the Ask for some music beta prompt">
-  <figcaption>Spotify: an "Ask for some music" beta prompt embedded above the New Music Friday feed.</figcaption>
+  <figcaption>Spotify. Oh you like music? Let's talk about it.</figcaption>
 </figure>
 
 <figure>
