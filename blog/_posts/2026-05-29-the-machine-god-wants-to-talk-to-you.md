@@ -4,6 +4,8 @@ title: "The Machine God Wants to Talk to You"
 date: 2026-05-29
 description: "Have you talked to AI today?"
 reading_time: 1
+image: /blog/images/machine-god/spotify-ask-for-some-music.jpeg
+image_alt: "Spotify home screen showing the Ask for some music beta prompt"
 ---
 
 Have you talked to Meta AI today? He lives in WhatsApp. He's also in Instagram. You can't find him? He's in Messenger. Have you spoken to Copilot yet? He lives in Word. He lives in Windows. You can find him in Excel. What about Gemini? Are you going to the store? Have you talked to Gemini about this? Have you confessed to the machine god yet on your favorite app?
@@ -15,7 +17,7 @@ Have you talked to Meta AI today? He lives in WhatsApp. He's also in Instagram. 
 
 <figure>
   <img src="/blog/images/machine-god/google-maps-gemini-re-center.jpeg" alt="Google Maps navigation screen with a Gemini button beside route controls">
-  <figcaption>Gemini in Google Maps (Havent click it yet).</figcaption>
+  <figcaption>Gemini in Google Maps (Haven't clicked it yet).</figcaption>
 </figure>
 
 <figure>

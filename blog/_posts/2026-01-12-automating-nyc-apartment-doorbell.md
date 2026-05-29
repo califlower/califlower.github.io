@@ -4,6 +4,8 @@ title: "Automating Your Old New York City Apartment Doorbell"
 date: 2026-01-12
 description: "How I connected my apartment buzzer to Home Assistant using a Raspberry Pi and some creative wiring."
 reading_time: 8
+image: /blog/images/doorbell/finished-board.jpeg
+image_alt: "The finished Automation 2040W Mini with wires connected"
 ---
 
 All my apartments in New York City have had the same buzzer, one of those little white TekTone units. Sue me, I like cheap apartments. Since getting my first place, I've wondered: how can I let people in without being home, *and* without having to get up and buzz them in?
