@@ -41,6 +41,11 @@ Have you talked to Meta AI today? He lives in WhatsApp. He's also in Instagram. 
 </figure>
 
 <figure>
+  <img src="/blog/images/machine-god/zoom-ai.png" alt="Zoom AI companion">
+  <figcaption>Talk to your Zoom meeting! Click the button! Come talk! Come Chat! Please chat!</figcaption>
+</figure>
+
+<figure>
   <img src="/blog/images/machine-god/instagram-meta-ai.png" alt="Meta AI in Instagram">
   <figcaption>Instagram Meta AI. Talk to the AI! It's slop! It's useless! You'll love it!!</figcaption>
 </figure>
