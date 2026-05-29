@@ -12,7 +12,7 @@ Have you talked to Meta AI today? He lives in WhatsApp. He's also in Instagram. 
 
 <figure>
   <img src="/blog/images/machine-god/verizon-lets-chat.png" alt="Verizon app button labeled Let's Chat with a sparkle icon">
-  <figcaption>Verizon. Oh you have a billing issue? Ask our bot (He doesn't know anything).</figcaption>
+  <figcaption>Verizon. Have a billing issue? Ask our bot (He doesn't know anything).</figcaption>
 </figure>
 
 <figure>
@@ -33,4 +33,14 @@ Have you talked to Meta AI today? He lives in WhatsApp. He's also in Instagram. 
 <figure>
   <img src="/blog/images/machine-god/messenger-meta-ai.jpeg" alt="Messenger app showing a Meta AI spinner above the tab bar">
   <figcaption>Messenger. See WhatsApp</figcaption>
+</figure>
+
+<figure>
+  <img src="/blog/images/machine-god/excel-copilot.png" alt="Copilot in Excel">
+  <figcaption>Copilot in excel. Does it work? Who knows</figcaption>
+</figure>
+
+<figure>
+  <img src="/blog/images/machine-god/instagram-meta-ai.png" alt="Meta AI in Instagram">
+  <figcaption>Instagram Meta AI. Talk to the AI! It's slop! It's useless! You'll love it!!</figcaption>
 </figure>
