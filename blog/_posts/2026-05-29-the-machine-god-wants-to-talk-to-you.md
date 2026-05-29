@@ -47,5 +47,5 @@ Have you talked to Meta AI today? He lives in WhatsApp. He's also in Instagram. 
 
 <figure>
   <img src="/blog/images/machine-god/instagram-meta-ai.png" alt="Meta AI in Instagram">
-  <figcaption>Instagram Meta AI. Talk to the AI! It's slop! It's useless! You'll love it!!</figcaption>
+  <figcaption>Instagram Meta AI. Talk to the AI! It's slop! It's useless! You'll love it!! (I'd use my own photo of the app but I deleted it)</figcaption>
 </figure>
