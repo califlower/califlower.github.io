@@ -10,11 +10,11 @@ It’s 2019 you’ve read an article. It’s crap. Regardless of how crap it was
 
 Proof of work is a computing term with real world analogies everywhere. In its most basic form, it’s a type of system where producing something is expensive and verifying is cheap.
 
-Most humans place some value on their time. In the United States, we’ve even valued the absolute minimum that labor at around $7.25 an hour (as of 2026).
+Most humans place some value on their time. In the United States, we’ve even valued the absolute minimum you can be paid for that labor at around $7.25 an hour (as of 2026).
 
 AI has very quickly and very thoroughly driven the cost of plausible looking writing in most forms (including code) to 0.
 
-You can see people grasping for some value signal when they read articles now. If you have an accidental em dash, or some hint of Claude or ChatGPT speak, most people will dismiss your article without a further thought. This isn’t because all articles with that use AI have no value, but because without someone on the hook, the reader is now burdened with the full cost of a bad piece of writing.
+You can see people grasping for some value signal when they read articles now. If you have an accidental em dash, or some hint of Claude or ChatGPT speak, most people will dismiss your article without a further thought. This isn’t because all articles that are written either fully or partially by AI have no value, but because without someone on the hook, the reader is now burdened with the full cost of a bad piece of writing.
 
 This goes doubly for code, in which reading has always been much harder than writing. Your 100 line PR had to be written and understood by a reviewer, but he could count on you having taken at least a few hours to write that code.
 
