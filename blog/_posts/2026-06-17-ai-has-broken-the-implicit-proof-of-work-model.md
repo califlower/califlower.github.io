@@ -6,8 +6,6 @@ description: "AI has driven the cost of plausible-looking writing to zero, leavi
 reading_time: 5
 ---
 
-AI has broken the implicit proof of work model.
-
 It’s 2019 you’ve read an article. It’s crap. Regardless of how crap it was, save for the worst of the worst SEO spam (and even then, some underpaid person probably had to write that spam), someone sat down and took time out of their life to write it.
 
 Proof of work is a computing term with real world analogies everywhere. In its most basic form, it’s a type of system where producing something is expensive and verifying is cheap.
