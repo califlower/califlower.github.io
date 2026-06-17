@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f8f6f3"/>
+  <rect x="64" y="64" width="1072" height="502" rx="28" fill="#fff" stroke="#e8e4df" stroke-width="2"/>
+  <circle cx="152" cy="152" r="52" fill="#4a6b4a"/>
+  <text x="152" y="171" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#fff">CG</text>
+  <text x="96" y="314" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="700" fill="#2d2a26">Calin Gilan</text>
+  <text x="100" y="378" font-family="Arial, Helvetica, sans-serif" font-size="34" fill="#6b6560">Personal blog about software, hardware, and making things work.</text>
+  <rect x="96" y="448" width="160" height="6" rx="3" fill="#a35038"/>
+  <text x="96" y="512" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="600" fill="#4a6b4a">calingilan.com</text>
+</svg>

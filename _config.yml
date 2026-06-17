@@ -1,6 +1,8 @@
 title: Calin Gilan
 description: Personal blog
 url: "https://calingilan.com"
+image: /assets/social-card.png
+image_alt: "Calin Gilan personal website social preview card"
 
 markdown: kramdown
 highlighter: rouge
