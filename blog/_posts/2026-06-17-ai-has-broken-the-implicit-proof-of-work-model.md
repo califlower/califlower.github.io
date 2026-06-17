@@ -20,7 +20,7 @@ This goes doubly for code, in which reading has always been much harder than wri
 
 It’s the same asymmetry that allows [DDoS](https://en.wikipedia.org/wiki/Denial-of-service_attack) attacks to work: the burden of proving something is useless is significantly higher than the burden of sending useless information.
 
-It’s not just writing though. As AI goes “agentic” (whatever that means), it is moving beyond just text. Institutions have relied on the complex forms and bureaucracy to stop everyone but the most persistent people from breaking through. Got a parking ticket? Well you probably wouldn’t hire a $300 an hour lawyer, but you might use ChatGPT to waste everyone’s time. Immigration forms, insurance claims, school disputes, customer service complaints, housing cases: anywhere dogged persistence was once expensive, AI makes it trivial.
+It’s not just writing though. As AI goes “agentic” (whatever that means), it is moving beyond just text. Institutions have relied on complex forms and bureaucracy to stop everyone but the most persistent people from breaking through. Got a parking ticket? Well you probably wouldn’t hire a $300 an hour lawyer, but you might use ChatGPT to waste everyone’s time. Immigration forms, insurance claims, school disputes, customer service complaints, housing cases: anywhere dogged persistence was once expensive, AI makes it trivial.
 
 What does the future look like? Likely bleak. Digitally, we can likely look at email and social networks.  Both deal with similar problems of infinite sending and limited reading. Both deal with it similarly. Black box trust systems, shadow banning (showing your stuff to nobody and not telling you) and rate limiting.
 
