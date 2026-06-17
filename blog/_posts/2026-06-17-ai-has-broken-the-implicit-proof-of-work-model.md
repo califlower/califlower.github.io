@@ -20,7 +20,7 @@ You can see people grasping for some value signal when they read articles now. I
 
 This goes doubly for code, in which reading has always been much harder than writing. Your 100 line PR had to be written and understood by a reviewer, but he could count on you having taken at least a few hours to write that code.
 
-It’s the same asymmetry that allows DDOS attacks to work: the burden of proving something is useless is significantly higher than the burden of sending useless information.
+It’s the same asymmetry that allows DDoS attacks to work: the burden of proving something is useless is significantly higher than the burden of sending useless information.
 
 It’s not just writing though. As AI goes “agentic” (whatever that means), it is moving beyond just text. Institutions have relied on the complex forms and bureaucracy to stop everyone but the most persistent people from breaking through. Got a parking ticket? Well you probably wouldn’t hire a $300 an hour lawyer, but you might use ChatGPT to waste everyone’s time. Immigration forms, insurance claims, school disputes, customer service complaints, housing cases: anywhere dogged persistence was once expensive, AI makes it trivial.
 
