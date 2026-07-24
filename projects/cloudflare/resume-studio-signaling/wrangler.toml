@@ -1,0 +1,14 @@
+name = "resume-studio-signaling"
+main = "src/index.js"
+compatibility_date = "2026-07-23"
+
+[vars]
+ALLOWED_ORIGINS = "https://calingilan.com,http://localhost:4173,http://127.0.0.1:4173"
+
+[[durable_objects.bindings]]
+name = "TRANSFER_ROOMS"
+class_name = "TransferRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["TransferRoom"]
