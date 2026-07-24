@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "generated": "2026-07-19",
+    "minimum_population": 10000,
+    "count": 4197,
+    "actual_fields": [
+      "Census population, demographics, education, age, income, home value, rent, housing age, vehicles, commute mode, commute time, poverty and unemployment",
+      "Census Gazetteer coordinates and land/water area",
+      "OurAirports airport locations and scheduled-service classification",
+      "Census ACS population, housing-unit, child, young-adult, senior, and households-with-children change measures"
+    ],
+    "estimated_fields": [
+      "Airport driving minutes",
+      "Weather and humidity estimates",
+      "Urban context, metro scale, city pulse, traffic friction, social stress, housing instability, air quality and hazard screening proxies",
+      "Shoreline distances use low-resolution coastline geometry",
+      "Momentum and family-renewal composite scores derived from observed ACS measures"
+    ],
+    "warning": "This is an exploratory relocation tool. Proxy and estimated fields are not suitable for safety, insurance, legal, lending or emergency decisions.",
+    "trend_periods": [
+      "2015\u20132019 ACS 5-year",
+      "2020\u20132024 ACS 5-year"
+    ]
+  },
+  "count": 4197,
+  "chunks": [
+    "localities-00.json",
+    "localities-01.json",
+    "localities-02.json",
+    "localities-03.json",
+    "localities-04.json",
+    "localities-05.json",
+    "localities-06.json",
+    "localities-07.json",
+    "localities-08.json",
+    "localities-09.json",
+    "localities-10.json",
+    "localities-11.json"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Placecraft",
+  "short_name": "Placecraft",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#090c11",
+  "theme_color": "#0c0f14",
+  "description": "A client-side U.S. locality constraint explorer."
+}

@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101610">
+  <title>Find Your City — Calin Gilan</title>
+  <meta
+    name="description"
+    content="A private, client-side explorer for comparing 4,000+ U.S. localities by cost, weather, airports, urban form, traffic, demographics, water, and risk."
+  >
+  <link rel="canonical" href="https://calingilan.com/projects/findyourcity/">
+  <meta property="og:title" content="Find Your City — Calin Gilan">
+  <meta property="og:description" content="Shape a shortlist of U.S. cities using transparent constraints and preferences.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://calingilan.com/projects/findyourcity/">
+  <meta property="og:site_name" content="Calin Gilan">
+  <meta property="og:image" content="https://calingilan.com/assets/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+  <div id="appLoading" class="app-loading" role="status" aria-live="polite">
+    <div class="loading-mark" aria-hidden="true">⌁</div>
+    <div>
+      <strong>Loading the map</strong>
+      <span>Preparing 4,000+ localities on your device…</span>
+    </div>
+  </div>
+
+  <div class="app-shell" aria-busy="true">
+    <header class="topbar">
+      <div class="brand" role="banner">
+        <span class="brand-mark" aria-hidden="true">⌁</span>
+        <span class="brand-copy">
+          <strong>Find Your City</strong>
+          <small><a href="/">Calin Gilan</a><span aria-hidden="true"> · </span>Projects</small>
+        </span>
+      </div>
+
+      <nav class="top-actions" aria-label="Application actions">
+        <button class="nav-button game-nav" id="gameButton">
+          <span aria-hidden="true">↔</span>
+          <span>Guess my priorities</span>
+        </button>
+        <button class="nav-button" id="compareButton">
+          <span>Compare</span>
+          <span id="compareCount" class="count-badge">0</span>
+        </button>
+        <button class="icon-button" id="dataButton" title="Data notes" aria-label="Open data notes">i</button>
+        <button class="secondary-button share-button" id="shareButton">Share</button>
+      </nav>
+    </header>
+
+    <main class="workspace">
+      <aside class="sidebar" aria-label="Place preferences">
+        <div class="sidebar-head">
+          <div class="sidebar-heading">
+            <div>
+              <span class="eyebrow">Your search</span>
+              <h1>Shape the shortlist</h1>
+            </div>
+            <button class="text-button" id="resetButton">Reset</button>
+          </div>
+          <p>Start with the decisions that matter most. Fine-tune the rest only when you need it.</p>
+
+          <div class="match-summary" aria-live="polite">
+            <strong id="matchCount">— places</strong>
+            <span id="activePreferenceCount">— active preferences</span>
+          </div>
+
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input
+              id="placeSearch"
+              type="search"
+              autocomplete="off"
+              placeholder="Jump to a city…"
+              aria-label="Search places"
+            >
+            <div id="searchSuggestions" class="suggestions" hidden></div>
+          </label>
+
+          <div class="preset-block">
+            <span class="section-label">Starting points</span>
+            <div class="preset-strip" id="presetStrip" aria-label="Search presets"></div>
+          </div>
+        </div>
+
+        <section class="essential-section" aria-labelledby="essentialsTitle">
+          <div class="section-heading">
+            <div>
+              <span class="section-label">Essentials</span>
+              <h2 id="essentialsTitle">The big decisions</h2>
+            </div>
+            <button class="quiet-button" id="gameShortcutButton">Tune by choices</button>
+          </div>
+          <div id="essentialControls" class="controls essential-controls"></div>
+        </section>
+
+        <button
+          class="advanced-toggle"
+          id="advancedToggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="advancedPanel"
+        >
+          <span>
+            <strong>Fine-tune the model</strong>
+            <small id="advancedSummary">More urban form, traffic, weather, water, risk, and demographic controls</small>
+          </span>
+          <span class="advanced-toggle-icon" aria-hidden="true">⌄</span>
+        </button>
+
+        <section id="advancedPanel" class="advanced-panel" hidden>
+          <div class="advanced-toolbar">
+            <span class="section-label">All preferences</span>
+            <button class="text-button" id="collapseButton">Collapse groups</button>
+          </div>
+          <div id="advancedControls" class="controls advanced-controls"></div>
+        </section>
+      </aside>
+
+      <section class="content-pane">
+        <section class="map-panel" aria-label="Map of matching places">
+          <div class="panel-toolbar">
+            <div class="view-tabs" role="tablist" aria-label="Map display">
+              <button class="view-tab active" data-map-mode="score">Best fit</button>
+              <button class="view-tab" data-map-mode="cost">Home value</button>
+              <button class="view-tab" data-map-mode="weather">Summer comfort</button>
+              <button class="view-tab" data-map-mode="momentum">Change</button>
+              <button class="view-tab" data-map-mode="risk">Climate proxy</button>
+            </div>
+            <div class="map-status">
+              <span class="live-dot" aria-hidden="true"></span>
+              <span id="mapStatus">Ranking locally</span>
+            </div>
+          </div>
+
+          <div id="mapWrap" class="map-wrap">
+            <svg id="map" viewBox="0 0 960 470" role="img" aria-label="Interactive map of U.S. localities">
+              <defs>
+                <radialGradient id="mapGlow" cx="55%" cy="42%" r="72%">
+                  <stop offset="0" stop-color="#1b2431" stop-opacity="0.96"/>
+                  <stop offset="1" stop-color="#0e1218" stop-opacity="1"/>
+                </radialGradient>
+                <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%">
+                  <feGaussianBlur stdDeviation="2.2" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <rect x="0" y="0" width="960" height="470" rx="18" fill="url(#mapGlow)"/>
+              <g class="map-grid" aria-hidden="true">
+                <path d="M30 90H930M30 180H930M30 270H930M30 360H930"/>
+                <path d="M150 25V430M300 25V430M450 25V430M600 25V430M750 25V430M900 25V430"/>
+              </g>
+              <g id="mapPoints"></g>
+              <g class="map-inset-labels" aria-hidden="true">
+                <text x="30" y="447">AK</text>
+                <text x="175" y="447">HI</text>
+              </g>
+            </svg>
+            <div id="mapTooltip" class="map-tooltip" hidden></div>
+            <div class="map-legend">
+              <span id="mapLegendLow">lower</span>
+              <i></i>
+              <span id="mapLegendHigh">higher</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="results-panel">
+          <div class="results-head">
+            <div>
+              <span class="eyebrow">Ranked matches</span>
+              <h2 id="resultsTitle">Best fits</h2>
+              <p id="resultsMeta">Weighted against your current preferences.</p>
+            </div>
+            <div class="results-actions">
+              <button class="secondary-button" id="nearMissButton">Show near misses</button>
+              <label class="sort-control">
+                <span class="sr-only">Sort results</span>
+                <select id="sortSelect" aria-label="Sort results">
+                  <option value="score">Best fit</option>
+                  <option value="home">Lowest home value</option>
+                  <option value="airport">Closest global airport</option>
+                  <option value="urban">Most urban</option>
+                  <option value="walk">Most walkable</option>
+                  <option value="momentum">Fastest-changing</option>
+                  <option value="family">Strongest family renewal</option>
+                  <option value="population">Largest population</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div id="results" class="result-grid"></div>
+          <button id="showMoreButton" class="show-more">Show 12 more</button>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div id="compareTray" class="compare-tray" hidden>
+    <div id="compareChips" class="compare-chips"></div>
+    <button class="primary-button" id="openCompareButton">Compare places</button>
+  </div>
+
+  <dialog id="detailDialog" class="dialog detail-dialog">
+    <button class="dialog-close" data-close="detailDialog" aria-label="Close">×</button>
+    <div id="detailContent"></div>
+  </dialog>
+
+  <dialog id="gameDialog" class="dialog game-dialog">
+    <button class="dialog-close" data-close="gameDialog" aria-label="Close">×</button>
+    <div id="gameContent"></div>
+  </dialog>
+
+  <dialog id="compareDialog" class="dialog compare-dialog">
+    <button class="dialog-close" data-close="compareDialog" aria-label="Close">×</button>
+    <div id="compareContent"></div>
+  </dialog>
+
+  <dialog id="dataDialog" class="dialog data-dialog">
+    <button class="dialog-close" data-close="dataDialog" aria-label="Close">×</button>
+    <span class="dialog-kicker">How to read this</span>
+    <h2>Real records, explicit approximations</h2>
+    <p>
+      Census fields and airport coordinates are observed source data. Weather, driving time,
+      urban context, city pulse, momentum, family renewal, walkability, traffic friction, social stress, housing instability, and risk fields are exploratory estimates
+      or proxies.
+    </p>
+    <div class="data-columns">
+      <section>
+        <h3>Observed fields</h3>
+        <ul id="actualFields"></ul>
+      </section>
+      <section>
+        <h3>Estimated fields</h3>
+        <ul id="estimatedFields"></ul>
+      </section>
+    </div>
+    <div class="warning-card">
+      <strong>Do not use proxy fields for safety or insurance decisions.</strong>
+      <span>They are useful for narrowing a search, not judging a particular block or property.</span>
+    </div>
+    <h3>Downloads</h3>
+    <div class="download-row">
+      <button class="secondary-button" id="downloadCsvButton">Localities CSV</button>
+      <button class="secondary-button" id="downloadJsonButton">Localities JSON</button>
+      <a class="secondary-button" href="DATA_NOTES.md">Methodology</a>
+    </div>
+    <p class="privacy-note">
+      Everything after page load happens on your device. Searches, slider settings, and pairwise
+      choices are not sent anywhere.
+    </p>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="config.js"></script>
+  <script src="scoring.js"></script>
+  <script src="bootstrap.js"></script>
+</body>
+</html>
