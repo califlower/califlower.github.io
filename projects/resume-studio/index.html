@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#4a6b4a">
+  <meta name="description" content="A private, local-first resume editor with Git history.">
+  <link rel="canonical" href="https://calingilan.com/projects/resume-studio/">
+  <meta property="og:title" content="Resume Studio | Calin Gilan">
+  <meta property="og:description" content="A private, local-first resume editor with Git history.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://calingilan.com/projects/resume-studio/">
+  <title>Resume Studio</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./config.js"></script>
+</head>
+<body>
+  <div id="gate" class="gate" hidden>
+    <section class="gate-card">
+      <a class="site-home-link gate-home" href="/">← Calin Gilan</a>
+      <div class="mark">R</div>
+      <p class="eyebrow">Local-first workspace</p>
+      <h1>Resume Studio</h1>
+      <p id="gate-copy" class="gate-copy">Your project stays on this device. Resume Studio requires persistent browser storage before it will create or open anything.</p>
+      <div id="persistence-actions" class="gate-actions">
+        <button id="enable-storage" class="primary">Protect local storage</button>
+      </div>
+      <div id="project-actions" class="gate-actions" hidden>
+        <button id="import-project" class="primary">Open project archive</button>
+        <button id="new-project" class="secondary">Create starter project</button>
+        <button id="receive-project" class="secondary">Receive with six-digit code</button>
+      </div>
+      <input id="project-file" type="file" accept=".resume-studio,.zip,application/zip" hidden>
+      <p id="gate-error" class="error-text" role="alert"></p>
+    </section>
+  </div>
+
+  <div id="app" class="app-shell" hidden>
+    <header class="topbar">
+      <div class="brand">
+        <a class="site-wordmark" href="/">Calin Gilan</a>
+        <span class="brand-divider" aria-hidden="true">/</span>
+        <div class="product-lockup"><strong>Resume Studio</strong><span id="project-state">Local · private</span></div>
+      </div>
+      <div class="top-actions">
+        <button id="history-button" class="text-button">History</button>
+        <button id="recovery-button" class="text-button" hidden>Previous project</button>
+        <button id="transfer-button" class="text-button">Transfer</button>
+        <button id="backup-button" class="secondary compact">Back up</button>
+        <button id="release-button" class="primary compact">Create release</button>
+      </div>
+    </header>
+
+    <div id="backup-reminder" class="backup-reminder" hidden>
+      <span id="backup-message"></span>
+      <button id="backup-reminder-button" class="text-button">Download backup</button>
+    </div>
+
+    <main class="workspace">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <label for="overlay-select" class="eyebrow">Target resume</label>
+          <select id="overlay-select"></select>
+        </div>
+        <nav class="file-nav" aria-label="Project files">
+          <button class="file-tab active" data-file="master">Master content<span>master.yaml</span></button>
+          <button class="file-tab" data-file="overlay">Selection<span id="overlay-file-label">overlay.yaml</span></button>
+          <button class="file-tab" data-file="template">Visual template<span>resume.typ</span></button>
+        </nav>
+        <div class="sidebar-section grow">
+          <div class="section-heading"><span class="eyebrow">Checks</span><button id="lint-button" class="icon-button" title="Run checks">↻</button></div>
+          <div id="diagnostics" class="diagnostics"><p class="muted">Loading checks…</p></div>
+        </div>
+        <button id="submission-button" class="secondary wide">Record submission</button>
+      </aside>
+
+      <section class="editor-pane">
+        <div class="pane-toolbar">
+          <div><p class="eyebrow">Editing</p><h2 id="editor-title">Master content</h2></div>
+          <div class="toolbar-actions">
+            <span id="dirty-state" class="status-pill">Saved locally</span>
+            <button id="save-version-button" class="secondary compact">Save version</button>
+          </div>
+        </div>
+        <textarea id="editor" spellcheck="false" aria-label="Project file editor"></textarea>
+      </section>
+
+      <section class="preview-pane">
+        <div class="pane-toolbar">
+          <div><p class="eyebrow">Live output</p><h2>Preview</h2></div>
+          <div class="toolbar-actions">
+            <button id="refresh-preview" class="icon-button" title="Refresh preview">↻</button>
+            <button id="download-pdf" class="secondary compact">Download PDF</button>
+          </div>
+        </div>
+        <div id="preview-status" class="preview-status">Preparing the browser renderer…</div>
+        <div id="preview" class="preview-surface"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="history-dialog" class="dialog">
+    <div class="dialog-head"><div><p class="eyebrow">Local Git</p><h2>Project history</h2></div><button class="icon-button close-dialog">×</button></div>
+    <div id="history-list" class="history-list"></div>
+  </dialog>
+
+  <dialog id="transfer-dialog" class="dialog transfer-dialog">
+    <div class="dialog-head"><div><p class="eyebrow">Device to device</p><h2>Transfer project</h2></div><button class="icon-button close-dialog">×</button></div>
+    <div id="transfer-home">
+      <p>Move the complete project and Git history directly between two devices.</p>
+      <div class="transfer-actions">
+        <button id="send-nearby" class="primary">Send nearby</button>
+        <button id="receive-nearby" class="secondary">Receive with code</button>
+        <button id="share-project" class="secondary">AirDrop, Mail, or share</button>
+      </div>
+    </div>
+    <div id="transfer-send" hidden>
+      <p class="muted">Enter this code on the other device:</p>
+      <div id="transfer-code" class="transfer-code">— — —</div>
+      <p id="send-transfer-status" class="transfer-status">Creating a private room…</p>
+      <div id="send-phrase" class="phrase" hidden></div>
+    </div>
+    <form id="receive-form" hidden>
+      <label class="field">Six-digit code<input id="receive-code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="482913" required></label>
+      <button class="primary wide" type="submit">Connect</button>
+      <p id="receive-transfer-status" class="transfer-status"></p>
+      <div id="receive-phrase" class="phrase" hidden></div>
+      <button id="accept-transfer" class="primary wide" type="button" hidden>Phrase matches · accept project</button>
+    </form>
+  </dialog>
+
+  <dialog id="release-dialog" class="dialog small-dialog">
+    <form id="release-form">
+      <div class="dialog-head"><div><p class="eyebrow">Immutable snapshot</p><h2>Create release</h2></div><button type="button" class="icon-button close-dialog">×</button></div>
+      <label class="field">Description<input id="release-description" required placeholder="Infrastructure resume for platform roles"></label>
+      <p class="muted">This saves current edits, renders the PDF, writes a release snapshot, commits it, and creates an annotated Git tag.</p>
+      <button class="primary wide" type="submit">Create release</button>
+      <p id="release-status" class="transfer-status"></p>
+    </form>
+  </dialog>
+
+  <dialog id="submission-dialog" class="dialog small-dialog">
+    <form id="submission-form">
+      <div class="dialog-head"><div><p class="eyebrow">Application record</p><h2>Record submission</h2></div><button type="button" class="icon-button close-dialog">×</button></div>
+      <label class="field">Release<select id="submission-release" required></select></label>
+      <label class="field">Destination<input id="submission-destination" required placeholder="Company or person"></label>
+      <label class="field">Purpose<input id="submission-purpose" required placeholder="Role or reason"></label>
+      <label class="field">Context<input id="submission-context" placeholder="Recruiter outreach"></label>
+      <label class="field">URL<input id="submission-url" type="url" placeholder="https://…"></label>
+      <label class="field">Private note<textarea id="submission-note" rows="3"></textarea></label>
+      <button class="primary wide" type="submit">Record submission</button>
+    </form>
+  </dialog>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
