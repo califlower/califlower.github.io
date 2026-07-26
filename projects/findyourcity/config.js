@@ -48,25 +48,25 @@
     {
       id: 'rent_max', field: 'median_rent', group: 'Cost & economy',
       label: 'Median rent', kind: 'max', min: 600, max: 4_500,
-      step: 50, value: 2_400, level: 1, hard: false, format: 'money',
+      step: 50, value: 2_400, level: 0, hard: false, format: 'money',
       hint: ['lower', 'higher']
     },
     {
       id: 'income_min', field: 'median_income', group: 'Cost & economy',
       label: 'Median household income', kind: 'min', min: 30_000, max: 180_000,
-      step: 2_500, value: 65_000, level: 1, hard: false, format: 'money',
+      step: 2_500, value: 65_000, level: 0, hard: false, format: 'money',
       hint: ['lower', 'higher']
     },
     {
       id: 'unemployment_max', field: 'unemployment_pct', group: 'Cost & economy',
       label: 'Unemployment', kind: 'max', min: 1, max: 18,
-      step: 0.5, value: 7, level: 1, hard: false, format: 'percent',
+      step: 0.5, value: 7, level: 0, hard: false, format: 'percent',
       hint: ['lower', 'higher']
     },
     {
       id: 'housing_strain_max', field: 'housing_instability_proxy', group: 'Cost & economy',
       label: 'Housing instability proxy', kind: 'max', min: 10, max: 95,
-      step: 1, value: 70, level: 1, hard: false, format: 'score',
+      step: 1, value: 70, level: 0, hard: false, format: 'score',
       hint: ['less pressure', 'more pressure']
     },
 
@@ -79,7 +79,7 @@
     {
       id: 'urban_form_min', field: 'urban_form_score', group: 'Urban form',
       label: 'Urban fabric', kind: 'min', min: 0, max: 100,
-      step: 1, value: 42, level: 1, hard: false, format: 'score',
+      step: 1, value: 42, level: 0, hard: false, format: 'score',
       hint: ['car-oriented', 'fine-grained urban']
     },
     {
@@ -91,26 +91,26 @@
     {
       id: 'metro_scale_min', field: 'metro_scale_score', group: 'Urban form',
       label: 'Surrounding metro scale', kind: 'min', min: 0, max: 100,
-      step: 1, value: 38, level: 1, hard: false, format: 'score',
+      step: 1, value: 38, level: 0, hard: false, format: 'score',
       hint: ['isolated', 'large region']
     },
     {
       id: 'prewar_min', field: 'prewar_housing_pct', group: 'Urban form',
       label: 'Pre-1940 housing share', kind: 'min', min: 0, max: 80,
-      step: 1, value: 15, level: 1, hard: false, format: 'percent',
+      step: 1, value: 15, level: 0, hard: false, format: 'percent',
       hint: ['newer fabric', 'older fabric']
     },
     {
       id: 'young_adult_min', field: 'young_adult_25_39_pct', group: 'Urban form',
       label: 'Age 25–39 share', kind: 'min', min: 8, max: 50,
-      step: 1, value: 18, level: 1, hard: false, format: 'percent',
+      step: 1, value: 18, level: 0, hard: false, format: 'percent',
       hint: ['lower', 'younger adult concentration']
     },
 
     {
       id: 'city_pulse_min', field: 'city_pulse_score', group: 'Urban form',
       label: 'City pulse proxy', kind: 'min', min: 0, max: 100,
-      step: 1, value: 50, level: 1, hard: false, format: 'score',
+      step: 1, value: 50, level: 0, hard: false, format: 'score',
       hint: ['quieter', 'more social energy']
     },
 
@@ -130,13 +130,13 @@
     {
       id: 'walk_min', field: 'walkability_proxy', group: 'Getting around',
       label: 'Walkability proxy', kind: 'min', min: 0, max: 100,
-      step: 1, value: 42, level: 2, hard: false, format: 'score',
+      step: 1, value: 42, level: 0, hard: false, format: 'score',
       hint: ['car-oriented', 'walkable']
     },
     {
       id: 'carfree_min', field: 'carfree_household_pct', group: 'Getting around',
       label: 'Car-free households', kind: 'min', min: 0, max: 70,
-      step: 1, value: 8, level: 1, hard: false, format: 'percent',
+      step: 1, value: 8, level: 0, hard: false, format: 'percent',
       hint: ['car-dependent', 'car-optional']
     },
     {
@@ -154,7 +154,7 @@
     {
       id: 'commute_max', field: 'avg_commute_minutes', group: 'Getting around',
       label: 'Average commute', kind: 'max', min: 10, max: 65,
-      step: 1, value: 35, level: 1, hard: false, format: 'minutes',
+      step: 1, value: 35, level: 0, hard: false, format: 'minutes',
       hint: ['shorter', 'longer']
     },
     {
@@ -171,14 +171,14 @@
     },
     {
       id: 'airport_max', field: 'airport_minutes', group: 'Getting around',
-      label: 'Scheduled-service airport', kind: 'max', min: 10, max: 240,
-      step: 5, value: 45, level: 1, hard: false, format: 'minutes',
+      label: 'Practical airport', kind: 'max', min: 10, max: 240,
+      step: 5, value: 45, level: 0, hard: false, format: 'minutes',
       hint: ['nearby', 'farther away']
     },
     {
       id: 'major_airport_max', field: 'major_airport_minutes', group: 'Getting around',
-      label: 'Major airport', kind: 'max', min: 15, max: 300,
-      step: 5, value: 90, level: 2, hard: false, format: 'minutes',
+      label: 'Major hub', kind: 'max', min: 15, max: 300,
+      step: 5, value: 90, level: 0, hard: false, format: 'minutes',
       hint: ['nearby', 'farther away']
     },
     {
@@ -197,7 +197,7 @@
     {
       id: 'jul_max', field: 'jul_high_f', group: 'Weather',
       label: 'July average high', kind: 'max', min: 65, max: 110,
-      step: 1, value: 93, level: 2, hard: false, format: 'temp',
+      step: 1, value: 93, level: 0, hard: false, format: 'temp',
       hint: ['cooler', 'hotter']
     },
     {
@@ -209,76 +209,76 @@
     {
       id: 'snow_max', field: 'annual_snow_in', group: 'Weather',
       label: 'Annual snowfall', kind: 'max', min: 0, max: 140,
-      step: 2, value: 45, level: 1, hard: false, format: 'inches',
+      step: 2, value: 45, level: 0, hard: false, format: 'inches',
       hint: ['little', 'snowy']
     },
     {
       id: 'comfort_min', field: 'comfort_days', group: 'Weather',
       label: 'Comfortable-day estimate', kind: 'min', min: 40, max: 250,
-      step: 5, value: 125, level: 1, hard: false, format: 'days',
+      step: 5, value: 125, level: 0, hard: false, format: 'days',
       hint: ['fewer', 'more']
     },
 
     {
       id: 'ocean_max', field: 'ocean_miles', group: 'Water & environment',
       label: 'Distance to ocean', kind: 'max', min: 0, max: 1_000,
-      step: 10, value: 180, level: 1, hard: false, format: 'miles',
+      step: 10, value: 180, level: 0, hard: false, format: 'miles',
       hint: ['coastal', 'inland']
     },
     {
       id: 'shore_max', field: 'major_shore_miles', group: 'Water & environment',
       label: 'Distance to major shoreline', kind: 'max', min: 0, max: 500,
-      step: 5, value: 60, level: 1, hard: false, format: 'miles',
+      step: 5, value: 60, level: 0, hard: false, format: 'miles',
       hint: ['near water', 'farther away']
     },
     {
       id: 'air_quality_max', field: 'air_quality_pressure_proxy', group: 'Water & environment',
       label: 'Air-quality pressure proxy', kind: 'max', min: 5, max: 95,
-      step: 1, value: 65, level: 1, hard: false, format: 'score',
+      step: 1, value: 65, level: 0, hard: false, format: 'score',
       hint: ['lower pressure', 'higher pressure']
     },
 
     {
       id: 'crime_max', field: 'social_stress_proxy', group: 'Risk proxies',
       label: 'Social stress proxy', kind: 'max', min: 5, max: 95,
-      step: 1, value: 68, level: 2, hard: false, format: 'score',
+      step: 1, value: 68, level: 0, hard: false, format: 'score',
       hint: ['lower', 'higher']
     },
     {
       id: 'climate_risk_max', field: 'climate_risk_proxy', group: 'Risk proxies',
       label: 'Climate risk proxy', kind: 'max', min: 5, max: 95,
-      step: 1, value: 62, level: 2, hard: false, format: 'score',
+      step: 1, value: 62, level: 0, hard: false, format: 'score',
       hint: ['lower', 'higher']
     },
     {
       id: 'flood_max', field: 'flood_risk_proxy', group: 'Risk proxies',
       label: 'Flood exposure proxy', kind: 'max', min: 0, max: 100,
-      step: 1, value: 65, level: 1, hard: false, format: 'score',
+      step: 1, value: 65, level: 0, hard: false, format: 'score',
       hint: ['lower', 'higher']
     },
     {
       id: 'wildfire_max', field: 'wildfire_risk_proxy', group: 'Risk proxies',
       label: 'Wildfire exposure proxy', kind: 'max', min: 0, max: 100,
-      step: 1, value: 65, level: 1, hard: false, format: 'score',
+      step: 1, value: 65, level: 0, hard: false, format: 'score',
       hint: ['lower', 'higher']
     },
 
     {
       id: 'age_range', field: 'median_age', group: 'Demographics',
       label: 'Median age', kind: 'range', min: 20, max: 65,
-      step: 1, low: 29, high: 46, level: 1, hard: false, format: 'years',
+      step: 1, low: 29, high: 46, level: 0, hard: false, format: 'years',
       hint: ['younger', 'older']
     },
     {
       id: 'education_min', field: 'bachelors_plus_pct', group: 'Demographics',
       label: "Bachelor's degree or higher", kind: 'min', min: 5, max: 90,
-      step: 1, value: 30, level: 1, hard: false, format: 'percent',
+      step: 1, value: 30, level: 0, hard: false, format: 'percent',
       hint: ['lower', 'higher']
     },
     {
       id: 'diversity_min', field: 'diversity_index', group: 'Demographics',
       label: 'Diversity index', kind: 'min', min: 0, max: 80,
-      step: 1, value: 35, level: 1, hard: false, format: 'score',
+      step: 1, value: 35, level: 0, hard: false, format: 'score',
       hint: ['less mixed', 'more mixed']
     },
     {
@@ -302,7 +302,7 @@
   ];
 
   const PRESETS = {
-    Balanced: {},
+    'Open search': {},
     'Coastal, but sane': {
       home_max: { value: 750_000, level: 3 },
       ocean_max: { value: 45, level: 3, hard: true },
@@ -408,14 +408,14 @@
     { label: 'Traffic friction proxy', field: 'traffic_friction_proxy', format: 'score', direction: 'low' },
     { label: 'Pre-1940 housing', field: 'prewar_housing_pct', format: 'percent', direction: 'high' },
     { label: "Bachelor's degree+", field: 'bachelors_plus_pct', format: 'percent', direction: 'high' },
-    { label: 'Global airport', field: 'global_airport_minutes', format: 'minutes', direction: 'low' },
+    { label: 'Global gateway', field: 'global_airport_minutes', format: 'minutes', direction: 'low' },
     { label: 'January high', field: 'jan_high_f', format: 'temp', direction: 'high' },
     { label: 'Summer dew point', field: 'summer_dewpoint_f', format: 'temp', direction: 'low' },
     { label: 'Social stress proxy', field: 'social_stress_proxy', format: 'score', direction: 'low' },
     { label: 'Climate risk proxy', field: 'climate_risk_proxy', format: 'score', direction: 'low' }
   ];
 
-  window.PlacecraftConfig = {
+  window.FindYourCityConfig = {
     WEIGHTS,
     PRIORITY_LABELS,
     ESSENTIAL_METRIC_IDS,

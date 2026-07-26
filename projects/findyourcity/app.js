@@ -4,11 +4,11 @@
   // Application dependencies and immutable data
 
   const DATA = window.PLACE_DATA;
-  const CONFIG = window.PlacecraftConfig;
-  const SCORING = window.PlacecraftScoring;
+  const CONFIG = window.FindYourCityConfig;
+  const SCORING = window.FindYourCityScoring;
 
   if (!DATA?.places || !CONFIG || !SCORING) {
-    document.body.innerHTML = '<p style="padding:2rem">Placecraft could not load its application data.</p>';
+    document.body.innerHTML = '<p style="max-width:42rem;margin:4rem auto;padding:1rem">Find Your City could not load its data.</p>';
     return;
   }
 
@@ -90,8 +90,8 @@
     commute_max: 'shorter commutes',
     long_commute_max: 'fewer long commutes',
     traffic_max: 'lower traffic friction',
-    airport_max: 'local airport access',
-    major_airport_max: 'major airport access',
+    airport_max: 'practical airport access',
+    major_airport_max: 'major hub access',
     global_airport_max: 'global access',
     jan_min: 'milder winters',
     jul_max: 'summer heat tolerance',
@@ -112,10 +112,10 @@
 
   const state = {
     controls: clone(initialControls),
-    preset: 'Balanced',
+    preset: 'Open search',
     mapMode: 'score',
     sort: 'score',
-    visibleCount: 12,
+    visibleCount: 8,
     showNearMisses: false,
     advancedOpen: false,
     openGroups: new Set(),
@@ -288,7 +288,7 @@
       : strictMatches;
 
     state.ranked = sortRows(resultPool, state.sort);
-    state.visibleCount = Math.max(12, Math.min(state.visibleCount, state.ranked.length));
+    state.visibleCount = Math.max(8, Math.min(state.visibleCount, state.ranked.length));
 
     renderSummary();
     renderResults();
@@ -305,7 +305,7 @@
     }
 
     state.recalcQueued = true;
-    $('#mapStatus').textContent = 'Recalculating locally…';
+    $('#mapStatus').textContent = 'Updating on this device…';
     requestAnimationFrame(recalculate);
   }
 
@@ -314,18 +314,17 @@
     const dealbreakerCount = countDealbreakers();
     const matchLabel = state.strictCount === 1 ? 'place' : 'places';
 
-    $('#matchCount').textContent = `${state.strictCount.toLocaleString()} ${matchLabel}`;
-    $('#activePreferenceCount').textContent = `${activeCount} weighted · ${dealbreakerCount} must`;
+    $('#matchCount').textContent = `${state.strictCount.toLocaleString()} ${matchLabel} still in play`;
+    $('#activePreferenceCount').textContent = `${activeCount} preferences · ${dealbreakerCount} hard ${dealbreakerCount === 1 ? 'limit' : 'limits'}`;
     $('#nearMissButton').textContent = state.showNearMisses
       ? 'Hide near misses'
       : 'Show near misses';
     $('#resultsTitle').textContent = state.showNearMisses
       ? 'Best fits and closest compromises'
       : 'Best fits';
-    $('#resultsMeta').textContent = [
-      `${activeCount} active preferences`,
-      `${state.strictCount.toLocaleString()} exact matches`
-    ].join(' · ');
+    $('#resultsMeta').textContent = state.showNearMisses
+      ? 'The strongest matches, plus a few places that miss one limit.'
+      : 'The places that best match your current tradeoffs.';
     $('#showMoreButton').hidden = state.visibleCount >= state.ranked.length;
 
     renderAdvancedSummary();
@@ -342,6 +341,11 @@
         >${escapeHTML(name)}</button>
       `)
       .join('');
+  }
+
+  function prioritySummary(control) {
+    const label = PRIORITY_LABELS[control.level] || PRIORITY_LABELS[0];
+    return control.hard ? `${label} · required` : label;
   }
 
   function renderMetricControl(metric, { essential = false } = {}) {
@@ -408,23 +412,26 @@
             <span>${escapeHTML(metric.hint[0])}</span>
             <span>${escapeHTML(metric.hint[1])}</span>
           </span>
-          <div class="metric-actions">
-            <select
-              class="priority-select"
-              data-control-role="level"
-              data-level="${control.level}"
-              aria-label="${escapeHTML(metric.label)} priority"
-            >${priorityOptions}</select>
-            <button
-              class="must-toggle ${control.hard ? 'active' : ''}"
-              type="button"
-              data-control-action="must"
-              aria-pressed="${control.hard}"
-              title="${control.hard
-                ? 'Required: excludes places that miss this threshold'
-                : 'Make this a required threshold'}"
-            >Must</button>
-          </div>
+          <details class="metric-more">
+            <summary>${escapeHTML(prioritySummary(control))}</summary>
+            <div class="metric-actions">
+              <select
+                class="priority-select"
+                data-control-role="level"
+                data-level="${control.level}"
+                aria-label="${escapeHTML(metric.label)} priority"
+              >${priorityOptions}</select>
+              <button
+                class="must-toggle ${control.hard ? 'active' : ''}"
+                type="button"
+                data-control-action="must"
+                aria-pressed="${control.hard}"
+                title="${control.hard
+                  ? 'Required: excludes places that miss this threshold'
+                  : 'Make this a required threshold'}"
+              >${control.hard ? 'Required' : 'Require'}</button>
+            </div>
+          </details>
         </div>
       </article>
     `;
@@ -483,8 +490,8 @@
     const activeAdvancedCount = countActivePreferences(advancedIds);
 
     elements.advancedSummary.textContent = [
-      `${advancedIds.length} more controls`,
-      `${activeAdvancedCount} active in this setup`
+      `${advancedIds.length} optional details`,
+      `${activeAdvancedCount} currently active`
     ].join(' · ');
   }
 
@@ -526,7 +533,7 @@
     }
 
     state.preset = name;
-    state.visibleCount = 12;
+    state.visibleCount = 8;
     renderPresets();
     renderAllControls();
     queueRecalculation();
@@ -640,7 +647,7 @@
     }
 
     if (place.global_airport_minutes < 65) {
-      tags.push(['good', 'global airport access']);
+      tags.push(['good', 'global gateway access']);
     } else if (place.global_airport_minutes > 210) {
       tags.push(['caveat', 'long airport trip']);
     }
@@ -717,7 +724,7 @@
         <div class="card-main" data-action="detail">
           <div class="card-head">
             <div class="rank-name">
-              <span class="rank-number">${index + 1}</span>
+              <span class="rank-number">${String(index + 1).padStart(2, '0')}</span>
               <div>
                 <h3>${escapeHTML(place.short_name)}</h3>
                 <div class="subtitle">
@@ -726,8 +733,9 @@
                 </div>
               </div>
             </div>
-            <div class="score-ring" style="--score:${score}">
+            <div class="score-ring">
               <strong>${score}</strong>
+              <span>fit</span>
             </div>
           </div>
 
@@ -735,19 +743,16 @@
 
           <div class="card-metrics">
             <div class="card-metric">
-              <span>Home value</span>
+              <span>Home</span>
               <strong>${format(place.median_home_value, 'money')}</strong>
             </div>
             <div class="card-metric">
-              <span>Global airport</span>
-              <strong>
-                ${escapeHTML(place.global_airport_code)} ·
-                ${format(place.global_airport_minutes, 'minutes')}
-              </strong>
+              <span>Gateway</span>
+              <strong>${escapeHTML(place.global_airport_code)} · ${format(place.global_airport_minutes, 'minutes')}</strong>
             </div>
             <div class="card-metric">
-              <span>Winter / humidity</span>
-              <strong>${format(place.jan_high_f, 'temp')} · ${format(place.summer_dewpoint_f, 'temp')} dew</strong>
+              <span>Summer dew</span>
+              <strong>${format(place.summer_dewpoint_f, 'temp')}</strong>
             </div>
             <div class="card-metric">
               <span>Urban feel</span>
@@ -758,9 +763,9 @@
           <div class="quality-tags">${tags}</div>
         </div>
         <div class="card-footer">
-          <button data-action="detail">View reasoning</button>
+          <button data-action="detail">Why this place?</button>
           <button data-action="pin" class="${pinned ? 'active' : ''}">
-            ${pinned ? 'Added to compare' : 'Add to compare'}
+            ${pinned ? 'Added' : 'Compare'}
           </button>
         </div>
       </article>
@@ -800,7 +805,7 @@
     `;
   }
 
-  function airportRow(label, code, name, minutes) {
+  function airportRow(label, code, name, minutes, capability) {
     return `
       <div class="airport-row">
         <div>
@@ -809,7 +814,7 @@
         </div>
         <div>
           ${escapeHTML(name || 'Unavailable')}
-          <small>Estimated drive time</small>
+          <small>${escapeHTML(capability || 'Estimated drive time')} · estimated drive time</small>
         </div>
         <b>${format(minutes, 'minutes')}</b>
       </div>
@@ -945,9 +950,30 @@
         <section class="detail-section">
           <h3>Airport access</h3>
           <div class="airport-stack">
-            ${airportRow('Local', place.airport_code, place.airport_name, place.airport_minutes)}
-            ${airportRow('Major', place.major_airport_code, place.major_airport_name, place.major_airport_minutes)}
-            ${airportRow('Global', place.global_airport_code, place.global_airport_name, place.global_airport_minutes)}
+            ${airportRow(
+              'Practical',
+              place.airport_code,
+              place.airport_name,
+              place.airport_minutes,
+              `FAA ${String(place.airport_capability_label || 'commercial airport').toLowerCase()}`
+            )}
+            ${airportRow(
+              'Major hub',
+              place.major_airport_code,
+              place.major_airport_name,
+              place.major_airport_minutes,
+              `FAA ${place.major_airport_hub_class === 'L' ? 'large' : 'medium'} hub`
+            )}
+            ${airportRow(
+              'Global gateway',
+              place.global_airport_code,
+              place.global_airport_name,
+              place.global_airport_minutes,
+              `BTS #${place.global_airport_gateway_rank || '—'} · ${format(
+                Number(place.global_airport_international_passengers_2023_thousands || 0) * 1000,
+                'compact'
+              )} international passengers in 2023`
+            )}
           </div>
         </section>
 
@@ -1180,29 +1206,26 @@
 
   function pairCard(place, key) {
     return `
-      <article class="pair-card">
-        <button class="choose" data-game-choice="${key}">
-          <h3>${escapeHTML(place.short_name)}</h3>
-          <span class="pair-state">${escapeHTML(place.state_name)}</span>
-          <div class="pair-metrics">
-            ${pairMetric('Home', format(place.median_home_value, 'money'))}
-            ${pairMetric(
-              'Global airport',
-              `${place.global_airport_code} · ${format(place.global_airport_minutes, 'minutes')}`
-            )}
-            ${pairMetric('Urban feel', format(place.urbanity_score, 'score'))}
-            ${pairMetric('City pulse', format(place.city_pulse_score, 'score'))}
-            ${pairMetric('Change trajectory', format(place.momentum_score, 'momentum'))}
-            ${pairMetric('Family renewal', format(place.family_renewal_score, 'renewal'))}
-            ${pairMetric('Jan / Jul', `${format(place.jan_high_f, 'temp')} / ${format(place.jul_high_f, 'temp')}`)}
-            ${pairMetric('Summer dew point', format(place.summer_dewpoint_f, 'temp'))}
-            ${pairMetric('Car-free households', format(place.carfree_household_pct, 'percent'))}
-            ${pairMetric('Average commute', format(place.avg_commute_minutes, 'minutes'))}
-            ${pairMetric('Social stress', format(place.social_stress_proxy, 'score'))}
-          </div>
-        </button>
-        <span class="pair-pick">Pick ${escapeHTML(place.short_name)}</span>
-      </article>
+      <button class="pair-card" data-game-choice="${key}">
+        <span class="choose">Choose a city</span>
+        <h3>${escapeHTML(place.short_name)}</h3>
+        <span class="pair-state">${escapeHTML(place.state_name)}</span>
+        <div class="pair-metrics">
+          ${pairMetric('Home', format(place.median_home_value, 'money'))}
+          ${pairMetric(
+            'Global gateway',
+            `${place.global_airport_code} · ${format(place.global_airport_minutes, 'minutes')}`
+          )}
+          ${pairMetric('Urban feel', format(place.urbanity_score, 'score'))}
+          ${pairMetric(
+            'Weather',
+            `Jan ${format(place.jan_high_f, 'temp')} · dew ${format(place.summer_dewpoint_f, 'temp')}`
+          )}
+          ${pairMetric('Changing?', format(place.momentum_score, 'momentum'))}
+          ${pairMetric('Young families', format(place.family_renewal_score, 'renewal'))}
+        </div>
+        <span class="pair-pick">Pick ${escapeHTML(place.short_name)} <span aria-hidden="true">→</span></span>
+      </button>
     `;
   }
 
@@ -1220,7 +1243,7 @@
       <div class="game-head">
         <span class="eyebrow">Choice ${game.round + 1} of ${game.total}</span>
         <h2>Where would you rather land?</h2>
-        <p>Choose instinctively. Placecraft watches which tradeoffs you keep accepting.</p>
+        <p>Choose instinctively. Your picks quietly reveal which tradeoffs you keep accepting.</p>
         <div class="game-progress">
           <i style="width:${(100 * game.round) / game.total}%"></i>
         </div>
@@ -1355,7 +1378,7 @@
       `${place.display_name}: ${format(place.population, 'compact')} residents`,
       `median home ${format(place.median_home_value, 'money')}`,
       `median rent ${format(place.median_rent, 'money')}`,
-      `global airport ${place.global_airport_code} about ${format(place.global_airport_minutes, 'minutes')}`,
+      `global gateway ${place.global_airport_code} about ${format(place.global_airport_minutes, 'minutes')}`,
       `January/July highs ${format(place.jan_high_f, 'temp')}/${format(place.jul_high_f, 'temp')}`,
       `summer dew point ${format(place.summer_dewpoint_f, 'temp')}`,
       `urban intensity ${format(place.urbanity_score, 'score')}`,
@@ -1405,7 +1428,7 @@
     ];
 
     downloadText(
-      'placecraft-localities.csv',
+      'find-your-city-localities.csv',
       rows.join('\n'),
       'text/csv;charset=utf-8'
     );
@@ -1623,6 +1646,11 @@
       select.dataset.level = '1';
     }
 
+    const summary = wrapper.querySelector('.metric-more > summary');
+    if (summary) {
+      summary.textContent = prioritySummary(control);
+    }
+
     markCustomSetup();
     renderAdvancedSummary();
     queueRecalculation();
@@ -1694,7 +1722,7 @@
       }
     });
 
-    $('#resetButton').addEventListener('click', () => applyPreset('Balanced'));
+    $('#resetButton').addEventListener('click', () => applyPreset('Open search'));
 
     elements.advancedToggle.addEventListener('click', () => {
       setAdvancedOpen(!state.advancedOpen);
@@ -1719,7 +1747,7 @@
 
     $('#nearMissButton').addEventListener('click', () => {
       state.showNearMisses = !state.showNearMisses;
-      state.visibleCount = 12;
+      state.visibleCount = 8;
       recalculate();
     });
 
@@ -1732,7 +1760,7 @@
     });
 
     $('#showMoreButton').addEventListener('click', () => {
-      state.visibleCount += 12;
+      state.visibleCount += 8;
       renderSummary();
       renderResults();
     });
@@ -1846,10 +1874,13 @@
     });
 
     $('#dataButton').addEventListener('click', () => $('#dataDialog').showModal());
+    $$('[data-open-data]').forEach((button) => {
+      button.addEventListener('click', () => $('#dataDialog').showModal());
+    });
     $('#downloadCsvButton').addEventListener('click', downloadCsv);
     $('#downloadJsonButton').addEventListener('click', () => {
       downloadText(
-        'placecraft-localities.json',
+        'find-your-city-localities.json',
         JSON.stringify(DATA),
         'application/json;charset=utf-8'
       );
@@ -1922,6 +1953,7 @@
 
     installEvents();
     recalculate();
+
   }
 
   initialize();

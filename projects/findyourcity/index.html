@@ -3,101 +3,101 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101610">
+  <meta name="theme-color" content="#ffffff">
   <title>Find Your City — Calin Gilan</title>
   <meta
     name="description"
-    content="A private, client-side explorer for comparing 4,000+ U.S. localities by cost, weather, airports, urban form, traffic, demographics, water, and risk."
+    content="A playful, private way to compare 4,000+ U.S. places by the things that matter to you."
   >
   <link rel="canonical" href="https://calingilan.com/projects/findyourcity/">
   <meta property="og:title" content="Find Your City — Calin Gilan">
-  <meta property="og:description" content="Shape a shortlist of U.S. cities using transparent constraints and preferences.">
+  <meta property="og:description" content="Play with your priorities and find U.S. cities worth a closer look.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://calingilan.com/projects/findyourcity/">
   <meta property="og:site_name" content="Calin Gilan">
   <meta property="og:image" content="https://calingilan.com/assets/social-card.png">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
-  <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
   <div id="appLoading" class="app-loading" role="status" aria-live="polite">
-    <div class="loading-mark" aria-hidden="true">⌁</div>
-    <div>
-      <strong>Loading the map</strong>
-      <span>Preparing 4,000+ localities on your device…</span>
-    </div>
+    <span class="loading-dot" aria-hidden="true"></span>
+    <span>Gathering the cities…</span>
   </div>
 
   <div class="app-shell" aria-busy="true">
-    <header class="topbar">
-      <div class="brand" role="banner">
-        <span class="brand-mark" aria-hidden="true">⌁</span>
-        <span class="brand-copy">
-          <strong>Find Your City</strong>
-          <small><a href="/">Calin Gilan</a><span aria-hidden="true"> · </span>Projects</small>
-        </span>
-      </div>
-
-      <nav class="top-actions" aria-label="Application actions">
-        <button class="nav-button game-nav" id="gameButton">
-          <span aria-hidden="true">↔</span>
-          <span>Guess my priorities</span>
-        </button>
-        <button class="nav-button" id="compareButton">
-          <span>Compare</span>
-          <span id="compareCount" class="count-badge">0</span>
-        </button>
-        <button class="icon-button" id="dataButton" title="Data notes" aria-label="Open data notes">i</button>
-        <button class="secondary-button share-button" id="shareButton">Share</button>
+    <header class="site-header">
+      <a class="site-name" href="/">Calin Gilan</a>
+      <nav class="site-actions" aria-label="Project actions">
+        <button class="text-button" id="dataButton">About the data</button>
+        <button class="text-button" id="shareButton">Share</button>
       </nav>
     </header>
 
-    <main class="workspace">
-      <aside class="sidebar" aria-label="Place preferences">
-        <div class="sidebar-head">
-          <div class="sidebar-heading">
-            <div>
-              <span class="eyebrow">Your search</span>
-              <h1>Shape the shortlist</h1>
-            </div>
-            <button class="text-button" id="resetButton">Reset</button>
-          </div>
-          <p>Start with the decisions that matter most. Fine-tune the rest only when you need it.</p>
+    <main class="page">
+      <section class="hero" aria-labelledby="pageTitle">
+        <p class="kicker">A small experiment</p>
+        <h1 id="pageTitle">Find a city that fits your life.</h1>
+        <p class="hero-copy">
+          Choose what matters, loosen what does not, and see which places survive. There is no
+          universal “best city,” only a more honest set of tradeoffs.
+        </p>
+        <div class="hero-actions">
+          <button class="primary-button" id="gameButton">Play the city game</button>
+          <a class="secondary-link" href="#preferences">I know what I care about</a>
+        </div>
+        <p class="hero-note">4,197 U.S. places · everything runs in your browser</p>
+      </section>
 
-          <div class="match-summary" aria-live="polite">
-            <strong id="matchCount">— places</strong>
-            <span id="activePreferenceCount">— active preferences</span>
-          </div>
+      <section class="playful-start" aria-label="Ways to begin">
+        <article class="start-card start-card--game">
+          <p class="kicker">The fun way</p>
+          <h2>Pick between two cities.</h2>
+          <p>Eight quick choices reveal what you seem to value, even when you are not sure how to describe it.</p>
+          <button class="inline-action" id="gameShortcutButton">Start choosing <span aria-hidden="true">→</span></button>
+        </article>
 
+        <article class="start-card">
+          <p class="kicker">Already curious?</p>
+          <h2>Look up a place.</h2>
+          <p>Jump straight to a city and see how it holds up against your current preferences.</p>
           <label class="search-box">
             <span aria-hidden="true">⌕</span>
             <input
               id="placeSearch"
               type="search"
               autocomplete="off"
-              placeholder="Jump to a city…"
+              placeholder="Try Hoboken, Seattle, Richmond…"
               aria-label="Search places"
             >
             <div id="searchSuggestions" class="suggestions" hidden></div>
           </label>
+        </article>
+      </section>
 
-          <div class="preset-block">
-            <span class="section-label">Starting points</span>
-            <div class="preset-strip" id="presetStrip" aria-label="Search presets"></div>
+      <section id="preferences" class="sidebar preference-section" aria-labelledby="preferencesTitle">
+        <div class="section-intro">
+          <div>
+            <p class="kicker">Your version of good</p>
+            <h2 id="preferencesTitle">Start with the big things.</h2>
+            <p>Six choices do most of the work. Everything else can stay out of the way until it matters.</p>
           </div>
+          <button class="text-button reset-button" id="resetButton">Start over</button>
         </div>
 
-        <section class="essential-section" aria-labelledby="essentialsTitle">
-          <div class="section-heading">
-            <div>
-              <span class="section-label">Essentials</span>
-              <h2 id="essentialsTitle">The big decisions</h2>
-            </div>
-            <button class="quiet-button" id="gameShortcutButton">Tune by choices</button>
-          </div>
-          <div id="essentialControls" class="controls essential-controls"></div>
-        </section>
+        <div class="match-summary" aria-live="polite">
+          <strong id="matchCount">— places</strong>
+          <span id="activePreferenceCount">— active preferences</span>
+        </div>
+
+        <details class="starter-disclosure">
+          <summary>Or begin with a loose starting point</summary>
+          <div class="preset-strip" id="presetStrip" aria-label="Search starting points"></div>
+        </details>
+
+        <div id="essentialControls" class="controls essential-controls"></div>
 
         <button
           class="advanced-toggle"
@@ -107,87 +107,44 @@
           aria-controls="advancedPanel"
         >
           <span>
-            <strong>Fine-tune the model</strong>
-            <small id="advancedSummary">More urban form, traffic, weather, water, risk, and demographic controls</small>
+            <strong>Fine-tune the odd little details</strong>
+            <small id="advancedSummary">Traffic, change, water, weather, demographics, and more</small>
           </span>
-          <span class="advanced-toggle-icon" aria-hidden="true">⌄</span>
+          <span class="advanced-toggle-icon" aria-hidden="true">+</span>
         </button>
 
         <section id="advancedPanel" class="advanced-panel" hidden>
           <div class="advanced-toolbar">
-            <span class="section-label">All preferences</span>
-            <button class="text-button" id="collapseButton">Collapse groups</button>
+            <p>Only touch these when the first pass feels wrong.</p>
+            <button class="text-button" id="collapseButton">Expand groups</button>
           </div>
           <div id="advancedControls" class="controls advanced-controls"></div>
         </section>
-      </aside>
+      </section>
 
       <section class="content-pane">
-        <section class="map-panel" aria-label="Map of matching places">
-          <div class="panel-toolbar">
-            <div class="view-tabs" role="tablist" aria-label="Map display">
-              <button class="view-tab active" data-map-mode="score">Best fit</button>
-              <button class="view-tab" data-map-mode="cost">Home value</button>
-              <button class="view-tab" data-map-mode="weather">Summer comfort</button>
-              <button class="view-tab" data-map-mode="momentum">Change</button>
-              <button class="view-tab" data-map-mode="risk">Climate proxy</button>
-            </div>
-            <div class="map-status">
-              <span class="live-dot" aria-hidden="true"></span>
-              <span id="mapStatus">Ranking locally</span>
-            </div>
-          </div>
-
-          <div id="mapWrap" class="map-wrap">
-            <svg id="map" viewBox="0 0 960 470" role="img" aria-label="Interactive map of U.S. localities">
-              <defs>
-                <radialGradient id="mapGlow" cx="55%" cy="42%" r="72%">
-                  <stop offset="0" stop-color="#1b2431" stop-opacity="0.96"/>
-                  <stop offset="1" stop-color="#0e1218" stop-opacity="1"/>
-                </radialGradient>
-                <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%">
-                  <feGaussianBlur stdDeviation="2.2" result="blur"/>
-                  <feMerge>
-                    <feMergeNode in="blur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-              </defs>
-              <rect x="0" y="0" width="960" height="470" rx="18" fill="url(#mapGlow)"/>
-              <g class="map-grid" aria-hidden="true">
-                <path d="M30 90H930M30 180H930M30 270H930M30 360H930"/>
-                <path d="M150 25V430M300 25V430M450 25V430M600 25V430M750 25V430M900 25V430"/>
-              </g>
-              <g id="mapPoints"></g>
-              <g class="map-inset-labels" aria-hidden="true">
-                <text x="30" y="447">AK</text>
-                <text x="175" y="447">HI</text>
-              </g>
-            </svg>
-            <div id="mapTooltip" class="map-tooltip" hidden></div>
-            <div class="map-legend">
-              <span id="mapLegendLow">lower</span>
-              <i></i>
-              <span id="mapLegendHigh">higher</span>
-            </div>
-          </div>
-        </section>
-
-        <section class="results-panel">
+        <section class="results-panel" aria-labelledby="resultsTitle">
           <div class="results-head">
             <div>
-              <span class="eyebrow">Ranked matches</span>
+              <p class="kicker">Places worth a look</p>
               <h2 id="resultsTitle">Best fits</h2>
-              <p id="resultsMeta">Weighted against your current preferences.</p>
+              <p id="resultsMeta">Based on what you have told us so far.</p>
             </div>
+            <button class="compare-button" id="compareButton">
+              Compare <span id="compareCount" class="count-badge">0</span>
+            </button>
+          </div>
+
+          <details class="results-options">
+            <summary>More ways to browse</summary>
             <div class="results-actions">
               <button class="secondary-button" id="nearMissButton">Show near misses</button>
               <label class="sort-control">
-                <span class="sr-only">Sort results</span>
+                <span>Sort by</span>
                 <select id="sortSelect" aria-label="Sort results">
                   <option value="score">Best fit</option>
                   <option value="home">Lowest home value</option>
-                  <option value="airport">Closest global airport</option>
+                  <option value="airport">Closest global gateway</option>
                   <option value="urban">Most urban</option>
                   <option value="walk">Most walkable</option>
                   <option value="momentum">Fastest-changing</option>
@@ -196,11 +153,60 @@
                 </select>
               </label>
             </div>
-          </div>
+          </details>
+
           <div id="results" class="result-grid"></div>
-          <button id="showMoreButton" class="show-more">Show 12 more</button>
+          <button id="showMoreButton" class="show-more">Show more places</button>
         </section>
+
+        <details class="map-disclosure">
+          <summary>
+            <span>
+              <strong>Explore the map</strong>
+              <small>Useful after you have a shortlist. Not required.</small>
+            </span>
+            <span aria-hidden="true">+</span>
+          </summary>
+          <section class="map-panel" aria-label="Map of matching places">
+            <div class="panel-toolbar">
+              <div class="view-tabs" role="tablist" aria-label="Map display">
+                <button class="view-tab active" data-map-mode="score">Fit</button>
+                <button class="view-tab" data-map-mode="cost">Cost</button>
+                <button class="view-tab" data-map-mode="weather">Summer</button>
+                <button class="view-tab" data-map-mode="momentum">Change</button>
+                <button class="view-tab" data-map-mode="risk">Climate</button>
+              </div>
+              <span id="mapStatus" class="map-status">All on this device</span>
+            </div>
+
+            <div id="mapWrap" class="map-wrap">
+              <svg id="map" viewBox="0 0 960 470" role="img" aria-label="Interactive map of U.S. localities">
+                <rect class="map-background" x="0" y="0" width="960" height="470" rx="16"/>
+                <g class="map-grid" aria-hidden="true">
+                  <path d="M30 90H930M30 180H930M30 270H930M30 360H930"/>
+                  <path d="M150 25V430M300 25V430M450 25V430M600 25V430M750 25V430M900 25V430"/>
+                </g>
+                <g id="mapPoints"></g>
+                <g class="map-inset-labels" aria-hidden="true">
+                  <text x="30" y="447">AK</text>
+                  <text x="175" y="447">HI</text>
+                </g>
+              </svg>
+              <div id="mapTooltip" class="map-tooltip" hidden></div>
+              <div class="map-legend">
+                <span id="mapLegendLow">lower</span>
+                <i></i>
+                <span id="mapLegendHigh">higher</span>
+              </div>
+            </div>
+          </section>
+        </details>
       </section>
+
+      <footer class="project-footer">
+        <p>A weekend-sized project by <a href="/">Calin Gilan</a>.</p>
+        <button class="text-button" data-open-data>Methodology and limitations</button>
+      </footer>
     </main>
   </div>
 
@@ -226,37 +232,33 @@
 
   <dialog id="dataDialog" class="dialog data-dialog">
     <button class="dialog-close" data-close="dataDialog" aria-label="Close">×</button>
-    <span class="dialog-kicker">How to read this</span>
-    <h2>Real records, explicit approximations</h2>
+    <p class="kicker">Under the hood</p>
+    <h2>Real records, honest approximations.</h2>
     <p>
-      Census fields and airport coordinates are observed source data. Weather, driving time,
-      urban context, city pulse, momentum, family renewal, walkability, traffic friction, social stress, housing instability, and risk fields are exploratory estimates
-      or proxies.
+      Census fields, airport coordinates, FAA hub classes, and BTS gateway rankings are observed source data.
+      Several softer qualities — weather comfort, traffic friction, city pulse, momentum, family renewal, and risk —
+      are exploratory proxies intended to help narrow a search.
     </p>
     <div class="data-columns">
       <section>
-        <h3>Observed fields</h3>
+        <h3>Observed</h3>
         <ul id="actualFields"></ul>
       </section>
       <section>
-        <h3>Estimated fields</h3>
+        <h3>Estimated</h3>
         <ul id="estimatedFields"></ul>
       </section>
     </div>
     <div class="warning-card">
-      <strong>Do not use proxy fields for safety or insurance decisions.</strong>
-      <span>They are useful for narrowing a search, not judging a particular block or property.</span>
+      <strong>Use this to make a shortlist, not a property decision.</strong>
+      <span>Check neighborhoods, insurance, safety, and local conditions separately.</span>
     </div>
-    <h3>Downloads</h3>
     <div class="download-row">
-      <button class="secondary-button" id="downloadCsvButton">Localities CSV</button>
-      <button class="secondary-button" id="downloadJsonButton">Localities JSON</button>
-      <a class="secondary-button" href="DATA_NOTES.md">Methodology</a>
+      <button class="secondary-button" id="downloadCsvButton">Download CSV</button>
+      <button class="secondary-button" id="downloadJsonButton">Download JSON</button>
+      <a class="secondary-button" href="DATA_NOTES.md">Read methodology</a>
     </div>
-    <p class="privacy-note">
-      Everything after page load happens on your device. Searches, slider settings, and pairwise
-      choices are not sent anywhere.
-    </p>
+    <p class="privacy-note">Your searches and settings stay on your device.</p>
   </dialog>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>

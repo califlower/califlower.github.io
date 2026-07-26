@@ -169,7 +169,7 @@
     return sorted;
   }
 
-  window.PlacecraftScoring = {
+  window.FindYourCityScoring = {
     clone,
     createInitialControls,
     normalize,

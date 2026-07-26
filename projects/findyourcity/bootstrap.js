@@ -8,9 +8,8 @@
     console.error(error);
     loading.classList.add('is-error');
     loading.innerHTML = `
-      <div class="loading-mark" aria-hidden="true">!</div>
       <div>
-        <strong>City data could not load</strong>
+        <strong>City data could not load.</strong><br>
         <span>Refresh the page, or try again from a normal web server.</span>
       </div>
     `;

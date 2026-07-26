@@ -1,9 +1,9 @@
 {
-  "name": "Placecraft",
-  "short_name": "Placecraft",
+  "name": "Find Your City",
+  "short_name": "Find City",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#090c11",
-  "theme_color": "#0c0f14",
-  "description": "A client-side U.S. locality constraint explorer."
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "description": "A playful, private city explorer."
 }

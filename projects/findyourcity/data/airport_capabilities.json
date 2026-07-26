@@ -1,0 +1,4013 @@
+{
+  "meta": {
+    "faa_source": "Preliminary CY2025 Enplanements at All Commercial Service Airports (by Rank)",
+    "faa_published": "2026-07-08",
+    "bts_source": "Top 20 U.S. Gateways for Nonstop International Air Travel",
+    "bts_period": 2023,
+    "practical_rule": "FAA commercial-service airport; nonhub airports collapse to a nearby L/M/S hub when that hub is within 45 estimated driving minutes",
+    "major_rule": "FAA large or medium hub",
+    "global_rule": "BTS top-20 nonstop international passenger gateway"
+  },
+  "airports": [
+    {
+      "code": "1G4",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ABE",
+      "name": "Lehigh Valley International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ABI",
+      "name": "Abilene Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ABQ",
+      "name": "Albuquerque International Sunport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ABR",
+      "name": "Aberdeen Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ABY",
+      "name": "Southwest Georgia Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ACK",
+      "name": "Nantucket Memorial Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ACT",
+      "name": "Waco Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ACV",
+      "name": "California Redwood Coast-Humboldt County Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ACY",
+      "name": "Atlantic City International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ADQ",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "AEX",
+      "name": "Alexandria International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "AGS",
+      "name": "Augusta Regional At Bush Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "AKN",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "AKW",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ALB",
+      "name": "Albany International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ALO",
+      "name": "Waterloo Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ALS",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ALW",
+      "name": "Walla Walla Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "AMA",
+      "name": "Rick Husband Amarillo International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ANC",
+      "name": "Ted Stevens Anchorage International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "AOO",
+      "name": "Altoona Blair County Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "APN",
+      "name": "Alpena County Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ART",
+      "name": "Watertown International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ASE",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ATL",
+      "name": "Hartsfield Jackson Atlanta International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 7,
+      "international_passengers_2023_thousands": 12475
+    },
+    {
+      "code": "ATW",
+      "name": "Appleton International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ATY",
+      "name": "Watertown Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "AUS",
+      "name": "Austin Bergstrom International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "AVL",
+      "name": "Asheville Regional Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "AVP",
+      "name": "Wilkes-Barre/Scranton International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "AZO",
+      "name": "Kalamazoo/Battle Creek International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BDL",
+      "name": "Bradley International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BET",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BFF",
+      "name": "Western Neb. Rgnl/William B. Heilig Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BFI",
+      "name": "King County International Airport - Boeing Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BFL",
+      "name": "Meadows Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BGM",
+      "name": "Greater Binghamton/Edwin A Link field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BGR",
+      "name": "Bangor International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BHM",
+      "name": "Birmingham-Shuttlesworth International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BID",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BIH",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BIL",
+      "name": "Billings Logan International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BIS",
+      "name": "Bismarck Municipal Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BJI",
+      "name": "Bemidji Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BLI",
+      "name": "Bellingham International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BLV",
+      "name": "Scott AFB/Midamerica Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BMI",
+      "name": "Central Illinois Regional Airport at Bloomington-Normal",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BNA",
+      "name": "Nashville International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BOI",
+      "name": "Boise Air Terminal/Gowen Field",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BOS",
+      "name": "Boston Logan International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 11,
+      "international_passengers_2023_thousands": 7727
+    },
+    {
+      "code": "BPT",
+      "name": "Jack Brooks Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BQK",
+      "name": "Brunswick Golden Isles Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BQN",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BRD",
+      "name": "Brainerd Lakes Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BRO",
+      "name": "Brownsville South Padre Island International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BRW",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BTM",
+      "name": "Bert Mooney Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BTR",
+      "name": "Baton Rouge Metropolitan Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BTV",
+      "name": "Patrick Leahy Burlington International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BUF",
+      "name": "Buffalo Niagara International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BUR",
+      "name": "Hollywood Burbank/Bob Hope Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BVU",
+      "name": "Boulder City Municipal Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BWI",
+      "name": "Baltimore/Washington International Thurgood Marshall Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "BZN",
+      "name": "Bozeman Yellowstone International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CAE",
+      "name": "Columbia Metropolitan Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CAK",
+      "name": "Akron Canton Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CDC",
+      "name": "Cedar City Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CDV",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CGI",
+      "name": "Cape Girardeau Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CHA",
+      "name": "Chattanooga Metropolitan Airport (Lovell Field)",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CHO",
+      "name": "Charlottesville Albemarle Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CHS",
+      "name": "Charleston International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CID",
+      "name": "The Eastern Iowa Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CIU",
+      "name": "Chippewa County International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CKB",
+      "name": "North Central West Virginia Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CLE",
+      "name": "Cleveland Hopkins International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CLL",
+      "name": "Easterwood Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CLT",
+      "name": "Charlotte Douglas International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 15,
+      "international_passengers_2023_thousands": 4185
+    },
+    {
+      "code": "CMH",
+      "name": "John Glenn Columbus International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CMI",
+      "name": "University of Illinois Willard Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CMX",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CNY",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "COD",
+      "name": "Yellowstone Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "COS",
+      "name": "City of Colorado Springs Municipal Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "COU",
+      "name": "Columbia Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CPR",
+      "name": "Casper-Natrona County International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CPX",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CRP",
+      "name": "Corpus Christi International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CRQ",
+      "name": "McClellan-Palomar Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CRW",
+      "name": "Yeager Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CSG",
+      "name": "Columbus Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CVG",
+      "name": "Cincinnati Northern Kentucky International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CVN",
+      "name": "Clovis Municipal Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CWA",
+      "name": "Central Wisconsin Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "CYS",
+      "name": "Cheyenne Regional Jerry Olson Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "DAB",
+      "name": "Daytona Beach International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "DAL",
+      "name": "Dallas Love Field",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "DAY",
+      "name": "James M. Cox Dayton International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "DCA",
+      "name": "Ronald Reagan Washington National Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "DEC",
+      "name": "Decatur Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "DEN",
+      "name": "Denver International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 16,
+      "international_passengers_2023_thousands": 3970
+    },
+    {
+      "code": "DFW",
+      "name": "Dallas Fort Worth International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 9,
+      "international_passengers_2023_thousands": 10846
+    },
+    {
+      "code": "DHN",
+      "name": "Dothan Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "DIK",
+      "name": "Dickinson Theodore Roosevelt Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "DLG",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "DLH",
+      "name": "Duluth International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "DRO",
+      "name": "Durango La Plata County Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "DSM",
+      "name": "Des Moines International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "DTW",
+      "name": "Detroit Metropolitan Wayne County Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 20,
+      "international_passengers_2023_thousands": 3038
+    },
+    {
+      "code": "DUT",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "DVL",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "EAR",
+      "name": "Kearney Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "EAT",
+      "name": "Pangborn Memorial Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "EAU",
+      "name": "Chippewa Valley Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "EGE",
+      "name": "Eagle County Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "EKO",
+      "name": "Elko Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ELM",
+      "name": "Elmira Corning Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ELP",
+      "name": "El Paso International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ENA",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ERI",
+      "name": "Erie International Tom Ridge Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ESC",
+      "name": "Delta County Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "EUG",
+      "name": "Eugene Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "EVV",
+      "name": "Evansville Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "EWN",
+      "name": "Coastal Carolina Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "EWR",
+      "name": "Newark Liberty International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 4,
+      "international_passengers_2023_thousands": 14395
+    },
+    {
+      "code": "EYW",
+      "name": "Key West International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "FAI",
+      "name": "Fairbanks International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "FAR",
+      "name": "Hector International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "FAT",
+      "name": "Fresno Yosemite International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "FAY",
+      "name": "Fayetteville Regional Airport - Grannis Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "FHR",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "FLG",
+      "name": "Flagstaff Pulliam Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "FLL",
+      "name": "Fort Lauderdale Hollywood International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 12,
+      "international_passengers_2023_thousands": 7445
+    },
+    {
+      "code": "FLO",
+      "name": "Florence Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "FNT",
+      "name": "Bishop International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "FSD",
+      "name": "Sioux Falls Regional Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "FSM",
+      "name": "Fort Smith Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "FWA",
+      "name": "Fort Wayne International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GAL",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GCC",
+      "name": "Northeast Wyoming Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GCK",
+      "name": "Garden City Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GEG",
+      "name": "Spokane International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GFK",
+      "name": "Grand Forks International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GGG",
+      "name": "East Texas Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GJT",
+      "name": "Grand Junction Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GNV",
+      "name": "Gainesville Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GPI",
+      "name": "Glacier Park International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GPT",
+      "name": "Gulfport Biloxi International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GRB",
+      "name": "Austin Straubel International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GRI",
+      "name": "Central Nebraska Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GRK",
+      "name": "Killeen Regional Airport / Robert Gray Army Airfield",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GRR",
+      "name": "Gerald R. Ford International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GSN",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GSO",
+      "name": "Piedmont Triad International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GSP",
+      "name": "Greenville-Spartanburg International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GST",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GTF",
+      "name": "Great Falls International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GTR",
+      "name": "Golden Triangle Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GUC",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "GUM",
+      "name": null,
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HDN",
+      "name": "Yampa Valley Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HGR",
+      "name": "Hagerstown Regional Richard A Henson Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HIB",
+      "name": "Range Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HLN",
+      "name": "Helena Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HNL",
+      "name": "Daniel K. Inouye International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 19,
+      "international_passengers_2023_thousands": 3189
+    },
+    {
+      "code": "HOB",
+      "name": "Lea County Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HOM",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HOU",
+      "name": "William P. Hobby Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HPN",
+      "name": "Westchester County Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HRL",
+      "name": "Valley International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HSV",
+      "name": "Huntsville International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HTS",
+      "name": "Tri-State Airport / Milton J. Ferguson Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HVN",
+      "name": "Tweed New Haven Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HXD",
+      "name": "Hilton Head Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HYA",
+      "name": "Cape Cod Gateway Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "HYS",
+      "name": "Hays Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "IAD",
+      "name": "Washington Dulles International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 10,
+      "international_passengers_2023_thousands": 9203
+    },
+    {
+      "code": "IAG",
+      "name": "Niagara Falls International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "IAH",
+      "name": "George Bush Intercontinental Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 8,
+      "international_passengers_2023_thousands": 11306
+    },
+    {
+      "code": "ICT",
+      "name": "Wichita Dwight D. Eisenhower National Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "IDA",
+      "name": "Idaho Falls Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "IFP",
+      "name": "Laughlin/Bullhead International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ILG",
+      "name": "Wilmington Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ILM",
+      "name": "Wilmington International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "IMT",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "IND",
+      "name": "Indianapolis International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "INL",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ISP",
+      "name": "Long Island MacArthur Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ITH",
+      "name": "Ithaca Tompkins Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ITO",
+      "name": "Hilo International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "IWA",
+      "name": "Mesa Gateway Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "JAC",
+      "name": "Jackson Hole Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "JAN",
+      "name": "Jackson-Medgar Wiley Evers International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "JAX",
+      "name": "Jacksonville International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "JFK",
+      "name": "John F. Kennedy International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 1,
+      "international_passengers_2023_thousands": 32856
+    },
+    {
+      "code": "JKA",
+      "name": "Gulf Shores International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "JLN",
+      "name": "Joplin Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "JMS",
+      "name": "Jamestown Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "JNU",
+      "name": "Juneau International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "JQF",
+      "name": "Concord-Padgett Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "JST",
+      "name": "John Murtha Johnstown Cambria County Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "KOA",
+      "name": "Ellison Onizuka Kona International Airport at Ke\u0101hole",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "KTN",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LAF",
+      "name": "Purdue University Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LAL",
+      "name": "Lakeland Linder International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LAN",
+      "name": "Capital Region International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LAR",
+      "name": "Laramie Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LAS",
+      "name": "Harry Reid International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 18,
+      "international_passengers_2023_thousands": 3191
+    },
+    {
+      "code": "LAW",
+      "name": "Lawton Fort Sill Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LAX",
+      "name": "Los Angeles International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 2,
+      "international_passengers_2023_thousands": 21633
+    },
+    {
+      "code": "LBB",
+      "name": "Lubbock Preston Smith International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LBE",
+      "name": "Arnold Palmer Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LBF",
+      "name": "North Platte Regional Airport Lee Bird Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LCH",
+      "name": "Lake Charles Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LCK",
+      "name": "Rickenbacker International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LEX",
+      "name": "Blue Grass Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LFT",
+      "name": "Lafayette Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LGA",
+      "name": "LaGuardia Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LGB",
+      "name": "Long Beach International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LIH",
+      "name": "Lihue Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LIT",
+      "name": "Bill & Hillary Clinton National Airport/Adams Field",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LNK",
+      "name": "Lincoln Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LNS",
+      "name": "Lancaster Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LNY",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LRD",
+      "name": "Laredo International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LSE",
+      "name": "La Crosse Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LWS",
+      "name": "Lewiston Nez Perce County Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "LYH",
+      "name": "Lynchburg Regional Airport - Preston Glenn Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MAF",
+      "name": "Midland International Air and Space Port",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MBS",
+      "name": "MBS International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MCI",
+      "name": "Kansas City International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MCN",
+      "name": "Middle Georgia Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MCO",
+      "name": "Orlando International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 13,
+      "international_passengers_2023_thousands": 6708
+    },
+    {
+      "code": "MDT",
+      "name": "Harrisburg International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MDW",
+      "name": "Chicago Midway International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MEI",
+      "name": "Key Field / Meridian Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MEM",
+      "name": "Memphis International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MFE",
+      "name": "McAllen Miller International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MFR",
+      "name": "Rogue Valley International-Medford Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MGM",
+      "name": "Montgomery Regional (Dannelly Field) Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MGW",
+      "name": "Morgantown Municipal Airport Walter L. (Bill) Hart Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MHK",
+      "name": "Manhattan Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MHT",
+      "name": "Manchester-Boston Regional Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MIA",
+      "name": "Miami International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 3,
+      "international_passengers_2023_thousands": 21456
+    },
+    {
+      "code": "MKE",
+      "name": "General Mitchell International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MKK",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MKL",
+      "name": "McKellar-Sipes Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MLB",
+      "name": "Melbourne Orlando International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MLI",
+      "name": "Quad City International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MLU",
+      "name": "Monroe Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MOB",
+      "name": "Mobile Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MOT",
+      "name": "Minot International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MRI",
+      "name": "Merrill Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MRY",
+      "name": "Monterey Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MSN",
+      "name": "Dane County Regional Truax Field",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MSO",
+      "name": "Missoula Montana Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MSP",
+      "name": "Minneapolis\u2013Saint Paul International Airport / Wold\u2013Chamberlain Field",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MSY",
+      "name": "Louis Armstrong New Orleans International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MTJ",
+      "name": "Montrose Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MVY",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MWA",
+      "name": "Veterans Airport of Southern Illinois",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "MYR",
+      "name": "Myrtle Beach International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "NYL",
+      "name": "Yuma International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "OAJ",
+      "name": "Albert J Ellis Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "OAK",
+      "name": "Oakland San Francisco Bay Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "OGD",
+      "name": "Ogden Hinckley Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "OGG",
+      "name": "Kahului International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "OGS",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "OKC",
+      "name": "OKC Will Rogers World Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "OMA",
+      "name": "Eppley Airfield",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "OME",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ONT",
+      "name": "Ontario International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ORD",
+      "name": "Chicago O'Hare International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 6,
+      "international_passengers_2023_thousands": 13143
+    },
+    {
+      "code": "ORF",
+      "name": "Norfolk International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ORH",
+      "name": "Worcester Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "OTH",
+      "name": "Southwest Oregon Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "OTZ",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PAE",
+      "name": "Seattle Paine Field International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PAH",
+      "name": "Barkley Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PBG",
+      "name": "Plattsburgh International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PBI",
+      "name": "President Donald J. Trump International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PDX",
+      "name": "Portland International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PGA",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PGD",
+      "name": "Punta Gorda Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PGV",
+      "name": "Pitt-Greenville Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PHF",
+      "name": "Newport News Williamsburg International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PHL",
+      "name": "Philadelphia International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 17,
+      "international_passengers_2023_thousands": 3552
+    },
+    {
+      "code": "PHX",
+      "name": "Phoenix Sky Harbor International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PIA",
+      "name": "General Wayne A. Downing Peoria International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PIB",
+      "name": "Hattiesburg Laurel Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PIE",
+      "name": "St. Petersburg Clearwater International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PIH",
+      "name": "Pocatello Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PIR",
+      "name": "Pierre Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PIT",
+      "name": "Pittsburgh International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PLN",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PNS",
+      "name": "Pensacola International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PPG",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PQI",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PRC",
+      "name": "Prescott Regional Airport - Ernest A. Love Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PSC",
+      "name": "Tri Cities Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PSE",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PSG",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PSM",
+      "name": "Portsmouth International Airport at Pease",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PSP",
+      "name": "Palm Springs International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PUW",
+      "name": "Pullman-Moscow Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PVD",
+      "name": "Rhode Island T. F. Green International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PVU",
+      "name": "Provo Municipal Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "PWM",
+      "name": "Portland International Jetport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "RAP",
+      "name": "Rapid City Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "RDD",
+      "name": "Redding Municipal Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "RDM",
+      "name": "Roberts Field",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "RDU",
+      "name": "Raleigh-Durham International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "RFD",
+      "name": "Chicago Rockford International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "RHI",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "RIC",
+      "name": "Richmond International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "RIW",
+      "name": "Central Wyoming Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "RKS",
+      "name": "Southwest Wyoming Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "RNO",
+      "name": "Reno Tahoe International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ROA",
+      "name": "Roanoke\u2013Blacksburg Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ROC",
+      "name": "Frederick Douglass Greater Rochester International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "ROW",
+      "name": "Roswell Air Center Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "RST",
+      "name": "Rochester International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "RSW",
+      "name": "Southwest Florida International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "RVR",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SAF",
+      "name": "Santa Fe Municipal Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SAN",
+      "name": "San Diego International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SAT",
+      "name": "San Antonio International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SAV",
+      "name": "Savannah Hilton Head International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SAW",
+      "name": "Marquette Sawyer Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SBA",
+      "name": "Santa Barbara Municipal Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SBD",
+      "name": "San Bernardino International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SBN",
+      "name": "South Bend International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SBP",
+      "name": "San Luis County Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SBY",
+      "name": "Salisbury Ocean City Wicomico Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SCC",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SCK",
+      "name": "Stockton Metropolitan Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SDF",
+      "name": "Louisville Muhammad Ali International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SEA",
+      "name": "Seattle\u2013Tacoma International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 14,
+      "international_passengers_2023_thousands": 5562
+    },
+    {
+      "code": "SFB",
+      "name": "Orlando Sanford International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SFO",
+      "name": "San Francisco International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": true,
+      "global_gateway_rank_2023": 5,
+      "international_passengers_2023_thousands": 13765
+    },
+    {
+      "code": "SGF",
+      "name": "Springfield Branson National Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SGU",
+      "name": "St George Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SHR",
+      "name": "Sheridan County Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SHV",
+      "name": "Shreveport Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SIG",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SIT",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SJC",
+      "name": "Norman Y. Mineta San Jose International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SJT",
+      "name": "San Angelo Regional Mathis Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SJU",
+      "name": null,
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SLC",
+      "name": "Salt Lake City International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SLE",
+      "name": "Salem-Willamette Valley Airport/McNary Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SLN",
+      "name": "Salina Municipal Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SMF",
+      "name": "Sacramento International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SMX",
+      "name": "Santa Maria Public Airport Captain G Allan Hancock Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SNA",
+      "name": "John Wayne Orange County International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SOW",
+      "name": "Show Low Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SPI",
+      "name": "Abraham Lincoln Capital Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SPS",
+      "name": "Wichita Falls Municipal Airport / Sheppard Air Force Base",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SRQ",
+      "name": "Sarasota Bradenton International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "STC",
+      "name": "Saint Cloud Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "STL",
+      "name": "St. Louis Lambert International Airport",
+      "faa_hub": "M",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "STS",
+      "name": "Charles M. Schulz Sonoma County Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "STT",
+      "name": null,
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "STX",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SUN",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SUX",
+      "name": "Sioux Gateway Airport / Brigadier General Bud Day Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SWF",
+      "name": "New York Stewart International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SWO",
+      "name": "Stillwater Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "SYR",
+      "name": "Syracuse Hancock International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TBN",
+      "name": "Waynesville-St. Robert Regional Airport-Forney Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TEX",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TLH",
+      "name": "Tallahassee International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TNI",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TOL",
+      "name": "Eugene F. Kranz Toledo Express Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TPA",
+      "name": "Tampa International Airport",
+      "faa_hub": "L",
+      "commercial_service": true,
+      "major_hub": true,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TRI",
+      "name": "Tri-Cities Regional TN/VA Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TTN",
+      "name": "Trenton Mercer Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TUL",
+      "name": "Tulsa International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TUP",
+      "name": "Tupelo Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TUS",
+      "name": "Tucson International Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TVC",
+      "name": "Cherry Capital Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TWF",
+      "name": "Joslin Field Magic Valley Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TXK",
+      "name": "Texarkana Regional Airport (Webb Field)",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TYR",
+      "name": "Tyler Pounds Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "TYS",
+      "name": "McGhee Tyson Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "UNV",
+      "name": "State College Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "VCT",
+      "name": "Victoria Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "VEL",
+      "name": "Vernal Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "VLD",
+      "name": "Valdosta Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "VPS",
+      "name": "Destin-Fort Walton Beach Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "VQS",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "VRB",
+      "name": "Vero Beach Regional Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "WRG",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "WST",
+      "name": "Westerly State Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "WYS",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "XNA",
+      "name": "Northwest Arkansas National Airport",
+      "faa_hub": "S",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "XWA",
+      "name": "Williston Basin International Airport",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "YAK",
+      "name": null,
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    },
+    {
+      "code": "YKM",
+      "name": "Yakima Air Terminal McAllister Field",
+      "faa_hub": "N",
+      "commercial_service": true,
+      "major_hub": false,
+      "global_gateway": false,
+      "global_gateway_rank_2023": null,
+      "international_passengers_2023_thousands": null
+    }
+  ]
+}

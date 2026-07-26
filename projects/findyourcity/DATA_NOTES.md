@@ -1,6 +1,6 @@
-# Placecraft data notes
+# Find Your City data notes
 
-Placecraft is a national exploratory dataset for asking, “Which places survive my constraints, and what tradeoffs am I making?” It is not a safety, insurance, lending, legal, emergency-planning, or property-level due-diligence product.
+Find Your City is a national exploratory dataset for asking, “Which places survive my constraints, and what tradeoffs am I making?” It is not a safety, insurance, lending, legal, emergency-planning, or property-level due-diligence product.
 
 ## Coverage
 
@@ -31,7 +31,7 @@ The locality ID is the seven-character Census place GEOID. Census place boundari
 - B03003: Hispanic or Latino population
 - B17001: poverty universe and count
 
-The same population, age, housing-unit, and household-with-children measures are also read from the **2015–2019 ACS five-year release**. Placecraft compares that non-overlapping period with 2020–2024 to describe five-year change. Boundary changes, estimate uncertainty, and unusual 2020-era migration can still distort individual places.
+The same population, age, housing-unit, and household-with-children measures are also read from the **2015–2019 ACS five-year release**. Find Your City compares that non-overlapping period with 2020–2024 to describe five-year change. Boundary changes, estimate uncertainty, and unusual 2020-era migration can still distort individual places.
 
 ACS values are estimates. Margins of error are not shipped in this compact build, so smaller places should not be treated as precisely ranked when values are close.
 
@@ -41,21 +41,35 @@ Used for place names, GEOIDs, internal representative coordinates, land area, an
 
 ### OurAirports
 
-Used for airport coordinates, names, IATA codes, airport size class, and scheduled-service status. The app only considers scheduled-service U.S. airports classified as medium or large for the local-airport tier.
+Used for airport coordinates, names, and IATA codes. OurAirports does **not** decide whether an airport is practical, major, or globally connected.
+
+### FAA commercial-service and hub classifications
+
+The airport capability snapshot uses the FAA's **Preliminary CY2025 Enplanements at All Commercial Service Airports (by Rank)**, published July 8, 2026. FAA categories determine whether an airport has commercial service and whether it is a large, medium, small, or nonhub primary airport.
+
+### BTS international gateway ranking
+
+The global tier uses the Bureau of Transportation Statistics **Top 20 U.S. Gateways for Nonstop International Air Travel** table. The checked-in snapshot uses 2023 nonstop international passenger totals. This makes the tier reproducible and independent of airport branding.
 
 ## Airport tiers
 
 Airport names are ignored. The word “International” does not qualify an airport.
 
-1. **Scheduled-service airport:** nearest U.S. medium or large airport with scheduled service in OurAirports.
-2. **Major airport:** nearest airport in a curated set of substantial domestic hubs.
-3. **Global gateway:** nearest airport in a deliberately stricter curated set with a broad, durable international network. This is a product rule, not an FAA category.
+1. **Practical airport:** nearest FAA commercial-service airport. A primary nonhub inside 45 estimated driving minutes of a large, medium, or small hub collapses to that hub; this prevents nearby executive/charter-oriented fields from masquerading as the useful passenger airport for a metro.
+2. **Major hub:** nearest FAA large or medium hub. This is a published FAA class, not a product-maintained airport list.
+3. **Global gateway:** nearest airport in the BTS top-20 ranking by nonstop international passengers.
 
-The shipped global-gateway list is:
+The 2023 BTS gateway snapshot is:
 
-`ATL BOS CLT DEN DFW DTW EWR FLL HNL IAD IAH JFK LAX MCO MIA MSP ORD PHL SEA SFO`
+`JFK LAX MIA EWR SFO ORD ATL IAH DFW IAD BOS FLL MCO SEA CLT DEN PHL LAS HNL DTW`
 
-This produces the intended Richmond example: **RIC** is local, **DCA** is major, and **IAD** is the nearest global gateway. Portland, Oregon uses **PDX** locally and **SEA** as its global gateway.
+Examples after reclassification:
+
+- Hoboken: **EWR** practical, major, and global.
+- Seattle: **SEA**, rather than Boeing Field, is the practical airport.
+- Portland, Oregon: **PDX** is practical and major; **SEA** is the nearest BTS global gateway.
+- San Diego: **SAN** is practical and major; **LAX** is the nearest BTS global gateway.
+- Richmond: **RIC** is practical and, under the current FAA snapshot, a medium hub; **IAD** is the nearest BTS global gateway.
 
 Airport distances are great-circle distances. “Drive minutes” are transparent estimates based on distance, a road-distance multiplier, an assumed average speed, and an eight-minute access penalty. They are not routing-engine results and do not account for traffic, ferries, mountains, or border crossings.
 
@@ -152,7 +166,7 @@ python tests/test_dataset.py
 To keep source snapshots elsewhere:
 
 ```bash
-PLACECRAFT_RAW_DIR=/path/to/raw python scripts/build_data.py
+FIND_YOUR_CITY_RAW_DIR=/path/to/raw python scripts/build_data.py
 ```
 
 The generated browser bundle is `data/localities.js`; JSON, gzipped JSON, and CSV versions are also emitted.

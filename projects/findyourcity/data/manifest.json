@@ -1,13 +1,15 @@
 {
   "meta": {
-    "generated": "2026-07-19",
+    "generated": "2026-07-24",
     "minimum_population": 10000,
     "count": 4197,
     "actual_fields": [
       "Census population, demographics, education, age, income, home value, rent, housing age, vehicles, commute mode, commute time, poverty and unemployment",
       "Census Gazetteer coordinates and land/water area",
-      "OurAirports airport locations and scheduled-service classification",
-      "Census ACS population, housing-unit, child, young-adult, senior, and households-with-children change measures"
+      "Census ACS population, housing-unit, child, young-adult, senior, and households-with-children change measures",
+      "OurAirports airport coordinates and names",
+      "FAA preliminary CY2025 commercial-service and hub classifications",
+      "BTS 2023 top-20 nonstop international gateway ranking"
     ],
     "estimated_fields": [
       "Airport driving minutes",
@@ -36,5 +38,6 @@
     "localities-09.json",
     "localities-10.json",
     "localities-11.json"
-  ]
+  ],
+  "airport_capabilities": "airport_capabilities.json"
 }
