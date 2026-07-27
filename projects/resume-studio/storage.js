@@ -109,6 +109,7 @@ export class BrowserProjectRepository {
         author: defaultAuthor(),
       });
     }
+    await this.pfs.flush();
   }
 
   async readText(relative) {
@@ -122,6 +123,7 @@ export class BrowserProjectRepository {
 
   async writeBytes(relative, bytes) {
     await this.writeBytesAt(this.dir, relative, bytes);
+    await this.pfs.flush();
   }
 
   async writeBytesAt(root, relative, bytes) {
@@ -175,12 +177,14 @@ export class BrowserProjectRepository {
   async commit(message) {
     await this.stageAll();
     if (!(await this.isDirty())) return this.currentHead();
-    return git.commit({
+    const oid = await git.commit({
       fs: this.fs,
       dir: this.dir,
       message,
       author: defaultAuthor(),
     });
+    await this.pfs.flush();
+    return oid;
   }
 
   async currentHead() {
@@ -199,6 +203,26 @@ export class BrowserProjectRepository {
       message,
       tagger: defaultAuthor(),
     });
+    await this.pfs.flush();
+  }
+
+  async repairHistoryIfNeeded() {
+    const head = await this.currentHead();
+    if (!head) {
+      await this.ensureGitRepository();
+      return null;
+    }
+    try {
+      await git.readCommit({ fs: this.fs, dir: this.dir, oid: head });
+      return null;
+    } catch (error) {
+      if (!/Could not find|ENOENT/.test(error.message)) throw error;
+      const recoveryName = await this.saveRecovery(await this.exportArchiveBlob());
+      await this.removeTree(`${this.dir}/.git`);
+      await this.ensureGitRepository("Recover Resume Studio project");
+      clearBackupMarker();
+      return { recoveryName };
+    }
   }
 
   async listTags() {
@@ -320,6 +344,7 @@ export class BrowserProjectRepository {
     await this.pfs.writeFile(`${RECOVERY_DIR}/${name}`, new Uint8Array(await blob.arrayBuffer()));
     const names = (await this.pfs.readdir(RECOVERY_DIR)).sort().reverse();
     for (const old of names.slice(MAX_RECOVERIES)) await this.pfs.unlink(`${RECOVERY_DIR}/${old}`);
+    await this.pfs.flush();
     return name;
   }
 
@@ -372,6 +397,7 @@ export class BrowserProjectRepository {
       }
       await this.pfs.rename(IMPORT_DIR, this.dir);
       if (movedPrevious) await this.removeTree(PREVIOUS_DIR);
+      await this.pfs.flush();
     } catch (error) {
       if (await this.pathExists(this.dir)) await this.removeTree(this.dir).catch(() => undefined);
       if (movedPrevious && await this.pathExists(PREVIOUS_DIR)) {
@@ -479,6 +505,11 @@ async function validateManifest(zip) {
 function clearBackupMarkerIfUnrelated(history) {
   const storedHead = localStorage.getItem(BACKUP_HEAD_KEY);
   if (!storedHead || history.some((entry) => entry.oid === storedHead)) return;
+  localStorage.removeItem(BACKUP_HEAD_KEY);
+  localStorage.removeItem(BACKUP_AT_KEY);
+}
+
+function clearBackupMarker() {
   localStorage.removeItem(BACKUP_HEAD_KEY);
   localStorage.removeItem(BACKUP_AT_KEY);
 }

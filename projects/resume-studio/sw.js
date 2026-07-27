@@ -1,4 +1,4 @@
-const CACHE = "resume-studio-calingilan-v3";
+const CACHE = "resume-studio-calingilan-v4";
 const SHELL = [
   "./",
   "./index.html",

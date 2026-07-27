@@ -24,9 +24,9 @@
       <div class="mark">R</div>
       <p class="eyebrow">Private workspace</p>
       <h1>Resume Studio</h1>
-      <p id="gate-copy" class="gate-copy">Your work stays on this device. Protect it from automatic browser cleanup before you begin.</p>
+      <p id="gate-copy" class="gate-copy">Your work stays on this device. Keep regular backups so it is never tied to one browser.</p>
       <div id="persistence-actions" class="gate-actions">
-        <button id="enable-storage" class="primary">Protect my work</button>
+        <button id="enable-storage" class="primary">Continue</button>
       </div>
       <div id="project-actions" class="gate-actions" hidden>
         <button id="import-project" class="primary">Open project file</button>
@@ -62,11 +62,11 @@
     <main class="workspace">
       <aside class="sidebar">
         <div class="sidebar-section">
-          <label for="overlay-select" class="eyebrow">Target resume</label>
-          <div class="target-picker">
-            <select id="overlay-select"></select>
-            <button id="new-overlay-button" class="secondary compact" type="button">Add target</button>
+          <div class="target-heading">
+            <label for="overlay-select" class="eyebrow">Target resume</label>
+            <button id="new-overlay-button" class="text-button compact" type="button">+ Add target</button>
           </div>
+          <select id="overlay-select"></select>
         </div>
         <nav class="file-nav" aria-label="Project files">
           <button class="file-tab active" data-file="master">Master content<span>Reusable experience and skills</span></button>
@@ -76,7 +76,7 @@
         <details id="checks-panel" class="checks-panel sidebar-section grow">
           <summary>
             <span id="checks-icon" class="checks-icon running" aria-hidden="true">...</span>
-            <span><span class="eyebrow">Selected resume checks</span><strong id="checks-summary" aria-live="polite">Running checks</strong></span>
+            <span><span class="eyebrow">Resume checks</span><strong id="checks-summary" aria-live="polite">Running checks</strong></span>
           </summary>
           <div class="checks-detail">
             <div class="section-heading">
@@ -136,7 +136,7 @@
   <dialog id="transfer-dialog" class="dialog transfer-dialog">
     <div class="dialog-head"><div><p class="eyebrow">Complete project</p><h2>Move to another device</h2></div><button class="icon-button close-dialog" aria-label="Close transfer">×</button></div>
     <div id="transfer-home">
-      <section class="transfer-method">
+      <section id="direct-transfer-method" class="transfer-method">
         <strong>Direct transfer with a code</strong>
         <p>Send the complete project directly between two open Resume Studio sessions.</p>
         <div class="transfer-actions">

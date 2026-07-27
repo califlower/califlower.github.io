@@ -10,10 +10,12 @@ import { BrowserTypstRenderer, BROWSER_RENDERER_VERSION, previewDocument } from 
 import { NearbyTransfer } from "./transfer.js";
 
 const repository = new BrowserProjectRepository();
+const STORAGE_ACKNOWLEDGED_KEY = "resume-studio:storage-acknowledged";
 let engine;
 let renderer;
 let currentOverlay = "";
 let currentFile = "master";
+let overlayLabels = new Map();
 let saveTimer;
 let previewTimer;
 let transfer;
@@ -36,7 +38,7 @@ async function boot() {
   if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js").catch(() => undefined);
 
   const persistent = await persistentStorageState();
-  if (!persistent) {
+  if (!persistent && localStorage.getItem(STORAGE_ACKNOWLEDGED_KEY) !== "true") {
     showGate("persistence");
     return;
   }
@@ -44,7 +46,13 @@ async function boot() {
     showGate("project");
     return;
   }
+  const repair = await repository.repairHistoryIfNeeded();
+  if (repair) $("#project-state").textContent = "Recovered · back up now";
   await openProject();
+  if (repair) {
+    $("#backup-reminder").hidden = false;
+    $("#backup-message").textContent = "Resume Studio recovered your current work after an incomplete save. Download a fresh backup now.";
+  }
 }
 
 function bindUi() {
@@ -102,8 +110,8 @@ function showGate(mode) {
   $("#persistence-actions").hidden = mode !== "persistence";
   $("#project-actions").hidden = mode !== "project";
   $("#gate-copy").textContent = mode === "persistence"
-    ? "Your work stays on this device. Protect it from automatic browser cleanup before you begin."
-    : "Your work is protected. Open a project file or create a starter project.";
+    ? "Your work stays on this device. Keep regular backups so it is never tied to one browser."
+    : "Open a project file or create a starter project.";
 }
 
 async function enableStorage() {
@@ -112,10 +120,15 @@ async function enableStorage() {
   $("#gate-error").textContent = "";
   try {
     const result = await requirePersistentStorage();
-    if (!result.granted) throw new Error(`${result.reason} Resume Studio will not continue because local work could be evicted.`);
+    localStorage.setItem(STORAGE_ACKNOWLEDGED_KEY, "true");
     showGate("project");
+    if (!result.granted) {
+      $("#gate-error").textContent = "This browser may clear local work when space is low. Keep an up-to-date backup.";
+    }
   } catch (error) {
-    $("#gate-error").textContent = error.message;
+    localStorage.setItem(STORAGE_ACKNOWLEDGED_KEY, "true");
+    showGate("project");
+    $("#gate-error").textContent = "Browser protection was unavailable. Keep an up-to-date backup.";
   } finally {
     button.disabled = false;
   }
@@ -167,14 +180,23 @@ async function openProject() {
   if (!overlays.length) throw new Error("This project has no resume targets.");
   const preferred = localStorage.getItem("resume-studio:overlay");
   currentOverlay = overlays.includes(preferred) ? preferred : overlays[0];
-  renderOverlayOptions(overlays);
+  await renderOverlayOptions(overlays);
   await loadEditor();
   await Promise.all([refreshChecks(), refreshPreview(), updateBackupReminder(), updateRecoveryButton()]);
 }
 
-function renderOverlayOptions(overlays) {
+async function renderOverlayOptions(overlays) {
+  overlayLabels = new Map(await Promise.all(overlays.map(async (id) => {
+    try {
+      const source = await repository.readText(`overlays/${id}.yaml`);
+      const target = source.match(/^# Target:\s*(.+)$/m)?.[1]?.trim();
+      return [id, target || humanizeId(id)];
+    } catch {
+      return [id, humanizeId(id)];
+    }
+  })));
   $("#overlay-select").replaceChildren(
-    ...overlays.map((id) => new Option(id, id, false, id === currentOverlay)),
+    ...overlays.map((id) => new Option(overlayLabels.get(id), id, false, id === currentOverlay)),
   );
 }
 
@@ -192,7 +214,7 @@ async function showOverlayForm() {
   const form = $("#overlay-form");
   form.reset();
   $("#overlay-base").replaceChildren(
-    ...overlays.map((id) => new Option(id, id, false, id === currentOverlay)),
+    ...overlays.map((id) => new Option(overlayLabels.get(id) || humanizeId(id), id, false, id === currentOverlay)),
   );
   $("#overlay-base").value = currentOverlay;
   $("#overlay-status").textContent = "";
@@ -226,7 +248,7 @@ async function createOverlay(event) {
     currentOverlay = id;
     currentFile = "overlay";
     localStorage.setItem("resume-studio:overlay", currentOverlay);
-    renderOverlayOptions([...overlays, id].sort());
+    await renderOverlayOptions([...overlays, id].sort());
     $$(".file-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.file === currentFile));
     await loadEditor();
     $("#overlay-dialog").close();
@@ -250,7 +272,7 @@ async function loadEditor() {
   editor.value = await repository.readText(currentPath());
   $("#editor-title").textContent = {
     master: "Master content",
-    overlay: currentOverlay,
+    overlay: overlayLabels.get(currentOverlay) || humanizeId(currentOverlay),
     template: "Visual template",
   }[currentFile];
   setDirtyState(false);
@@ -349,7 +371,7 @@ function renderDiagnostics(diagnostics) {
     mark.setAttribute("aria-hidden", "true");
     const content = document.createElement("div");
     const strong = document.createElement("strong");
-    strong.textContent = diagnostic.location;
+    strong.textContent = diagnosticLabel(diagnostic.location);
     content.append(strong, document.createTextNode(diagnostic.message));
     item.append(mark, content);
     return item;
@@ -362,6 +384,23 @@ function diagnosticsSummary(errors, warnings) {
   if (errors) parts.push(`${errors} error${errors === 1 ? "" : "s"}`);
   if (warnings) parts.push(`${warnings} warning${warnings === 1 ? "" : "s"}`);
   return parts.join(" · ");
+}
+
+function diagnosticLabel(location = "") {
+  const profile = location.match(/^master\.yaml:profile\.([^[]+)/);
+  if (profile) return `Profile · ${humanizeId(profile[1])}`;
+  const experience = location.match(/^master\.yaml:experience\.([^.]+)(?:\.(.+))?/);
+  if (experience) return `Experience · ${humanizeId(experience[1])}${experience[2] ? ` · ${humanizeId(experience[2])}` : ""}`;
+  const education = location.match(/^master\.yaml:education\.([^.]+)/);
+  if (education) return `Education · ${humanizeId(education[1])}`;
+  const skills = location.match(/^master\.yaml:skill_groups\.([^.]+)/);
+  if (skills) return `Skills · ${humanizeId(skills[1])}`;
+  const selected = location.match(/^overlay [^:]+:(.+)/);
+  if (selected) return `Selected resume · ${selected[1]}`;
+  if (location.startsWith("overlays/")) return "Selected resume";
+  if (location.startsWith("releases/")) return "Saved release";
+  if (location.startsWith("submissions/")) return "Submission record";
+  return "Project";
 }
 
 async function refreshPreview() {
@@ -717,6 +756,7 @@ function updateTransferAvailability() {
   const configured = Boolean(window.RESUME_STUDIO_CONFIG?.signalingUrl);
   const gateReceive = $("#receive-project");
   gateReceive.hidden = !configured;
+  $("#direct-transfer-method").hidden = !configured;
   [$("#send-nearby"), $("#receive-nearby"), gateReceive].forEach((button) => {
     button.disabled = !configured;
     button.title = configured ? "" : "Direct transfer is currently unavailable.";
@@ -772,6 +812,14 @@ function targetOverlayId(company, role) {
     .map((value) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""))
     .filter(Boolean)
     .join("-");
+}
+
+function humanizeId(value) {
+  return value
+    .split("/")
+    .at(-1)
+    .replace(/[._-]+/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
 function backupFilename() {
