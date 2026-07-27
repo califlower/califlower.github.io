@@ -21,8 +21,19 @@ MONTH_YEAR_PATTERN = re.compile(
 )
 YEAR_PATTERN = re.compile(r"^\d{4}$")
 PLACEHOLDER_PHRASES = (
+    "city, state",
+    "current company",
+    "describe a strong accomplishment",
+    "describe the most important result",
+    "describe a system, process, or responsibility",
     "replace this example",
+    "skill one",
+    "skill two",
+    "skill three",
+    "your degree",
+    "your name",
     "your-name",
+    "your title",
     "example.com",
     "prior company",
     "your university",
@@ -142,6 +153,11 @@ def _lint_master(master: MasterResume) -> list[Diagnostic]:
         _duplicate_id_diagnostics("skill group", [item.id for item in master.skill_groups])
     )
 
+    diagnostics.extend(_placeholder_diagnostics(master.profile.name, "master.yaml:profile.name"))
+    diagnostics.extend(
+        _placeholder_diagnostics(master.profile.location, "master.yaml:profile.location")
+    )
+
     if EMAIL_PATTERN.fullmatch(master.profile.email) is None:
         diagnostics.append(
             Diagnostic(
@@ -181,6 +197,8 @@ def _lint_master(master: MasterResume) -> list[Diagnostic]:
         )
         diagnostics.extend(_date_diagnostics(experience.start, experience.end, location))
         diagnostics.extend(_placeholder_diagnostics(experience.company, location))
+        diagnostics.extend(_placeholder_diagnostics(experience.title, location))
+        diagnostics.extend(_placeholder_diagnostics(experience.location, location))
 
         normalized_text = [" ".join(bullet.text.lower().split()) for bullet in experience.bullets]
         if _duplicates(normalized_text):
@@ -201,6 +219,15 @@ def _lint_master(master: MasterResume) -> list[Diagnostic]:
         location = f"master.yaml:education.{education.id}"
         diagnostics.extend(_date_diagnostics(education.start, education.end, location))
         diagnostics.extend(_placeholder_diagnostics(education.school, location))
+        diagnostics.extend(_placeholder_diagnostics(education.degree, location))
+        diagnostics.extend(_placeholder_diagnostics(education.location, location))
+        for detail in education.details:
+            diagnostics.extend(_placeholder_diagnostics(detail, location))
+
+    for skill_group in master.skill_groups:
+        location = f"master.yaml:skill_groups.{skill_group.id}"
+        for item in skill_group.items:
+            diagnostics.extend(_placeholder_diagnostics(item, location))
 
     return diagnostics
 

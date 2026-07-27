@@ -1,5 +1,5 @@
 // Set signalingUrl after deploying the bundled Cloudflare Worker.
-// Everything except six-digit nearby transfer works while this is blank.
+// Everything except direct six-digit WebRTC transfer works while this is blank.
 window.RESUME_STUDIO_CONFIG = {
   signalingUrl: "",
 

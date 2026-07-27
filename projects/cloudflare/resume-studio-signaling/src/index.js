@@ -30,7 +30,7 @@ export default {
           return Response.json({ code, senderToken, expiresAt: Date.now() + ROOM_TTL_SECONDS * 1000 }, { headers: cors });
         }
       }
-      return Response.json({ error: "Could not allocate a transfer code." }, { status: 503, headers: cors });
+      return Response.json({ error: "Could not create a transfer code." }, { status: 503, headers: cors });
     }
 
     const match = url.pathname.match(/^\/rooms\/(\d{6})\/socket$/);
@@ -63,6 +63,8 @@ export class TransferRoom {
         expiresAt: Date.now() + body.ttl * 1000,
         offer: null,
         answer: null,
+        senderCandidates: [],
+        receiverCandidates: [],
       };
       await this.ctx.storage.put("room", room);
       await this.ctx.storage.setAlarm(room.expiresAt);
@@ -84,8 +86,10 @@ export class TransferRoom {
     const server = pair[1];
     this.ctx.acceptWebSocket(server, [role]);
 
-    const cached = role === "receiver" ? room.offer : room.answer;
-    if (cached) server.send(JSON.stringify(cached));
+    const cachedDescription = role === "receiver" ? room.offer : room.answer;
+    if (cachedDescription) server.send(JSON.stringify(cachedDescription));
+    const cachedCandidates = role === "receiver" ? room.senderCandidates : room.receiverCandidates;
+    for (const candidate of cachedCandidates || []) server.send(JSON.stringify(candidate));
     return new Response(null, { status: 101, webSocket: client });
   }
 
@@ -100,15 +104,42 @@ export class TransferRoom {
     try {
       parsed = JSON.parse(text);
     } catch {
-      socket.send(JSON.stringify({ type: "error", message: "Invalid signaling message." }));
+      socket.send(JSON.stringify({ type: "error", message: "Could not connect the devices." }));
+      return;
+    }
+    if (!parsed || typeof parsed !== "object") {
+      socket.send(JSON.stringify({ type: "error", message: "Could not connect the devices." }));
+      return;
+    }
+    const [role] = this.ctx.getTags(socket);
+    if (parsed.type === "candidate") {
+      if (parsed.role !== role || !validCandidate(parsed.candidate)) {
+        socket.send(JSON.stringify({ type: "error", message: "Could not connect the devices." }));
+        return;
+      }
+      const room = await this.ctx.storage.get("room");
+      if (!room || room.expiresAt <= Date.now()) {
+        socket.close(1008, "Transfer room expired");
+        return;
+      }
+      const key = role === "sender" ? "senderCandidates" : "receiverCandidates";
+      const candidates = room[key] || [];
+      if (candidates.length >= 128) {
+        socket.send(JSON.stringify({ type: "error", message: "Could not continue this transfer." }));
+        return;
+      }
+      candidates.push(parsed);
+      room[key] = candidates;
+      await this.ctx.storage.put("room", room);
+      const targetRole = role === "sender" ? "receiver" : "sender";
+      for (const target of this.ctx.getWebSockets(targetRole)) target.send(JSON.stringify(parsed));
       return;
     }
     if (!["offer", "answer"].includes(parsed.type)) return;
 
-    const [role] = this.ctx.getTags(socket);
     const expectedRole = parsed.type === "offer" ? "sender" : "receiver";
     if (role !== expectedRole || !validDescription(parsed.description, parsed.type)) {
-      socket.send(JSON.stringify({ type: "error", message: "Invalid signaling state." }));
+      socket.send(JSON.stringify({ type: "error", message: "Could not connect the devices." }));
       return;
     }
 
@@ -138,6 +169,15 @@ function validDescription(description, expectedType) {
     && typeof description.sdp === "string"
     && description.sdp.length > 0
     && description.sdp.length <= MAX_SIGNAL_BYTES;
+}
+
+function validCandidate(candidate) {
+  return candidate
+    && typeof candidate.candidate === "string"
+    && candidate.candidate.length > 0
+    && candidate.candidate.length <= 4_096
+    && (candidate.sdpMid === null || candidate.sdpMid === undefined || typeof candidate.sdpMid === "string")
+    && (candidate.sdpMLineIndex === null || candidate.sdpMLineIndex === undefined || Number.isSafeInteger(candidate.sdpMLineIndex));
 }
 
 function allowedOrigins(env) {

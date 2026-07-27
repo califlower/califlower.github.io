@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#4a6b4a">
-  <meta name="description" content="A private, local-first resume editor with Git history.">
+  <meta name="description" content="A private resume editor with saved versions.">
   <link rel="canonical" href="https://calingilan.com/projects/resume-studio/">
   <meta property="og:title" content="Resume Studio | Calin Gilan">
-  <meta property="og:description" content="A private, local-first resume editor with Git history.">
+  <meta property="og:description" content="A private resume editor with saved versions.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://calingilan.com/projects/resume-studio/">
   <title>Resume Studio</title>
@@ -22,14 +22,14 @@
     <section class="gate-card">
       <a class="site-home-link gate-home" href="/">← Calin Gilan</a>
       <div class="mark">R</div>
-      <p class="eyebrow">Local-first workspace</p>
+      <p class="eyebrow">Private workspace</p>
       <h1>Resume Studio</h1>
-      <p id="gate-copy" class="gate-copy">Your project stays on this device. Resume Studio requires persistent browser storage before it will create or open anything.</p>
+      <p id="gate-copy" class="gate-copy">Your work stays on this device. Protect it from automatic browser cleanup before you begin.</p>
       <div id="persistence-actions" class="gate-actions">
-        <button id="enable-storage" class="primary">Protect local storage</button>
+        <button id="enable-storage" class="primary">Protect my work</button>
       </div>
       <div id="project-actions" class="gate-actions" hidden>
-        <button id="import-project" class="primary">Open project archive</button>
+        <button id="import-project" class="primary">Open project file</button>
         <button id="new-project" class="secondary">Create starter project</button>
         <button id="receive-project" class="secondary">Receive with six-digit code</button>
       </div>
@@ -43,7 +43,7 @@
       <div class="brand">
         <a class="site-wordmark" href="/">Calin Gilan</a>
         <span class="brand-divider" aria-hidden="true">/</span>
-        <div class="product-lockup"><strong>Resume Studio</strong><span id="project-state">Local · private</span></div>
+        <div class="product-lockup"><strong>Resume Studio</strong><span id="project-state">On this device · private</span></div>
       </div>
       <div class="top-actions">
         <button id="history-button" class="text-button">History</button>
@@ -63,17 +63,29 @@
       <aside class="sidebar">
         <div class="sidebar-section">
           <label for="overlay-select" class="eyebrow">Target resume</label>
-          <select id="overlay-select"></select>
+          <div class="target-picker">
+            <select id="overlay-select"></select>
+            <button id="new-overlay-button" class="secondary compact" type="button">Add target</button>
+          </div>
         </div>
         <nav class="file-nav" aria-label="Project files">
-          <button class="file-tab active" data-file="master">Master content<span>master.yaml</span></button>
-          <button class="file-tab" data-file="overlay">Selection<span id="overlay-file-label">overlay.yaml</span></button>
-          <button class="file-tab" data-file="template">Visual template<span>resume.typ</span></button>
+          <button class="file-tab active" data-file="master">Master content<span>Reusable experience and skills</span></button>
+          <button class="file-tab" data-file="overlay">Selection<span>What this target includes</span></button>
+          <button class="file-tab" data-file="template">Visual template<span>Layout and styling</span></button>
         </nav>
-        <div class="sidebar-section grow">
-          <div class="section-heading"><span class="eyebrow">Checks</span><button id="lint-button" class="icon-button" title="Run checks">↻</button></div>
-          <div id="diagnostics" class="diagnostics"><p class="muted">Loading checks…</p></div>
-        </div>
+        <details id="checks-panel" class="checks-panel sidebar-section grow">
+          <summary>
+            <span id="checks-icon" class="checks-icon running" aria-hidden="true">...</span>
+            <span><span class="eyebrow">Selected resume checks</span><strong id="checks-summary" aria-live="polite">Running checks</strong></span>
+          </summary>
+          <div class="checks-detail">
+            <div class="section-heading">
+              <p>Checks review the selected content for missing details, invalid dates or links, and inconsistent choices. Layout issues appear in Preview.</p>
+              <button id="lint-button" class="icon-button" type="button" title="Run checks again" aria-label="Run checks again">↻</button>
+            </div>
+            <div id="diagnostics" class="diagnostics" aria-live="polite"><p class="muted">Loading checks…</p></div>
+          </div>
+        </details>
         <button id="submission-button" class="secondary wide">Record submission</button>
       </aside>
 
@@ -82,6 +94,7 @@
           <div><p class="eyebrow">Editing</p><h2 id="editor-title">Master content</h2></div>
           <div class="toolbar-actions">
             <span id="dirty-state" class="status-pill">Saved locally</span>
+            <button id="open-preview" class="secondary compact responsive-preview-button" type="button">Preview</button>
             <button id="save-version-button" class="secondary compact">Save version</button>
           </div>
         </div>
@@ -94,34 +107,60 @@
           <div class="toolbar-actions">
             <button id="refresh-preview" class="icon-button" title="Refresh preview">↻</button>
             <button id="download-pdf" class="secondary compact">Download PDF</button>
+            <button id="close-preview" class="icon-button responsive-preview-button" type="button" aria-label="Close preview">×</button>
           </div>
         </div>
-        <div id="preview-status" class="preview-status">Preparing the browser renderer…</div>
+        <div id="preview-status" class="preview-status">Preparing your preview…</div>
         <div id="preview" class="preview-surface"></div>
       </section>
     </main>
   </div>
 
   <dialog id="history-dialog" class="dialog">
-    <div class="dialog-head"><div><p class="eyebrow">Local Git</p><h2>Project history</h2></div><button class="icon-button close-dialog">×</button></div>
+    <div class="dialog-head"><div><p class="eyebrow">Saved versions</p><h2>Project history</h2></div><button class="icon-button close-dialog" aria-label="Close history">×</button></div>
     <div id="history-list" class="history-list"></div>
   </dialog>
 
+  <dialog id="overlay-dialog" class="dialog small-dialog">
+    <form id="overlay-form">
+      <div class="dialog-head"><div><p class="eyebrow">Company-specific resume</p><h2>Add target</h2></div><button type="button" class="icon-button close-dialog" aria-label="Close target form">×</button></div>
+      <p class="muted">Start with an existing resume, then tailor only what should change for this company and role.</p>
+      <label class="field">Company<input id="overlay-company" required autocomplete="organization" placeholder="Acme"></label>
+      <label class="field">Role<input id="overlay-role" autocomplete="organization-title" placeholder="Platform Engineer"></label>
+      <label class="field">Start from<select id="overlay-base" required></select></label>
+      <button class="primary wide" type="submit">Create target</button>
+      <p id="overlay-status" class="transfer-status" role="alert"></p>
+    </form>
+  </dialog>
+
   <dialog id="transfer-dialog" class="dialog transfer-dialog">
-    <div class="dialog-head"><div><p class="eyebrow">Device to device</p><h2>Transfer project</h2></div><button class="icon-button close-dialog">×</button></div>
+    <div class="dialog-head"><div><p class="eyebrow">Complete project</p><h2>Move to another device</h2></div><button class="icon-button close-dialog" aria-label="Close transfer">×</button></div>
     <div id="transfer-home">
-      <p>Move the complete project and Git history directly between two devices.</p>
-      <div class="transfer-actions">
-        <button id="send-nearby" class="primary">Send nearby</button>
-        <button id="receive-nearby" class="secondary">Receive with code</button>
-        <button id="share-project" class="secondary">AirDrop, Mail, or share</button>
-      </div>
+      <section class="transfer-method">
+        <strong>Direct transfer with a code</strong>
+        <p>Send the complete project directly between two open Resume Studio sessions.</p>
+        <div class="transfer-actions">
+          <button id="send-nearby" class="primary">Send with code</button>
+          <button id="receive-nearby" class="secondary">Receive with code</button>
+        </div>
+        <p id="direct-transfer-note" class="method-note"></p>
+      </section>
+      <section class="transfer-method">
+        <strong>Share or download a project file</strong>
+        <p id="share-method-copy">Your device may offer AirDrop, Mail, Messages, or another installed app.</p>
+        <div class="transfer-actions">
+          <button id="share-project" class="secondary">Open sharing options</button>
+          <button id="download-project" class="secondary">Download project file</button>
+        </div>
+        <p id="archive-transfer-status" class="method-note" aria-live="polite"></p>
+      </section>
     </div>
     <div id="transfer-send" hidden>
       <p class="muted">Enter this code on the other device:</p>
       <div id="transfer-code" class="transfer-code">— — —</div>
-      <p id="send-transfer-status" class="transfer-status">Creating a private room…</p>
+      <p id="send-transfer-status" class="transfer-status">Getting your transfer code…</p>
       <div id="send-phrase" class="phrase" hidden></div>
+      <button class="text-button transfer-back" type="button">Back to transfer options</button>
     </div>
     <form id="receive-form" hidden>
       <label class="field">Six-digit code<input id="receive-code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="482913" required></label>
@@ -129,14 +168,15 @@
       <p id="receive-transfer-status" class="transfer-status"></p>
       <div id="receive-phrase" class="phrase" hidden></div>
       <button id="accept-transfer" class="primary wide" type="button" hidden>Phrase matches · accept project</button>
+      <button class="text-button transfer-back" type="button">Back to transfer options</button>
     </form>
   </dialog>
 
   <dialog id="release-dialog" class="dialog small-dialog">
     <form id="release-form">
-      <div class="dialog-head"><div><p class="eyebrow">Immutable snapshot</p><h2>Create release</h2></div><button type="button" class="icon-button close-dialog">×</button></div>
+      <div class="dialog-head"><div><p class="eyebrow">Fixed version</p><h2>Create release</h2></div><button type="button" class="icon-button close-dialog">×</button></div>
       <label class="field">Description<input id="release-description" required placeholder="Infrastructure resume for platform roles"></label>
-      <p class="muted">This saves current edits, renders the PDF, writes a release snapshot, commits it, and creates an annotated Git tag.</p>
+      <p class="muted">This checks and saves the current resume, creates a fixed version, and downloads its PDF.</p>
       <button class="primary wide" type="submit">Create release</button>
       <p id="release-status" class="transfer-status"></p>
     </form>

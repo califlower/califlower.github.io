@@ -1,4 +1,4 @@
-const CACHE = "resume-studio-calingilan-v2";
+const CACHE = "resume-studio-calingilan-v3";
 const SHELL = [
   "./",
   "./index.html",
@@ -39,8 +39,24 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
-  event.respondWith(cacheFirst(event.request));
+  const url = new URL(event.request.url);
+  event.respondWith(url.pathname.endsWith("/config.js") ? networkFirst(event.request) : cacheFirst(event.request));
 });
+
+async function networkFirst(request) {
+  try {
+    const response = await fetch(request);
+    if (response.ok) {
+      const cache = await caches.open(CACHE);
+      cache.put(request, response.clone()).catch(() => undefined);
+    }
+    return response;
+  } catch {
+    const cached = await caches.match(request);
+    if (cached) return cached;
+    throw new Error("Network unavailable and response is not cached.");
+  }
+}
 
 async function cacheFirst(request) {
   const cached = await caches.match(request);

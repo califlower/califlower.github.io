@@ -1,6 +1,6 @@
 # Resume Studio signaling Worker
 
-This Cloudflare Worker maps temporary six-digit codes to WebRTC offer/answer messages. It never receives the resume archive.
+This Cloudflare Worker maps temporary six-digit codes to WebRTC descriptions and ICE candidates. It never receives the resume archive.
 
 ```bash
 npm install

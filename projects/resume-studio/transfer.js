@@ -21,6 +21,14 @@ export class NearbyTransfer {
     this.expectedPhrase = "";
     this.phraseVerified = false;
     this.transferStarted = false;
+    this.pendingCandidates = [];
+    this.localCandidates = [];
+    this.localDescriptionSent = false;
+    this.directConnected = false;
+    this.completed = false;
+    this.failed = false;
+    this.closed = false;
+    this.disconnectTimer = null;
   }
 
   on(name, callback) {
@@ -33,12 +41,12 @@ export class NearbyTransfer {
   }
 
   async startSender(blob) {
-    if (blob.size > MAX_TRANSFER_BYTES) throw new Error("This project is too large for nearby transfer.");
+    if (blob.size > MAX_TRANSFER_BYTES) throw new Error("This project is too large for direct transfer.");
     this.role = "sender";
     this.outgoingBlob = blob;
     const base = requireSignalUrl(this.config.signalingUrl);
     const response = await fetch(`${base}/rooms`, { method: "POST" });
-    if (!response.ok) throw new Error(`Could not create transfer room (${response.status}).`);
+    if (!response.ok) throw new Error("Could not start direct transfer. Try again.");
     const room = await response.json();
     this.emit("code", room.code);
     await this.connectSocket(room.code, "sender", room.senderToken);
@@ -59,26 +67,50 @@ export class NearbyTransfer {
     if (token) url.searchParams.set("token", token);
     this.socket = new WebSocket(url);
     await new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => reject(new Error("Signaling connection timed out.")), 10_000);
+      const timeout = setTimeout(() => {
+        this.socket.close();
+        reject(new Error("Could not start the transfer in time."));
+      }, 10_000);
       this.socket.addEventListener("open", () => { clearTimeout(timeout); resolve(); }, { once: true });
-      this.socket.addEventListener("error", () => { clearTimeout(timeout); reject(new Error("Could not reach the signaling service.")); }, { once: true });
+      this.socket.addEventListener("error", () => { clearTimeout(timeout); reject(new Error("Could not start direct transfer.")); }, { once: true });
     });
     this.socket.addEventListener("message", (event) => {
       try {
         void this.handleSignal(JSON.parse(event.data)).catch((error) => this.fail(error));
       } catch {
-        this.fail(new Error("The signaling service sent an invalid message."));
+        this.fail(new Error("The device connection could not be verified."));
       }
     });
-    this.socket.addEventListener("close", () => this.emit("signalClosed"));
+    this.socket.addEventListener("close", () => {
+      if (this.closed || this.directConnected || this.completed) return;
+      this.emit("signalClosed");
+      this.fail(new Error("This transfer code expired. Go back and create a new one."));
+    });
   }
 
   async createPeer() {
     const peer = new RTCPeerConnection({ iceServers: await buildIceServers(this.config) });
+    peer.addEventListener("icecandidate", (event) => {
+      if (!event.candidate || this.closed) return;
+      const message = { type: "candidate", role: this.role, candidate: event.candidate.toJSON() };
+      if (!this.localDescriptionSent) this.localCandidates.push(message);
+      else this.sendSignalSafely(message);
+    });
     peer.addEventListener("connectionstatechange", () => {
+      if (this.closed) return;
       this.emit("status", describeConnectionState(peer.connectionState));
-      if (["failed", "disconnected"].includes(peer.connectionState)) {
-        this.fail(new Error("Direct connection failed. Try AirDrop, share, or download instead."));
+      if (peer.connectionState === "connected") {
+        this.directConnected = true;
+        clearTimeout(this.disconnectTimer);
+      } else if (peer.connectionState === "disconnected") {
+        clearTimeout(this.disconnectTimer);
+        this.disconnectTimer = setTimeout(() => {
+          if (peer.connectionState === "disconnected") {
+            this.fail(new Error("Direct connection was lost. Share or download the project file instead."));
+          }
+        }, 5_000);
+      } else if (peer.connectionState === "failed") {
+        this.fail(new Error("Direct connection failed. Share or download the project file instead."));
       }
     });
     this.peer = peer;
@@ -91,29 +123,56 @@ export class NearbyTransfer {
     this.bindChannel(channel);
     const offer = await peer.createOffer();
     await peer.setLocalDescription(offer);
-    await waitForIceGathering(peer);
-    this.sendSignal({ type: "offer", description: peer.localDescription });
+    this.sendLocalDescription({ type: "offer", description: peer.localDescription });
     this.emit("status", "Waiting for the other device to enter the code…");
   }
 
   async handleSignal(message) {
     if (message.type === "offer" && this.role === "receiver") {
-      const peer = await this.createPeer();
+      const peer = this.peer || await this.createPeer();
       peer.addEventListener("datachannel", (event) => this.bindChannel(event.channel), { once: true });
       await peer.setRemoteDescription(message.description);
+      await this.addPendingCandidates();
       const answer = await peer.createAnswer();
       await peer.setLocalDescription(answer);
-      await waitForIceGathering(peer);
-      this.sendSignal({ type: "answer", description: peer.localDescription });
+      this.sendLocalDescription({ type: "answer", description: peer.localDescription });
       this.emit("status", "Opening a direct connection…");
       return;
     }
     if (message.type === "answer" && this.role === "sender" && this.peer) {
       await this.peer.setRemoteDescription(message.description);
+      await this.addPendingCandidates();
       this.emit("status", "Opening a direct connection…");
       return;
     }
+    if (message.type === "candidate") {
+      if (!message.candidate || typeof message.candidate.candidate !== "string") {
+        throw new Error("The devices could not establish a trusted connection.");
+      }
+      if (!this.peer?.remoteDescription) this.pendingCandidates.push(message.candidate);
+      else await this.peer.addIceCandidate(message.candidate);
+      return;
+    }
     if (message.type === "error") this.fail(new Error(message.message));
+  }
+
+  async addPendingCandidates() {
+    const candidates = this.pendingCandidates.splice(0);
+    for (const candidate of candidates) await this.peer.addIceCandidate(candidate);
+  }
+
+  sendLocalDescription(message) {
+    this.sendSignal(message);
+    this.localDescriptionSent = true;
+    for (const candidate of this.localCandidates.splice(0)) this.sendSignalSafely(candidate);
+  }
+
+  sendSignalSafely(message) {
+    try {
+      this.sendSignal(message);
+    } catch (error) {
+      this.fail(error);
+    }
   }
 
   bindChannel(channel) {
@@ -126,7 +185,9 @@ export class NearbyTransfer {
     channel.addEventListener("message", (event) => {
       void this.handleChannelMessage(event.data).catch((error) => this.fail(error));
     });
-    channel.addEventListener("close", () => this.emit("status", "Transfer connection closed."));
+    channel.addEventListener("close", () => {
+      if (!this.closed && !this.completed) this.emit("status", "Transfer connection closed.");
+    });
     channel.addEventListener("error", () => this.fail(new Error("The direct transfer connection failed.")));
   }
 
@@ -167,6 +228,7 @@ export class NearbyTransfer {
       } else if (message.type === "complete" && this.role === "receiver") {
         await this.finishIncoming();
       } else if (message.type === "ack" && this.role === "sender") {
+        this.completed = true;
         this.emit("complete", { sent: true });
         this.emit("status", "Project transferred successfully.");
       }
@@ -211,6 +273,7 @@ export class NearbyTransfer {
     if (actualHash !== this.incoming.manifest.sha256) throw new Error("The received project failed its integrity check.");
     await this.emitAsync("receive", blob);
     this.channel.send(JSON.stringify({ type: "ack" }));
+    this.completed = true;
     this.emit("complete", { received: true });
     this.emit("status", "Project imported successfully.");
   }
@@ -221,15 +284,21 @@ export class NearbyTransfer {
   }
 
   sendSignal(message) {
-    if (this.socket?.readyState !== WebSocket.OPEN) throw new Error("Signaling is not connected.");
+    if (this.socket?.readyState !== WebSocket.OPEN) throw new Error("The direct connection is not ready.");
     this.socket.send(JSON.stringify(message));
   }
 
   fail(error) {
+    if (this.failed || this.closed || this.completed) return;
+    this.failed = true;
     this.emit("error", error instanceof Error ? error : new Error(String(error)));
+    this.close();
   }
 
   close() {
+    if (this.closed) return;
+    this.closed = true;
+    clearTimeout(this.disconnectTimer);
     this.channel?.close();
     this.peer?.close();
     this.socket?.close();
@@ -245,7 +314,7 @@ export async function buildIceServers(config = {}) {
   }];
   if (config.turnCredentialsUrl) {
     const response = await fetch(config.turnCredentialsUrl, { credentials: "omit" });
-    if (!response.ok) throw new Error("Could not obtain TURN credentials.");
+    if (!response.ok) throw new Error("Could not prepare direct transfer.");
     const payload = await response.json();
     const additional = Array.isArray(payload) ? payload : payload.iceServers;
     if (Array.isArray(additional)) servers.push(...additional);
@@ -267,7 +336,7 @@ function validateTransferManifest(message) {
 }
 
 function requireSignalUrl(value) {
-  if (!value) throw new Error("Nearby transfer is not configured yet. Set signalingUrl in config.js.");
+  if (!value) throw new Error("Direct transfer is currently unavailable.");
   return value.replace(/\/$/, "");
 }
 
@@ -275,20 +344,6 @@ function normalizeCode(value) {
   const code = String(value).replace(/\D/g, "");
   if (!/^\d{6}$/.test(code)) throw new Error("Enter the six-digit transfer code.");
   return code;
-}
-
-async function waitForIceGathering(peer) {
-  if (peer.iceGatheringState === "complete") return;
-  await new Promise((resolve) => {
-    const finish = () => {
-      clearTimeout(timeout);
-      peer.removeEventListener("icegatheringstatechange", listener);
-      resolve();
-    };
-    const timeout = setTimeout(finish, 8_000);
-    const listener = () => { if (peer.iceGatheringState === "complete") finish(); };
-    peer.addEventListener("icegatheringstatechange", listener);
-  });
 }
 
 async function verificationPhrase(peer) {

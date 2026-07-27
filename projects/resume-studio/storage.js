@@ -30,19 +30,19 @@ export class BrowserProjectRepository {
   async importArchive(input, { preserveCurrent = true } = {}) {
     const archiveSize = input instanceof Blob ? input.size : input?.byteLength;
     if (Number.isFinite(archiveSize) && archiveSize > MAX_ARCHIVE_BYTES) {
-      throw new Error("This project archive is too large to import safely.");
+      throw new Error("This project file is too large to open safely.");
     }
 
     const zip = await JSZip.loadAsync(input);
     await validateManifest(zip);
     const entries = Object.values(zip.files).filter((entry) => !entry.dir);
     if (entries.length > MAX_ARCHIVE_FILES) {
-      throw new Error("This project archive contains too many files.");
+      throw new Error("This project file contains too many items.");
     }
 
     const projectPrefix = detectProjectPrefix(entries.map((entry) => entry.name));
     if (projectPrefix === null) {
-      throw new Error("This archive does not contain a Resume Studio project.");
+      throw new Error("This is not a Resume Studio project file.");
     }
 
     const extracted = new Map();
@@ -54,11 +54,11 @@ export class BrowserProjectRepository {
       relative = projectPrefix ? relative.slice(projectPrefix.length) : relative;
       relative = sanitizeRelativePath(relative);
       if (!relative) continue;
-      if (extracted.has(relative)) throw new Error(`Project archive contains a duplicate path: ${relative}`);
+      if (extracted.has(relative)) throw new Error("This project file contains duplicate items.");
       const bytes = await entry.async("uint8array");
       expandedBytes += bytes.byteLength;
       if (expandedBytes > MAX_EXPANDED_BYTES) {
-        throw new Error("This project archive expands beyond the safe import limit.");
+        throw new Error("This project file is too large to open safely.");
       }
       extracted.set(relative, bytes);
     }
@@ -235,7 +235,7 @@ export class BrowserProjectRepository {
 
   async restore(oid) {
     const originalHead = await this.currentHead();
-    if (!originalHead) throw new Error("Project has no current Git revision.");
+    if (!originalHead) throw new Error("The current saved version is unavailable.");
 
     const branch = await git.currentBranch({ fs: this.fs, dir: this.dir }) || "main";
     await git.checkout({ fs: this.fs, dir: this.dir, ref: oid, force: true, noUpdateHead: true });
@@ -417,13 +417,13 @@ export class BrowserProjectRepository {
 
 export async function requirePersistentStorage() {
   if (!navigator.storage?.persisted || !navigator.storage?.persist) {
-    return { granted: false, reason: "This browser does not expose persistent storage controls." };
+    return { granted: false, reason: "This browser cannot protect your work from automatic cleanup." };
   }
   if (await navigator.storage.persisted()) return { granted: true };
   const granted = await navigator.storage.persist();
   return {
     granted: granted && await navigator.storage.persisted(),
-    reason: granted ? "Persistence could not be verified." : "The browser did not grant persistent storage.",
+    reason: granted ? "Protection could not be verified." : "The browser did not allow this work to be protected.",
   };
 }
 
@@ -437,7 +437,10 @@ export function downloadBlob(blob, filename) {
   const anchor = document.createElement("a");
   anchor.href = href;
   anchor.download = filename;
+  anchor.hidden = true;
+  document.body.append(anchor);
   anchor.click();
+  anchor.remove();
   setTimeout(() => URL.revokeObjectURL(href), 5_000);
 }
 
@@ -463,13 +466,13 @@ async function validateManifest(zip) {
   try {
     manifest = JSON.parse(await entry.async("text"));
   } catch {
-    throw new Error("Project archive has an invalid manifest.");
+    throw new Error("This project file is damaged or incomplete.");
   }
   if (manifest.format && manifest.format !== "resume-studio-project") {
-    throw new Error(`Unsupported project archive format: ${manifest.format}`);
+    throw new Error("This project file is not supported.");
   }
   if (manifest.version && manifest.version !== 1) {
-    throw new Error(`Unsupported project archive version: ${manifest.version}`);
+    throw new Error("This project file was created by an unsupported version.");
   }
 }
 

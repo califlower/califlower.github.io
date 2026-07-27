@@ -1,7 +1,7 @@
 {
   "name": "Resume Studio",
   "short_name": "Resume Studio",
-  "description": "A private, local-first resume editor with Git history.",
+  "description": "A private resume editor with saved versions.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

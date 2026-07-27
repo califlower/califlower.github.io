@@ -4,7 +4,7 @@ This archive is laid out to extract at the root of `califlower/califlower.github
 
 ```text
 projects/resume-studio/                 Static PWA
-cloudflare/resume-studio-signaling/     Six-digit WebRTC signaling Worker
+projects/cloudflare/resume-studio-signaling/  Six-digit WebRTC signaling Worker
 ```
 
 ## Important: no `.nojekyll`
@@ -19,7 +19,7 @@ From the root of `califlower/califlower.github.io`:
 ```bash
 unzip calingilan-resume-studio-drop-in.zip
 
-git add projects/resume-studio cloudflare/resume-studio-signaling
+git add projects/resume-studio projects/cloudflare/resume-studio-signaling
 git commit -m "Add Resume Studio PWA"
 git push
 ```
@@ -35,7 +35,7 @@ The app already uses relative asset paths, the site's sage/terracotta palette, a
 ## Enable six-digit nearby transfer
 
 ```bash
-cd cloudflare/resume-studio-signaling
+cd projects/cloudflare/resume-studio-signaling
 npm install
 npx wrangler login
 npm run deploy

@@ -84,7 +84,7 @@ class ResumeRepository:
 
     def overlay_path(self, overlay_id: str) -> Path:
         normalized = overlay_id.replace("\\", "/").strip("/")
-        path = (self.overlays_path / normalized).with_suffix(".yaml")
+        path = self.overlays_path / f"{normalized}.yaml"
         resolved = path.resolve()
         if self.overlays_path.resolve() not in resolved.parents:
             raise ResumeError(f"Invalid overlay name: {overlay_id}")
